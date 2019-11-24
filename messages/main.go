@@ -27,12 +27,10 @@ const (
 )
 
 const (
-	users_address = "localhost:5000"
-	chats_adress  = "localhost:5001"
-	notifications_address  = "localhost:5002"
+	users_address         = "localhost:5000"
+	chats_adress          = "localhost:5001"
+	notifications_address = "localhost:5002"
 )
-
-
 
 func connectDatabase() (*sql.DB, error) {
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
@@ -87,16 +85,16 @@ func main() {
 	chatsClient := grpc_utils.NewChatsServiceClient(chatsConn)
 	chats := grpc_utils.NewChatsGRPCProxy(chatsClient)
 
-	users:=grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(usersConn))
+	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(usersConn))
 
 	messages := useCase.NewMessageUseCase(repository.NewMessageDbRepository(db), chats)
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	messagesApi := delivery.NewMessageHandlers(messages, users,
-		handlersUtils,grpc_utils.NewNotificationsGRPCProxy(grpc_utils.NewNotificationsServiceClient(notificationsConn)))
+		handlersUtils, grpc_utils.NewNotificationsGRPCProxy(grpc_utils.NewNotificationsServiceClient(notificationsConn)))
 
 	middlewares := middleware.HandlersMiddlwares{
-		Users: users,
-		Logger:   logrusLogger,
+		Users:  users,
+		Logger: logrusLogger,
 	}
 
 	corsMiddleware := handlers.CORS(
@@ -116,6 +114,7 @@ func main() {
 	r.Handle("/messages/{text:[((a-z)|(A-Z))0-9_-]+}", middlewares.AuthMiddleware(messagesApi.FindMessages)).Methods("GET")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.DeleteMessage)).Methods("DELETE")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.EditMessage)).Methods("PUT")
+	r.Handle("/messages/{id:[0-9]+}/likes", middlewares.AuthMiddleware(messagesApi.Like)).Methods("POST")
 	logrus.Info("Server started")
 	err = http.ListenAndServe(":8082", corsMiddleware(handler))
 	if err != nil {

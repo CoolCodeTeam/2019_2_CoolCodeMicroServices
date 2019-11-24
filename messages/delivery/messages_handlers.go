@@ -20,6 +20,7 @@ type MessageHandlers interface {
 	DeleteMessage(w http.ResponseWriter, r *http.Request)
 	EditMessage(w http.ResponseWriter, r *http.Request)
 	FindMessages(w http.ResponseWriter, r *http.Request)
+	Like(w http.ResponseWriter, r *http.Request)
 }
 
 type MessageHandlersImpl struct {
@@ -36,6 +37,17 @@ func NewMessageHandlers(useCase useCase.MessagesUseCase, users users.UsersUseCas
 		Users:         users,
 		Notifications: notificationsUseCase,
 		utils:         handlersUtils,
+	}
+}
+
+func (m *MessageHandlersImpl) Like(w http.ResponseWriter, r *http.Request) {
+	messageID, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		m.utils.LogError(models.NewClientError(err, http.StatusBadRequest, "Bad request: malformed data:("), r)
+	}
+	err = m.Messages.Like(uint64(messageID))
+	if err != nil {
+		m.utils.HandleError(err, w, r)
 	}
 }
 

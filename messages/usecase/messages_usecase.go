@@ -18,6 +18,7 @@ type MessagesUseCase interface {
 	SaveChannelMessage(message *models.Message) (uint64, error)
 	GetChannelMessages(channelID uint64, userID uint64) (models.Messages, error)
 	FindMessages(findString string, ID uint64) (models.Messages, error)
+	Like(ID uint64) error
 }
 
 type MessageUseCaseImpl struct {
@@ -30,6 +31,10 @@ func NewMessageUseCase(repository repository.MessageRepository, chats chats.Chat
 		repository: repository,
 		chats:      chats,
 	}
+}
+
+func (m *MessageUseCaseImpl) Like(ID uint64) error {
+	return m.repository.Like(ID)
 }
 
 func (m *MessageUseCaseImpl) GetChatMessages(chatID uint64, userID uint64) (models.Messages, error) {

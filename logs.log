@@ -1,3 +1,13 @@
 [36mINFO[0m[0091] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:39114" [36mwork_time[0m=16.465302ms
 [36mINFO[0m[0001] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:39120" [36mwork_time[0m=6.97119ms
 [36mINFO[0m[0063] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:42508" [36mwork_time[0m=20.205139ms
+[31mERRO[0m[0152] {"Cause":{"Cause":{"Severity":"FATAL","Code":"28P01","Message":"password authentication failed for user \"postgres\"","Detail":"","Hint":"","Position":"","InternalPosition":"","InternalQuery":"","Where":"","Schema":"","Table":"","Column":"","DataTypeName":"","Constraint":"","File":"auth.c","Line":"328","Routine":"auth_failed"},"Detail":"Can not put user: pq: password authentication failed for user \"postgres\"","Status":500},"Detail":"","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:51988"
+[36mINFO[0m[0152] /users                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51988" [36mwork_time[0m=24.27426ms
+[36mINFO[0m[2907] /users                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51988" [36mwork_time[0m=326.850666ms
+[31mERRO[0m[2942] {"Cause":{"Op":"dial","Net":"tcp","Source":null,"Addr":{"IP":"127.0.0.1","Port":6379,"Zone":""},"Err":{"Syscall":"connect","Err":111}},"Detail":"can not get session in GetIDdial tcp 127.0.0.1:6379: connect: connection refused","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:51988"
+[36mINFO[0m[2942] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51988" [36mwork_time[0m=71.119934ms
+[31mERRO[0m[3183] {"Cause":null,"Detail":"Bad request : user already contains.","Status":400}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:51988"
+[36mINFO[0m[3183] /users                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51988" [36mwork_time[0m="612.265µs"
+[36mINFO[0m[3187] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51988" [36mwork_time[0m=2.844558ms
+[31mERRO[0m[0000] listen tcp :8080: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8080: bind: address already in use 

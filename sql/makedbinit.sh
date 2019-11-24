@@ -1,0 +1,1 @@
+cat users.sql workspaces.sql chats.sql messages.sql workspaces_users.sql chats_users.sql > dbinit.sql

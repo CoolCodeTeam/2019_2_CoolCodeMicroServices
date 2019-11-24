@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package grpc_utils;
+
+
+service NotificationsService{
+    rpc SendMessage(RequestMessageNotification) returns (EmptyNotification);
+}
+
+message RequestMessageNotification{
+    uint64 chatID = 1;
+    bytes  message = 2;
+}
+
+message EmptyNotification{
+
+}

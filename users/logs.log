@@ -1,0 +1,16 @@
+[36mINFO[0m[4302] /messages/Message                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54994" [36mwork_time[0m="58.725µs"
+[36mINFO[0m[0615] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:46000" [36mwork_time[0m="49.351µs"
+[36mINFO[0m[0651] /workspaces/2                                 [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:46000" [36mwork_time[0m="28.987µs"
+[36mINFO[0m[0118] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46196" [36mwork_time[0m="51.305µs"
+[36mINFO[0m[0258] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46196" [36mwork_time[0m="20.922µs"
+[36mINFO[0m[0346] /channels/1                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46196" [36mwork_time[0m="20.969µs"
+[36mINFO[0m[0071] /logout                                       [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m=3.685337ms
+[36mINFO[0m[0079] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m=11.186928ms
+[36mINFO[0m[0082] /users/Anton                                  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m=1.072924ms
+[36mINFO[0m[0089] /users/1                                      [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m=8.384308ms
+[36mINFO[0m[0097] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m="656.034µs"
+[36mINFO[0m[0101] /users/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m="957.023µs"
+[36mINFO[0m[0113] //users/1                                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m="7.593µs"
+[36mINFO[0m[0113] /users/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m=1.088136ms
+[36mINFO[0m[0211] /workspaces/3/channels                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m="39.398µs"
+[36mINFO[0m[0304] /channels/4/messages                          [36mmethod[0m=POST [36mremote_addr[0m="[::1]:46950" [36mwork_time[0m="53.611µs"

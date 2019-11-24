@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package grpc_utils;
+
+service ChatsService {
+    rpc CheckChatPermission (RequestMessage) returns (ResponseMessage);
+    rpc CheckChannelPermission (RequestMessage) returns (ResponseMessage);
+    rpc GetChatByID (RequestMessage) returns (ResponseMessage);
+    rpc GetChatsByUserID (RequestMessage) returns (ResponseMessage);
+    rpc PutChat (Chat) returns (ResponseMessage);
+    rpc Contains (Chat) returns (ResponseMessage);
+    rpc GetWorkspaceByID (RequestMessage) returns (ResponseMessage);
+    rpc GetWorkspacesByUserID (RequestMessage) returns (ResponseMessage);
+    rpc CreateWorkspace (Workspace) returns (ResponseMessage);
+    rpc CreateChannel (Channel) returns (ResponseMessage);
+    rpc GetChannelByID (RequestMessage) returns (ResponseMessage);
+    rpc EditWorkspace (RequestMessage) returns (EmptyChats);
+    rpc EditChannel (RequestMessage) returns (EmptyChats);
+    rpc LogoutFromWorkspace (RequestMessage) returns (EmptyChats);
+    rpc LogoutFromChannel (RequestMessage) returns (EmptyChats);
+    rpc DeleteWorkspace (RequestMessage) returns (EmptyChats);
+    rpc DeleteChannel (RequestMessage) returns (EmptyChats);
+    rpc DeleteChat (RequestMessage) returns (EmptyChats);
+}
+
+message RequestMessage {
+     uint64 userID = 1;
+     uint64 chatID = 2;
+     Workspace workspace = 3;
+     Channel channel =4;
+     Chat chat =5;
+
+}
+
+message ResponseMessage {
+    bool ok =1;
+    uint64 number = 2;
+    repeated Chat chats=3;
+    repeated Workspace workspaces=4;
+    Workspace workspace = 5;
+    Channel channel =6;
+    Chat chat =7;
+}
+
+message EmptyChats {
+}
+message Bool {
+    bool ok = 1;
+}
+
+
+message Chat {
+    uint64 ID=1;
+    string Name=2;
+    int64 TotalMSGCount = 3;
+    repeated uint64 members = 4;
+    string LastMessage=5;
+}
+
+message Chats {
+    repeated Chat chats=1;
+}
+
+
+message Channel {
+    uint64 ID=1;
+    string Name=2;
+    int64 TotalMSGCount = 3;
+    repeated uint64 members = 4;
+    repeated uint64 admins = 5;
+    uint64 workspaceID=6;
+    uint64 creatorID=7;
+}
+
+message Workspace {
+    uint64 ID=1;
+    string Name=2;
+    repeated Channel channels = 3;
+    repeated uint64 members = 4;
+    repeated uint64 admins = 5;
+    uint64 creatorID=6;
+}
+
+message Workspaces{
+    repeated Workspace workspaces = 1;
+}
+

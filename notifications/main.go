@@ -1,6 +1,8 @@
 package main
 
 import (
+	"flag"
+	"fmt"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/delivery"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/notifications_service"
 	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/usecase"
@@ -9,6 +11,7 @@ import (
 	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	consulapi "github.com/hashicorp/consul/api"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -16,6 +19,21 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"strings"
+	"sync"
+)
+
+var (
+	consulAddr = flag.String("consul", "95.163.209.195:8010", "consul addr")
+
+	consul          *consulapi.Client
+	consulLastIndex uint64 = 0
+
+	globalCfg   = make(map[string]string)
+	globalCfgMu = &sync.RWMutex{}
+
+	cfgPrefix      = "notifications/"
+	prefixStripper = strings.NewReplacer(cfgPrefix, "")
 )
 
 func startNotificationsGRPCService(port string, service grpc_utils.NotificationsServiceServer) {
@@ -45,9 +63,37 @@ func connectGRPC(address string) *grpc.ClientConn {
 	return conn
 }
 
-func main(){
+func loadConfig() {
+	qo := &consulapi.QueryOptions{
+		WaitIndex: consulLastIndex,
+	}
+	kvPairs, qm, err := consul.KV().List(cfgPrefix, qo)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
+	if consulLastIndex == qm.LastIndex {
+		return
+	}
 
+	newConfig := make(map[string]string)
+
+	for _, item := range kvPairs {
+		if item.Key == cfgPrefix {
+			continue
+		}
+		key := prefixStripper.Replace(item.Key)
+		newConfig[key] = string(item.Value)
+	}
+
+	globalCfgMu.Lock()
+	globalCfg = newConfig
+	consulLastIndex = qm.LastIndex
+	globalCfgMu.Unlock()
+}
+
+func main() {
 	//Init logrus
 	logrusLogger := logrus.New()
 	logrusLogger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
@@ -59,18 +105,27 @@ func main(){
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
 
+	consulConfig := consulapi.DefaultConfig()
+	consulConfig.Address = *consulAddr
+	consul, err = consulapi.NewClient(consulConfig)
+	if err != nil {
+		logrusLogger.Error("Can`t get consul config:" + err.Error())
+	}
+	loadConfig()
+
+	port := ":" + globalCfg["port"]
+
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	notificationsUseCase := useCase.NewNotificationUseCase()
-	users:=grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(connectGRPC("5000")))
+	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(connectGRPC("5000")))
 	notificationApi := delivery.NewNotificationHandlers(users,
 		grpc_utils.NewChatsGRPCProxy(grpc_utils.NewChatsServiceClient(connectGRPC("5001"))), notificationsUseCase, handlersUtils)
 
-
-	startNotificationsGRPCService("5002",notifications_service.NewNotificationsGRPCService(notificationsUseCase))
+	startNotificationsGRPCService("5002", notifications_service.NewNotificationsGRPCService(notificationsUseCase))
 
 	middlewares := middleware.HandlersMiddlwares{
-		Users: users,
-		Logger:   logrusLogger,
+		Users:  users,
+		Logger: logrusLogger,
 	}
 
 	corsMiddleware := handlers.CORS(
@@ -84,7 +139,7 @@ func main(){
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
 	r.Handle("/chats/{id:[0-9]+}/notifications", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
 	logrus.Info("Server started")
-	err = http.ListenAndServe(":8083", corsMiddleware(handler))
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

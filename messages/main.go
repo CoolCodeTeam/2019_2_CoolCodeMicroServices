@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"errors"
+	"flag"
 	"fmt"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/delivery"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/repository"
@@ -12,31 +13,45 @@ import (
 	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	consulapi "github.com/hashicorp/consul/api"
 	_ "github.com/lib/pq"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"io"
 	"net/http"
 	"os"
+	"strings"
+	"sync"
+)
+
+type DBConfig struct {
+	DBName     string
+	DBUser     string
+	DBPassword string
+}
+
+var (
+	consulAddr = flag.String("consul", "95.163.209.195:8010", "consul addr")
+
+	consul          *consulapi.Client
+	consulLastIndex uint64 = 0
+
+	globalCfg   = make(map[string]string)
+	globalCfgMu = &sync.RWMutex{}
+
+	cfgPrefix      = "messages/"
+	prefixStripper = strings.NewReplacer(cfgPrefix, "")
 )
 
 const (
-	DB_USER     = "postgres"
-	DB_PASSWORD = "1"
-	DB_NAME     = "postgres"
+	users_address         = "localhost:5000"
+	chats_adress          = "localhost:5001"
+	notifications_address = "localhost:5002"
 )
 
-const (
-	users_address = "localhost:5000"
-	chats_adress  = "localhost:5001"
-	notifications_address  = "localhost:5002"
-)
-
-
-
-func connectDatabase() (*sql.DB, error) {
+func connectDatabase(config DBConfig) (*sql.DB, error) {
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		DB_USER, DB_PASSWORD, DB_NAME)
+		config.DBUser, config.DBPassword, config.DBName)
 
 	db, err := sql.Open("postgres", dbinfo)
 	if err != nil {
@@ -57,10 +72,37 @@ func connectGRPC(address string) *grpc.ClientConn {
 	return conn
 }
 
-func main() {
-	//Init databases
-	db, err := connectDatabase()
+func loadConfig() {
+	qo := &consulapi.QueryOptions{
+		WaitIndex: consulLastIndex,
+	}
+	kvPairs, qm, err := consul.KV().List(cfgPrefix, qo)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
+	if consulLastIndex == qm.LastIndex {
+		return
+	}
+
+	newConfig := make(map[string]string)
+
+	for _, item := range kvPairs {
+		if item.Key == cfgPrefix {
+			continue
+		}
+		key := prefixStripper.Replace(item.Key)
+		newConfig[key] = string(item.Value)
+	}
+
+	globalCfgMu.Lock()
+	globalCfg = newConfig
+	consulLastIndex = qm.LastIndex
+	globalCfgMu.Unlock()
+}
+
+func main() {
 	//Init logrus
 	logrusLogger := logrus.New()
 	logrusLogger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
@@ -71,6 +113,24 @@ func main() {
 	defer f.Close()
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
+
+	consulConfig := consulapi.DefaultConfig()
+	consulConfig.Address = *consulAddr
+	consul, err = consulapi.NewClient(consulConfig)
+	if err != nil {
+		logrusLogger.Error("Can`t get consul config:" + err.Error())
+	}
+	loadConfig()
+
+	dbconfig := DBConfig{
+		globalCfg["db_name"],
+		globalCfg["db_user"],
+		globalCfg["db_password"],
+	}
+	port := ":" + globalCfg["port"]
+
+	//Connect database
+	db, err := connectDatabase(dbconfig)
 
 	//connect to users
 	usersConn := connectGRPC(users_address)
@@ -87,16 +147,16 @@ func main() {
 	chatsClient := grpc_utils.NewChatsServiceClient(chatsConn)
 	chats := grpc_utils.NewChatsGRPCProxy(chatsClient)
 
-	users:=grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(usersConn))
+	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(usersConn))
 
 	messages := useCase.NewMessageUseCase(repository.NewMessageDbRepository(db), chats)
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	messagesApi := delivery.NewMessageHandlers(messages, users,
-		handlersUtils,grpc_utils.NewNotificationsGRPCProxy(grpc_utils.NewNotificationsServiceClient(notificationsConn)))
+		handlersUtils, grpc_utils.NewNotificationsGRPCProxy(grpc_utils.NewNotificationsServiceClient(notificationsConn)))
 
 	middlewares := middleware.HandlersMiddlwares{
-		Users: users,
-		Logger:   logrusLogger,
+		Users:  users,
+		Logger: logrusLogger,
 	}
 
 	corsMiddleware := handlers.CORS(
@@ -117,10 +177,9 @@ func main() {
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.DeleteMessage)).Methods("DELETE")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.EditMessage)).Methods("PUT")
 	logrus.Info("Server started")
-	err = http.ListenAndServe(":8082", corsMiddleware(handler))
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return
 	}
-
 }

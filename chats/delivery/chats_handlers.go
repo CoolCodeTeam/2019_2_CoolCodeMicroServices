@@ -7,6 +7,7 @@ import (
 	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/mailru/easyjson"
 
 	"github.com/gorilla/mux"
 	"net/http"
@@ -37,7 +38,7 @@ func (c *ChatHandlers) PostChat(w http.ResponseWriter, r *http.Request) {
 	}
 	var newChatModel models.CreateChatModel
 	decoder := json.NewDecoder(r.Body)
-	err = decoder.Decode(&newChatModel)
+	err = decoder.Decode(&newChatModel) //TODO ?
 	if err != nil {
 		c.utils.HandleError(models.NewClientError(err, http.StatusBadRequest, "Bad request: malformed data:("), w, r)
 		return
@@ -54,10 +55,13 @@ func (c *ChatHandlers) PostChat(w http.ResponseWriter, r *http.Request) {
 		c.utils.HandleError(err, w, r)
 		return
 	}
-	jsonResponse, err := json.Marshal(map[string]uint64{
+	jsonResponse, _ := json.Marshal(map[string]uint64{
 		"id": id,
-	})
-	w.Write(jsonResponse)
+	}) //TODO: ?
+	_, err = w.Write(jsonResponse)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -81,8 +85,14 @@ func (c *ChatHandlers) GetChatsByUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	responseChats := models.ResponseChatsArray{Chats: chats, Workspaces: workspaces}
-	jsonChat, err := json.Marshal(responseChats)
+	jsonChat, err := easyjson.Marshal(responseChats)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 	_, err = w.Write(jsonChat)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 }
 
 func (c *ChatHandlers) GetChatById(w http.ResponseWriter, r *http.Request) {
@@ -97,8 +107,14 @@ func (c *ChatHandlers) GetChatById(w http.ResponseWriter, r *http.Request) {
 		c.utils.HandleError(err, w, r)
 		return
 	}
-	jsonChat, err := json.Marshal(chat)
+	jsonChat, err := easyjson.Marshal(chat)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 	_, err = w.Write(jsonChat)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 }
 
 func (c *ChatHandlers) RemoveChat(w http.ResponseWriter, r *http.Request) {
@@ -130,8 +146,7 @@ func (c *ChatHandlers) PostChannel(w http.ResponseWriter, r *http.Request) {
 	newChannelModel.Admins = append(newChannelModel.Admins, user.ID)
 	newChannelModel.CreatorID = user.ID
 	newChannelModel.WorkspaceID = uint64(requestedID)
-	decoder := json.NewDecoder(r.Body)
-	err = decoder.Decode(&newChannelModel)
+	err = easyjson.UnmarshalFromReader(r.Body, &newChannelModel)
 	if err != nil {
 		c.utils.HandleError(models.NewClientError(err, http.StatusBadRequest,
 			"Bad request: malformed data:("), w, r)
@@ -145,8 +160,14 @@ func (c *ChatHandlers) PostChannel(w http.ResponseWriter, r *http.Request) {
 	}
 	jsonResponse, err := json.Marshal(map[string]uint64{
 		"id": id,
-	})
-	w.Write(jsonResponse)
+	}) //TODO: ?
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
+	_, err = w.Write(jsonResponse)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -162,8 +183,14 @@ func (c *ChatHandlers) GetChannelById(w http.ResponseWriter, r *http.Request) {
 		c.utils.HandleError(err, w, r)
 		return
 	}
-	jsonChannel, err := json.Marshal(channel)
+	jsonChannel, err := easyjson.Marshal(channel)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 	_, err = w.Write(jsonChannel)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 }
 
 func (c *ChatHandlers) EditChannel(w http.ResponseWriter, r *http.Request) {
@@ -174,8 +201,8 @@ func (c *ChatHandlers) EditChannel(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var newChannel *models.Channel
-	decoder := json.NewDecoder(r.Body)
-	err = decoder.Decode(&newChannel)
+
+	err = easyjson.UnmarshalFromReader(r.Body, newChannel)
 	if err != nil {
 		c.utils.HandleError(models.NewClientError(err, http.StatusBadRequest,
 			"Bad request: malformed data:("), w, r)
@@ -214,8 +241,7 @@ func (c *ChatHandlers) PostWorkspace(w http.ResponseWriter, r *http.Request) {
 	newWorkspace.Members = append(newWorkspace.Members, user.ID)
 	newWorkspace.Admins = append(newWorkspace.Admins, user.ID)
 	newWorkspace.CreatorID = user.ID
-	decoder := json.NewDecoder(r.Body)
-	err = decoder.Decode(&newWorkspace)
+	err = easyjson.UnmarshalFromReader(r.Body, &newWorkspace)
 	if err != nil {
 		c.utils.HandleError(models.NewClientError(err, http.StatusBadRequest,
 			"Bad request: malformed data:("), w, r)
@@ -228,12 +254,15 @@ func (c *ChatHandlers) PostWorkspace(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	newWorkspace.ID = id
-	jsonResponse, err := json.Marshal(newWorkspace)
+	jsonResponse, err := easyjson.Marshal(newWorkspace)
 	if err != nil {
 		c.utils.HandleError(err, w, r)
 		return
 	}
-	w.Write(jsonResponse)
+	_, err = w.Write(jsonResponse)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 	w.WriteHeader(http.StatusOK)
 }
 
@@ -249,8 +278,14 @@ func (c *ChatHandlers) GetWorkspaceById(w http.ResponseWriter, r *http.Request) 
 		c.utils.HandleError(err, w, r)
 		return
 	}
-	jsonWorkspace, err := json.Marshal(workspace)
+	jsonWorkspace, err := easyjson.Marshal(workspace)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 	_, err = w.Write(jsonWorkspace)
+	if err != nil {
+		c.utils.LogError(err, r)
+	}
 }
 
 func (c *ChatHandlers) EditWorkspace(w http.ResponseWriter, r *http.Request) {
@@ -260,8 +295,7 @@ func (c *ChatHandlers) EditWorkspace(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	var newWorkspace *models.Workspace
-	decoder := json.NewDecoder(r.Body)
-	err = decoder.Decode(&newWorkspace)
+	err = easyjson.UnmarshalFromReader(r.Body, newWorkspace)
 	if err != nil {
 		c.utils.HandleError(models.NewClientError(err, http.StatusBadRequest,
 			"Bad request: malformed data:("), w, r)

@@ -8,6 +8,7 @@ import (
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/gorilla/mux"
+	"github.com/mailru/easyjson"
 	"net/http"
 	"strconv"
 	"strings"
@@ -22,19 +23,19 @@ type MessageHandlers interface {
 }
 
 type MessageHandlersImpl struct {
-	Messages useCase.MessagesUseCase
-	Users    users.UsersUseCase
+	Messages      useCase.MessagesUseCase
+	Users         users.UsersUseCase
 	Notifications notifications.NotificationUseCase
-	utils utils.HandlersUtils
+	utils         utils.HandlersUtils
 }
 
 func NewMessageHandlers(useCase useCase.MessagesUseCase, users users.UsersUseCase,
-	handlersUtils utils.HandlersUtils,notificationsUseCase notifications.NotificationUseCase) MessageHandlers {
+	handlersUtils utils.HandlersUtils, notificationsUseCase notifications.NotificationUseCase) MessageHandlers {
 	return &MessageHandlersImpl{
-		Messages: useCase,
-		Users:    users,
+		Messages:      useCase,
+		Users:         users,
 		Notifications: notificationsUseCase,
-		utils: handlersUtils,
+		utils:         handlersUtils,
 	}
 }
 
@@ -69,18 +70,18 @@ func (m *MessageHandlersImpl) SendMessage(w http.ResponseWriter, r *http.Request
 	jsonResponse, err := json.Marshal(map[string]uint64{
 		"id": id,
 	})
+
 	_, err = w.Write(jsonResponse)
 	if err != nil {
 		m.utils.LogError(err, r)
 	}
-
 
 	message.ID = id
 	websocketMessage := models.WebsocketMessage{
 		WebsocketEventType: 1,
 		Body:               *message,
 	}
-	websocketJson, err := json.Marshal(websocketMessage)
+	websocketJson, err := easyjson.Marshal(websocketMessage)
 	if err != nil {
 		m.utils.LogError(err, r)
 	}
@@ -128,7 +129,7 @@ func (m *MessageHandlersImpl) EditMessage(w http.ResponseWriter, r *http.Request
 		WebsocketEventType: 3,
 		Body:               *message,
 	}
-	websocketJson, err := json.Marshal(websocketMessage)
+	websocketJson, err := easyjson.Marshal(websocketMessage)
 	if err != nil {
 		m.utils.LogError(err, r)
 	}
@@ -158,7 +159,7 @@ func (m *MessageHandlersImpl) GetMessagesByChatID(w http.ResponseWriter, r *http
 		m.utils.HandleError(err, w, r)
 		return
 	}
-	jsonResponse, err := json.Marshal(messages)
+	jsonResponse, err := easyjson.Marshal(messages)
 	if err != nil {
 		m.utils.HandleError(err, w, r)
 	}
@@ -199,7 +200,7 @@ func (m *MessageHandlersImpl) DeleteMessage(w http.ResponseWriter, r *http.Reque
 		WebsocketEventType: 2,
 		Body:               *message,
 	}
-	websocketJson, err := json.Marshal(websocketMessage)
+	websocketJson, err := easyjson.Marshal(websocketMessage)
 	if err != nil {
 		m.utils.LogError(err, r)
 	}
@@ -239,7 +240,7 @@ func (m *MessageHandlersImpl) FindMessages(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	jsonResponse, err := json.Marshal(messages)
+	jsonResponse, err := easyjson.Marshal(messages)
 	if err != nil {
 		m.utils.HandleError(err, w, r)
 	}

@@ -1,3 +1,19 @@
 [36mINFO[0m[0091] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:39114" [36mwork_time[0m=16.465302ms
 [36mINFO[0m[0001] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:39120" [36mwork_time[0m=6.97119ms
 [36mINFO[0m[0063] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:42508" [36mwork_time[0m=20.205139ms
+[31mERRO[0m[0002] {"Cause":{"Op":"dial","Net":"tcp","Source":null,"Addr":{"IP":"127.0.0.1","Port":6379,"Zone":""},"Err":{"Syscall":"connect","Err":111}},"Detail":"can not get session in GetIDdial tcp 127.0.0.1:6379: connect: connection refused","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52124"
+[36mINFO[0m[0002] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52124" [36mwork_time[0m=22.102323ms
+[31mERRO[0m[0004] {"Cause":{"Op":"dial","Net":"tcp","Source":null,"Addr":{"IP":"127.0.0.1","Port":6379,"Zone":""},"Err":{"Syscall":"connect","Err":111}},"Detail":"can not get session in GetIDdial tcp 127.0.0.1:6379: connect: connection refused","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52124"
+[36mINFO[0m[0004] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52124" [36mwork_time[0m=2.183701ms
+[36mINFO[0m[0015] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52124" [36mwork_time[0m=2.406332ms
+[31mERRO[0m[0001] An error occurred:error while parsing response body: json: error calling MarshalJSON for type models.ClientError: unexpected end of JSON input 
+[31mERRO[0m[0001] Internal server error                         [31merr[0m="error while parsing response body: json: error calling MarshalJSON for type models.ClientError: unexpected end of JSON input" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:53318"
+[36mINFO[0m[0001] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53318" [36mwork_time[0m=4.589824ms
+[31mERRO[0m[0003] An error occurred:error while parsing response body: json: error calling MarshalJSON for type models.ClientError: unexpected end of JSON input 
+[31mERRO[0m[0003] Internal server error                         [31merr[0m="error while parsing response body: json: error calling MarshalJSON for type models.ClientError: unexpected end of JSON input" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:53318"
+[36mINFO[0m[0003] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53318" [36mwork_time[0m="658.805µs"
+[31mERRO[0m[0005] An error occurred:error while parsing response body: json: error calling MarshalJSON for type models.ClientError: unexpected end of JSON input 
+[31mERRO[0m[0005] Internal server error                         [31merr[0m="error while parsing response body: json: error calling MarshalJSON for type models.ClientError: unexpected end of JSON input" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:32858"
+[36mINFO[0m[0005] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:32858" [36mwork_time[0m=4.222814ms
+[31mERRO[0m[0003] {"Cause":null,"Detail":"Bad request: malformed data","Status":400}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:33644"
+[36mINFO[0m[0003] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:33644" [36mwork_time[0m=5.230628ms

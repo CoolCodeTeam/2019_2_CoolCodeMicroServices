@@ -11,6 +11,7 @@ import (
 	"github.com/google/uuid"
 	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
+	"github.com/mailru/easyjson"
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"strconv"
@@ -35,9 +36,7 @@ func NewUsersHandlers(users useCase.UsersUseCase, sessions repository.SessionRep
 
 func (handlers *UserHandlers) SignUp(w http.ResponseWriter, r *http.Request) {
 	var newUser models.User
-	body := r.Body
-	decoder := json.NewDecoder(body)
-	err := decoder.Decode(&newUser)
+	err := easyjson.UnmarshalFromReader(r.Body, &newUser)
 	if err != nil {
 		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid JSON.")
 		handlers.utils.HandleError(err, w, r)
@@ -54,9 +53,7 @@ func (handlers *UserHandlers) SignUp(w http.ResponseWriter, r *http.Request) {
 func (handlers *UserHandlers) Login(w http.ResponseWriter, r *http.Request) {
 	var loginUser models.User
 	w.Header().Set("X-CSRF-Token", csrf.Token(r))
-	body := r.Body
-	decoder := json.NewDecoder(body)
-	err := decoder.Decode(&loginUser)
+	err := easyjson.UnmarshalFromReader(r.Body, &loginUser)
 	if err != nil {
 		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid JSON.")
 		handlers.utils.HandleError(err, w, r)
@@ -77,7 +74,7 @@ func (handlers *UserHandlers) Login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		user.Password = ""
-		body, err := json.Marshal(user)
+		body, err := easyjson.Marshal(user)
 		if err != nil {
 			handlers.utils.HandleError(err, w, r)
 			return
@@ -183,7 +180,7 @@ func (handlers *UserHandlers) GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user.Password = ""
-	body, err := json.Marshal(user)
+	body, err := easyjson.Marshal(user)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return
@@ -209,7 +206,7 @@ func (handlers *UserHandlers) GetUserBySession(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	body, err := json.Marshal(user)
+	body, err := easyjson.Marshal(user)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return

@@ -17,7 +17,7 @@ func (m *MessageDBRepository) PutMessage(message *models.Message) (uint64, error
 	if err != nil {
 		return 0, models.NewClientError(err, http.StatusBadRequest, "Wrong date format")
 	}
-	row := m.DB.QueryRow("INSERT into messages (type, body, fileid, chatid, authorid,messagetime) VALUES ($1,$2,$3,$4,$5,$6) returning id",
+	row := m.DB.QueryRow("INSERT into messages (type, body, fileid, chatid, authorid, messagetime) VALUES ($1,$2,$3,$4,$5,$6) returning id",
 		message.MessageType, message.Text, message.FileID, message.ChatID, message.AuthorID, time)
 	err = row.Scan(&chatID)
 

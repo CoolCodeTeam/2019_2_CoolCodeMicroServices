@@ -11,3 +11,8 @@
 [36mINFO[0m[3187] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51988" [36mwork_time[0m=2.844558ms
 [31mERRO[0m[0000] listen tcp :8080: bind: address already in use 
 [31mERRO[0m[0000] listen tcp :8080: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8081: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8081: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8081: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8081: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8081: bind: address already in use 

@@ -2,8 +2,8 @@ package delivery
 
 import (
 	"errors"
-	"github.com/go-park-mail-ru/2019_2_CoolCode/repository"
 	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/usecase"
+	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/repository"
 	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
 	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"

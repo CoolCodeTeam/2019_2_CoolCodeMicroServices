@@ -33,7 +33,6 @@ const (
 	users_address = "localhost:5000"
 )
 
-
 func connectDatabase() (*sql.DB, error) {
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
 		DB_USER, DB_PASSWORD, DB_NAME)
@@ -48,8 +47,6 @@ func connectDatabase() (*sql.DB, error) {
 	return db, nil
 
 }
-
-
 
 func connectGRPC(address string) *grpc.ClientConn {
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
@@ -107,8 +104,8 @@ func main() {
 	startChatsGRPCService("5001", chats_service.NewGRPCChatsService(chats))
 
 	middlewares := middleware.HandlersMiddlwares{
-		Users: users,
-		Logger:   logrusLogger,
+		Users:  users,
+		Logger: logrusLogger,
 	}
 
 	corsMiddleware := handlers.CORS(
@@ -121,7 +118,7 @@ func main() {
 	r := mux.NewRouter()
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
 	r.Handle("/chats", middlewares.AuthMiddleware(chatsApi.PostChat)).Methods("POST")
-	r.Handle("/users/{id:[0-9]+}/chats", middlewares.AuthMiddleware(chatsApi.GetChatsByUser)).Methods("GET")
+	r.Handle("/chats/users/{id:[0-9]+}", middlewares.AuthMiddleware(chatsApi.GetChatsByUser)).Methods("GET")
 	r.Handle("/chats/{id:[0-9]+}", middlewares.AuthMiddleware(chatsApi.GetChatById)).Methods("GET")
 	r.Handle("/chats/{id:[0-9]+}", middlewares.AuthMiddleware(chatsApi.RemoveChat)).Methods("DELETE")
 
@@ -142,7 +139,5 @@ func main() {
 		logrusLogger.Error(err)
 		return
 	}
-
-
 
 }

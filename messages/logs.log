@@ -91,3 +91,21 @@
 [36mINFO[0m[0358] /chats/5/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:58484" [36mwork_time[0m=3.092605ms
 [36mINFO[0m[0362] /messages/ke                                  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:58484" [36mwork_time[0m=21.172025ms
 [36mINFO[0m[14118] /messages/kek                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59930" [36mwork_time[0m=50.486081ms
+[36mINFO[0m[3890] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=19.278421ms
+[36mINFO[0m[3920] /chats/2/messages                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=26.303466ms
+[36mINFO[0m[3926] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=7.873509ms
+[36mINFO[0m[3936] /messages/1                                   [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=8.944678ms
+[36mINFO[0m[3941] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=4.208697ms
+[36mINFO[0m[3945] /messages/1                                   [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=5.330502ms
+[36mINFO[0m[3949] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=2.750275ms
+[31mERRO[0m[3951] {"Cause":{},"Detail":"Message not exists:(","Status":400}  [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:54400"
+[36mINFO[0m[3951] /messages/1                                   [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=1.742075ms
+[36mINFO[0m[3960] /chats/2/messages                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=7.325811ms
+[36mINFO[0m[3976] /messages/kek                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=5.206569ms
+[36mINFO[0m[3999] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=3.943384ms
+[31mERRO[0m[4034] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = channel not exists: sql: Scan error on column index 3, name \"creatorid\": converting NULL to uint64 is unsupported : sql: Scan error on column index 3, name \"creatorid\": converting NULL to uint64 is unsupported" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:54400"
+[36mINFO[0m[4034] /channels/2/messages                          [36mmethod[0m=POST [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=2.213147ms
+[36mINFO[0m[4041] /channels/1/messages                          [36mmethod[0m=POST [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=11.629936ms
+[31mERRO[0m[4048] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = chat not exists: sql: no rows in result set : sql: no rows in result set" [31mmethod[0m=GET [31mremote_addr[0m="[::1]:54400"
+[36mINFO[0m[4048] /chats/1/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=5.138393ms
+[36mINFO[0m[4053] /channels/1/messages                          [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54400" [36mwork_time[0m=2.831012ms

@@ -85,9 +85,8 @@ func main() {
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
 
-
 	sessionRepository := repository.NewSessionRedisStore(redis)
-	users := useCase.NewUserUseCase(repository.NewUserDBStore(db),sessionRepository)
+	users := useCase.NewUserUseCase(repository.NewUserDBStore(db), sessionRepository)
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	usersApi := delivery.NewUsersHandlers(users, sessionRepository, handlersUtils)
 
@@ -96,8 +95,8 @@ func main() {
 
 	//Cлушаем HTTP
 	middlewares := middleware.HandlersMiddlwares{
-		Users: users,
-		Logger:   logrusLogger,
+		Users:  users,
+		Logger: logrusLogger,
 	}
 
 	corsMiddleware := handlers.CORS(
@@ -110,11 +109,11 @@ func main() {
 	r := mux.NewRouter()
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
 	r.HandleFunc("/users", usersApi.SignUp).Methods("POST")
-	r.HandleFunc("/login", usersApi.Login).Methods("POST")
+	r.HandleFunc("/users/login", usersApi.Login).Methods("POST")
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.EditProfile)).Methods("PUT")
-	r.Handle("/logout", middlewares.AuthMiddleware(usersApi.Logout)).Methods("DELETE")
-	r.Handle("/photos", middlewares.AuthMiddleware(usersApi.SavePhoto)).Methods("POST")
-	r.Handle("/photos/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetPhoto)).Methods("GET")
+	r.Handle("/users/logout", middlewares.AuthMiddleware(usersApi.Logout)).Methods("DELETE")
+	r.Handle("/users/photos", middlewares.AuthMiddleware(usersApi.SavePhoto)).Methods("POST")
+	r.Handle("/users/photos/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetPhoto)).Methods("GET")
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetUser)).Methods("GET")
 	r.Handle("/users/{name:[((a-z)|(A-Z))0-9_-]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API

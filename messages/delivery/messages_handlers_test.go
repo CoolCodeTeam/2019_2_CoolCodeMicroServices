@@ -29,7 +29,7 @@ type MessageTestCase struct {
 	URL          string
 	Response     string
 	StatusCode   int
-	Handler      func(w http.ResponseWriter,r *http.Request)
+	Handler      func(w http.ResponseWriter, r *http.Request)
 	Messages     messages.MessagesUseCase
 	Notification notification.NotificationUseCase
 	Users        users.UsersUseCase
@@ -52,14 +52,14 @@ func runMessageAPITest(t *testing.T, testCase *MessageTestCase) {
 		}
 		if testCase.Users != nil {
 			messageApi.Users = testCase.Users
-			middlware.Users=testCase.Users
+			middlware.Users = testCase.Users
 		}
 		apitest.New().
 			Handler(middlware.AuthMiddleware(testCase.Handler)).
 			Method(testCase.Method).
 			Headers(testCase.Headers).
-			Cookie("session_id", "test").
 			URL(testCase.URL).
+			Cookie("session_id", "test").
 			Body(testCase.Body).
 			Expect(t).
 			Status(testCase.StatusCode).End()
@@ -70,7 +70,7 @@ func init() {
 	emptyLogger := logrus.New()
 	emptyLogger.Out = ioutil.Discard
 	messageApi.utils = utils.NewHandlersUtils(emptyLogger)
-	middlware.Logger=emptyLogger
+	middlware.Logger = emptyLogger
 }
 
 func TestMessageHandlersImpl_SendMessage(t *testing.T) {
@@ -218,7 +218,7 @@ func TestMessageHandlersImpl_EditMessage(t *testing.T) {
 					return &models.Message{}, nil
 				},
 			},
-			Notification:&notification.NotificationUseCaseMock{
+			Notification: &notification.NotificationUseCaseMock{
 				SendMessageFunc: func(chatID uint64, message []byte) error {
 					return nil
 				},
@@ -227,8 +227,6 @@ func TestMessageHandlersImpl_EditMessage(t *testing.T) {
 			StatusCode: 200,
 			Handler:    http.HandlerFunc(messageApi.EditMessage),
 		},
-		
-		
 	}
 
 	runTableMessageAPITests(t, tests)
@@ -288,6 +286,67 @@ func TestMessageHandlersImpl_GetMessagesByChatID(t *testing.T) {
 			Body:       `{"text":"mem"}`,
 			StatusCode: 200,
 			Handler:    http.HandlerFunc(messageApi.GetMessagesByChatID),
+		},
+	}
+
+	runTableMessageAPITests(t, tests)
+}
+
+func TestMessageHandlersImpl_FindMessages(t *testing.T) {
+	tests := []*MessageTestCase{
+		{
+			name: "WrongCookieTest",
+			Users: &users.UsersUseCaseMock{
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
+					return 0, nil
+				},
+				GetUserByIDFunc: func(id uint64) (user models.User, e error) {
+					return models.User{}, errors.New("Internal error")
+				},
+			},
+			URL:        "/messages/kek",
+			StatusCode: 500,
+			Handler:    http.HandlerFunc(messageApi.FindMessages),
+		},
+		{
+			name: "InternalGetMessageErrorTest",
+
+			Users: &users.UsersUseCaseMock{
+				GetUserByIDFunc: func(ID uint64) (user models.User, e error) {
+					return models.User{}, nil
+				},
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
+					return 0, nil
+				},
+			},
+			Messages: &messages.MessagesUseCaseMock{
+				FindMessagesFunc: func(findString string, ID uint64) (i models.Messages, e error) {
+					return models.Messages{}, errors.New("Internal error")
+				},
+			},
+			URL:        "messages/kek",
+			Body:       `{"text":"mem"}`,
+			StatusCode: 500,
+			Handler:    http.HandlerFunc(messageApi.FindMessages),
+		},
+		{
+			name: "SuccessTest",
+			Users: &users.UsersUseCaseMock{
+				GetUserByIDFunc: func(ID uint64) (user models.User, e error) {
+					return models.User{}, nil
+				},
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
+					return 0, nil
+				},
+			},
+			Messages: &messages.MessagesUseCaseMock{
+				FindMessagesFunc: func(findString string, ID uint64) (i models.Messages, e error) {
+					return models.Messages{}, nil
+				},
+			},
+			URL:        "messages/kek",
+			StatusCode: 200,
+			Handler:    http.HandlerFunc(messageApi.FindMessages),
 		},
 	}
 

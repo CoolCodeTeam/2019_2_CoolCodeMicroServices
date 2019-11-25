@@ -36,13 +36,11 @@ func easyjson5af9c81fDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			continue
 		}
 		switch key {
-		case "ID":
+		case "id":
 			out.ID = uint64(in.Uint64())
-		case "Name":
+		case "name":
 			out.Name = string(in.String())
-		case "TotalMSGCount":
-			out.TotalMSGCount = int64(in.Int64())
-		case "Members":
+		case "members":
 			if in.IsNull() {
 				in.Skip()
 				out.Members = nil
@@ -65,7 +63,7 @@ func easyjson5af9c81fDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 				}
 				in.Delim(']')
 			}
-		case "Admins":
+		case "admins":
 			if in.IsNull() {
 				in.Skip()
 				out.Admins = nil
@@ -88,10 +86,6 @@ func easyjson5af9c81fDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 				}
 				in.Delim(']')
 			}
-		case "WorkspaceID":
-			out.WorkspaceID = uint64(in.Uint64())
-		case "CreatorID":
-			out.CreatorID = uint64(in.Uint64())
 		default:
 			in.SkipRecursive()
 		}
@@ -107,22 +101,17 @@ func easyjson5af9c81fEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 	first := true
 	_ = first
 	{
-		const prefix string = ",\"ID\":"
+		const prefix string = ",\"id\":"
 		out.RawString(prefix[1:])
 		out.Uint64(uint64(in.ID))
 	}
 	{
-		const prefix string = ",\"Name\":"
+		const prefix string = ",\"name\":"
 		out.RawString(prefix)
 		out.String(string(in.Name))
 	}
 	{
-		const prefix string = ",\"TotalMSGCount\":"
-		out.RawString(prefix)
-		out.Int64(int64(in.TotalMSGCount))
-	}
-	{
-		const prefix string = ",\"Members\":"
+		const prefix string = ",\"members\":"
 		out.RawString(prefix)
 		if in.Members == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 			out.RawString("null")
@@ -138,7 +127,7 @@ func easyjson5af9c81fEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 		}
 	}
 	{
-		const prefix string = ",\"Admins\":"
+		const prefix string = ",\"admins\":"
 		out.RawString(prefix)
 		if in.Admins == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 			out.RawString("null")
@@ -152,16 +141,6 @@ func easyjson5af9c81fEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			}
 			out.RawByte(']')
 		}
-	}
-	{
-		const prefix string = ",\"WorkspaceID\":"
-		out.RawString(prefix)
-		out.Uint64(uint64(in.WorkspaceID))
-	}
-	{
-		const prefix string = ",\"CreatorID\":"
-		out.RawString(prefix)
-		out.Uint64(uint64(in.CreatorID))
 	}
 	out.RawByte('}')
 }

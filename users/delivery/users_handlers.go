@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/go-park-mail-ru/2019_2_CoolCode/repository"
+	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/repository"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
@@ -195,11 +195,12 @@ func (handlers *UserHandlers) GetUser(w http.ResponseWriter, r *http.Request) {
 
 func (handlers *UserHandlers) GetUserBySession(w http.ResponseWriter, r *http.Request) {
 	sessionID, err := r.Cookie("session_id")
+
 	if err != nil {
 		handlers.utils.HandleError(models.NewClientError(err, http.StatusUnauthorized, "Not authorized:("), w, r)
 		return
 	}
-
+	logrus.Info("cookie = " + sessionID.Value)
 	user, err := handlers.parseCookie(sessionID)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)

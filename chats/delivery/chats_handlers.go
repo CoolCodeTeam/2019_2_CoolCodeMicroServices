@@ -200,16 +200,16 @@ func (c *ChatHandlers) EditChannel(w http.ResponseWriter, r *http.Request) {
 		c.utils.HandleError(err, w, r)
 		return
 	}
-	var newChannel *models.Channel
+	var newChannel models.Channel
 
-	err = easyjson.UnmarshalFromReader(r.Body, newChannel)
+	err = easyjson.UnmarshalFromReader(r.Body, &newChannel)
 	if err != nil {
 		c.utils.HandleError(models.NewClientError(err, http.StatusBadRequest,
 			"Bad request: malformed data:("), w, r)
 		return
 	}
 
-	err = c.Chats.EditChannel(user.ID, newChannel)
+	err = c.Chats.EditChannel(user.ID, &newChannel)
 	if err != nil {
 		c.utils.HandleError(err, w, r)
 		return
@@ -294,15 +294,15 @@ func (c *ChatHandlers) EditWorkspace(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	var newWorkspace *models.Workspace
-	err = easyjson.UnmarshalFromReader(r.Body, newWorkspace)
+	var newWorkspace models.Workspace
+	err = easyjson.UnmarshalFromReader(r.Body, &newWorkspace)
 	if err != nil {
 		c.utils.HandleError(models.NewClientError(err, http.StatusBadRequest,
 			"Bad request: malformed data:("), w, r)
 		return
 	}
 
-	err = c.Chats.EditWorkspace(user.ID, newWorkspace)
+	err = c.Chats.EditWorkspace(user.ID, &newWorkspace)
 	if err != nil {
 		c.utils.HandleError(err, w, r)
 		return

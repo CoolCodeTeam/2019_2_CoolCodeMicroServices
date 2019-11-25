@@ -239,7 +239,8 @@ func (m *MessageHandlersImpl) parseCookie(r *http.Request) (models.User, error) 
 func (m *MessageHandlersImpl) FindMessages(w http.ResponseWriter, r *http.Request) {
 	findString, ok := mux.Vars(r)["text"]
 	if !ok {
-		m.utils.HandleError(models.NewClientError(nil, http.StatusBadRequest, "Bad request: malformed data:("), w, r)
+		m.utils.LogError(models.NewClientError(nil, http.StatusBadRequest, "Bad request: malformed data:("), r)
+		findString = ""
 	}
 	user, err := m.parseCookie(r)
 	if err != nil {

@@ -17,6 +17,7 @@ import (
 	"github.com/gorilla/mux"
 	consulapi "github.com/hashicorp/consul/api"
 	_ "github.com/lib/pq"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -175,6 +176,7 @@ func main() {
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetUser)).Methods("GET")
 	r.Handle("/users/{name:[((a-z)|(A-Z))0-9_-]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
+	r.Handle("/metrics", promhttp.Handler())
 	logrus.Info("Server started")
 	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {

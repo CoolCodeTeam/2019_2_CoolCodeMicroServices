@@ -15,6 +15,7 @@ import (
 	"github.com/gorilla/mux"
 	consulapi "github.com/hashicorp/consul/api"
 	_ "github.com/lib/pq"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"io"
@@ -176,6 +177,7 @@ func main() {
 	r.Handle("/messages/{text:[((a-z)|(A-Z))0-9_-]+}", middlewares.AuthMiddleware(messagesApi.FindMessages)).Methods("GET")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.DeleteMessage)).Methods("DELETE")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.EditMessage)).Methods("PUT")
+	r.Handle("/metrics", promhttp.Handler())
 	logrus.Info("Server started")
 	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {

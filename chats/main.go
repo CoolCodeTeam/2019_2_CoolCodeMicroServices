@@ -16,6 +16,7 @@ import (
 	"github.com/gorilla/mux"
 	consulapi "github.com/hashicorp/consul/api"
 	_ "github.com/lib/pq"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
@@ -194,6 +195,7 @@ func main() {
 	//TODO: r.Handle("/workspaces/{id:[0-9]+}/members", middlewares.AuthMiddleware(chatsApi.LogoutFromWorkspace)).Methods("DELETE")
 	r.Handle("/workspaces/{id:[0-9]+}", middlewares.AuthMiddleware(chatsApi.RemoveWorkspace)).Methods("DELETE")
 	r.Handle("/workspaces", middlewares.AuthMiddleware(chatsApi.PostWorkspace)).Methods("POST")
+	r.Handle("/metrics", promhttp.Handler())
 	logrus.Info("Server started")
 	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {

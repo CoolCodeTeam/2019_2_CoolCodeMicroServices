@@ -6,6 +6,6 @@ type Channel struct {
 	TotalMSGCount int64    `json:"-"`
 	Members       []uint64 `json:"members"`
 	Admins        []uint64 `json:"admins"`
-	WorkspaceID   uint64   `json:"-"`
-	CreatorID     uint64   `json:"-"`
+	WorkspaceID   uint64   `json:"workspace_id,omitempty"`
+	CreatorID     uint64   `json:"creator_id,omitempty"`
 }

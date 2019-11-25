@@ -18,6 +18,11 @@ import (
 	"os"
 )
 
+const (
+	users_address = "localhost:5000"
+	chats_adress  = "localhost:5001"
+)
+
 func startNotificationsGRPCService(port string, service grpc_utils.NotificationsServiceServer) {
 	lis, err := net.Listen("tcp", ":5002")
 	if err != nil {
@@ -45,8 +50,7 @@ func connectGRPC(address string) *grpc.ClientConn {
 	return conn
 }
 
-func main(){
-
+func main() {
 
 	//Init logrus
 	logrusLogger := logrus.New()
@@ -61,20 +65,23 @@ func main(){
 
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	notificationsUseCase := useCase.NewNotificationUseCase()
-	users:=grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(connectGRPC("5000")))
+	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(connectGRPC(users_address)))
 	notificationApi := delivery.NewNotificationHandlers(users,
-		grpc_utils.NewChatsGRPCProxy(grpc_utils.NewChatsServiceClient(connectGRPC("5001"))), notificationsUseCase, handlersUtils)
+		grpc_utils.NewChatsGRPCProxy(grpc_utils.NewChatsServiceClient(connectGRPC(chats_adress))), notificationsUseCase, handlersUtils)
 
-
-	startNotificationsGRPCService("5002",notifications_service.NewNotificationsGRPCService(notificationsUseCase))
+	startNotificationsGRPCService("5002", notifications_service.NewNotificationsGRPCService(notificationsUseCase))
 
 	middlewares := middleware.HandlersMiddlwares{
-		Users: users,
-		Logger:   logrusLogger,
+		Users:  users,
+		Logger: logrusLogger,
 	}
 
 	corsMiddleware := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com", "https://boiling-chamber-90136.herokuapp.com", "http://localhost:3000"}),
+		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com",
+			"https://boiling-chamber-90136.herokuapp.com",
+			"http://localhost:3000",
+			"http://localhost:8000",
+			"http://95.163.209.195:8000"}),
 		handlers.AllowedMethods([]string{"POST", "GET", "PUT", "DELETE"}),
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 		handlers.AllowCredentials(),
@@ -82,9 +89,10 @@ func main(){
 
 	r := mux.NewRouter()
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
-	r.Handle("/chats/{id:[0-9]+}/notifications", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
+	r.Handle("/notifications/chats/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
+	r.Handle("/notifications/channels/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
 	logrus.Info("Server started")
-	err = http.ListenAndServe(":8083", corsMiddleware(handler))
+	err = http.ListenAndServe(":8003", corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

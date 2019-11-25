@@ -14,6 +14,7 @@ import (
 	"github.com/mailru/easyjson"
 	"github.com/sirupsen/logrus"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 )
@@ -79,8 +80,10 @@ func (handlers *UserHandlers) Login(w http.ResponseWriter, r *http.Request) {
 			handlers.utils.HandleError(err, w, r)
 			return
 		}
+		cookie.Path = "/"
 		http.SetCookie(w, &cookie)
 		w.Header().Set("content-type", "application/json")
+		logrus.Info("Cookie = " + cookie.Value)
 
 		//create csrf token
 		tokenExpiration := time.Now().Add(24 * time.Hour)
@@ -291,6 +294,7 @@ func (handlers *UserHandlers) FindUsers(w http.ResponseWriter, r *http.Request) 
 	cookie, _ := r.Cookie("session_id")
 
 	user, err := handlers.parseCookie(cookie)
+	name, err = url.PathUnescape(name)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return

@@ -40,6 +40,37 @@ func easyjson66c9e915DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			out.ID = uint64(in.Uint64())
 		case "name":
 			out.Name = string(in.String())
+		case "channels":
+			if in.IsNull() {
+				in.Skip()
+				out.Channels = nil
+			} else {
+				in.Delim('[')
+				if out.Channels == nil {
+					if !in.IsDelim(']') {
+						out.Channels = make([]*Channel, 0, 8)
+					} else {
+						out.Channels = []*Channel{}
+					}
+				} else {
+					out.Channels = (out.Channels)[:0]
+				}
+				for !in.IsDelim(']') {
+					var v1 *Channel
+					if in.IsNull() {
+						in.Skip()
+						v1 = nil
+					} else {
+						if v1 == nil {
+							v1 = new(Channel)
+						}
+						(*v1).UnmarshalEasyJSON(in)
+					}
+					out.Channels = append(out.Channels, v1)
+					in.WantComma()
+				}
+				in.Delim(']')
+			}
 		case "members":
 			if in.IsNull() {
 				in.Skip()
@@ -56,9 +87,9 @@ func easyjson66c9e915DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 					out.Members = (out.Members)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v1 uint64
-					v1 = uint64(in.Uint64())
-					out.Members = append(out.Members, v1)
+					var v2 uint64
+					v2 = uint64(in.Uint64())
+					out.Members = append(out.Members, v2)
 					in.WantComma()
 				}
 				in.Delim(']')
@@ -79,13 +110,15 @@ func easyjson66c9e915DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 					out.Admins = (out.Admins)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v2 uint64
-					v2 = uint64(in.Uint64())
-					out.Admins = append(out.Admins, v2)
+					var v3 uint64
+					v3 = uint64(in.Uint64())
+					out.Admins = append(out.Admins, v3)
 					in.WantComma()
 				}
 				in.Delim(']')
 			}
+		case "creator_id":
+			out.CreatorID = uint64(in.Uint64())
 		default:
 			in.SkipRecursive()
 		}
@@ -110,6 +143,24 @@ func easyjson66c9e915EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 		out.RawString(prefix)
 		out.String(string(in.Name))
 	}
+	if len(in.Channels) != 0 {
+		const prefix string = ",\"channels\":"
+		out.RawString(prefix)
+		{
+			out.RawByte('[')
+			for v4, v5 := range in.Channels {
+				if v4 > 0 {
+					out.RawByte(',')
+				}
+				if v5 == nil {
+					out.RawString("null")
+				} else {
+					(*v5).MarshalEasyJSON(out)
+				}
+			}
+			out.RawByte(']')
+		}
+	}
 	{
 		const prefix string = ",\"members\":"
 		out.RawString(prefix)
@@ -117,11 +168,11 @@ func easyjson66c9e915EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v3, v4 := range in.Members {
-				if v3 > 0 {
+			for v6, v7 := range in.Members {
+				if v6 > 0 {
 					out.RawByte(',')
 				}
-				out.Uint64(uint64(v4))
+				out.Uint64(uint64(v7))
 			}
 			out.RawByte(']')
 		}
@@ -133,14 +184,19 @@ func easyjson66c9e915EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v5, v6 := range in.Admins {
-				if v5 > 0 {
+			for v8, v9 := range in.Admins {
+				if v8 > 0 {
 					out.RawByte(',')
 				}
-				out.Uint64(uint64(v6))
+				out.Uint64(uint64(v9))
 			}
 			out.RawByte(']')
 		}
+	}
+	if in.CreatorID != 0 {
+		const prefix string = ",\"creator_id\":"
+		out.RawString(prefix)
+		out.Uint64(uint64(in.CreatorID))
 	}
 	out.RawByte('}')
 }

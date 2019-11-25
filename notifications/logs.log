@@ -1,1 +1,45 @@
 [31mERRO[0m[0000] listen tcp :8083: bind: address already in use 
+[36mINFO[0m[0092] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59012" [36mwork_time[0m="298.686µs"
+[36mINFO[0m[0092] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59014" [36mwork_time[0m="235.527µs"
+[36mINFO[0m[0002] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59296" [36mwork_time[0m="326.586µs"
+[36mINFO[0m[0002] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59298" [36mwork_time[0m="175.437µs"
+[36mINFO[0m[0003] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59906" [36mwork_time[0m="218.027µs"
+[36mINFO[0m[0003] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59908" [36mwork_time[0m="182.613µs"
+[31mERRO[0m[0004] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = chat not exists: sql: no rows in result set : sql: no rows in result set" [31mmethod[0m=GET [31mremote_addr[0m="[::1]:60830"
+[36mINFO[0m[0004] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60830" [36mwork_time[0m=3.77965ms
+[36mINFO[0m[0055] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60826" [36mwork_time[0m=51.749207111s
+[31mERRO[0m[0056] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = chat not exists: sql: no rows in result set : sql: no rows in result set" [31mmethod[0m=GET [31mremote_addr[0m="[::1]:33132"
+[36mINFO[0m[0056] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33132" [36mwork_time[0m=7.674657ms
+[36mINFO[0m[0091] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39742" [36mwork_time[0m=1m26.080478696s
+[36mINFO[0m[0091] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39746" [36mwork_time[0m=1m26.064476643s
+[36mINFO[0m[0178] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40670" [36mwork_time[0m=1m26.108016302s
+[36mINFO[0m[0178] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40666" [36mwork_time[0m=1m26.122862488s
+[36mINFO[0m[0239] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41536" [36mwork_time[0m=59.9062081s
+[36mINFO[0m[0239] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41540" [36mwork_time[0m=59.882123944s
+[36mINFO[0m[0039] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43480" [36mwork_time[0m=30.701944663s
+[36mINFO[0m[0067] /notifications/chats/2                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43616" [36mwork_time[0m=49.808194104s
+[36mINFO[0m[0067] /notifications/channels/1                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43620" [36mwork_time[0m=49.795651646s
+[36mINFO[0m[0067] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43824" [36mwork_time[0m=34.258964421s
+[36mINFO[0m[0121] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43944" [36mwork_time[0m=1m21.41213472s
+[36mINFO[0m[0121] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43948" [36mwork_time[0m=1m21.395142513s
+[36mINFO[0m[0133] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44932" [36mwork_time[0m=10.791877268s
+[36mINFO[0m[0133] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44936" [36mwork_time[0m=10.779517328s
+[36mINFO[0m[0133] /notifications/channels/5                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44940" [36mwork_time[0m=10.746895643s
+[36mINFO[0m[0185] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45104" [36mwork_time[0m=51.550441449s
+[36mINFO[0m[0185] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45108" [36mwork_time[0m=51.535959376s
+[36mINFO[0m[0185] /notifications/channels/5                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45112" [36mwork_time[0m=51.50674168s
+[36mINFO[0m[0228] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45650" [36mwork_time[0m=42.851213394s
+[36mINFO[0m[0228] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45654" [36mwork_time[0m=42.838049243s
+[36mINFO[0m[0228] /notifications/channels/5                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45658" [36mwork_time[0m=42.825965112s
+[36mINFO[0m[0235] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46124" [36mwork_time[0m=5.913417691s
+[36mINFO[0m[0235] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46128" [36mwork_time[0m=5.88322481s
+[36mINFO[0m[0235] /notifications/channels/5                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46132" [36mwork_time[0m=5.87231157s
+[36mINFO[0m[0371] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46216" [36mwork_time[0m=2m15.880736668s
+[36mINFO[0m[0371] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46220" [36mwork_time[0m=2m15.867802718s
+[36mINFO[0m[0371] /notifications/channels/5                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46224" [36mwork_time[0m=2m15.852881553s
+[36mINFO[0m[0505] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47640" [36mwork_time[0m=2m12.597400365s
+[36mINFO[0m[0505] /notifications/channels/5                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47646" [36mwork_time[0m=2m12.578946514s
+[36mINFO[0m[0505] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47636" [36mwork_time[0m=2m12.636544483s
+[36mINFO[0m[0613] /notifications/chats/4                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:49394" [36mwork_time[0m=1m47.314458623s
+[36mINFO[0m[0613] /notifications/channels/5                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:49398" [36mwork_time[0m=1m47.293645634s
+[36mINFO[0m[0613] /notifications/chats/3                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:49390" [36mwork_time[0m=1m47.33576548s

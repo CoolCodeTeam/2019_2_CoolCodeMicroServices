@@ -3,8 +3,8 @@ package models
 type Workspace struct {
 	ID        uint64     `json:"id"`
 	Name      string     `json:"name"`
-	Channels  []*Channel `json:"-"`
+	Channels  []*Channel `json:"channels,omitempty"`
 	Members   []uint64   `json:"members"`
 	Admins    []uint64   `json:"admins"`
-	CreatorID uint64     `json:"-"`
+	CreatorID uint64     `json:"creator_id,omitempty"`
 }

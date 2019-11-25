@@ -86,6 +86,10 @@ func easyjson5af9c81fDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 				}
 				in.Delim(']')
 			}
+		case "workspace_id":
+			out.WorkspaceID = uint64(in.Uint64())
+		case "creator_id":
+			out.CreatorID = uint64(in.Uint64())
 		default:
 			in.SkipRecursive()
 		}
@@ -141,6 +145,16 @@ func easyjson5af9c81fEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			}
 			out.RawByte(']')
 		}
+	}
+	if in.WorkspaceID != 0 {
+		const prefix string = ",\"workspace_id\":"
+		out.RawString(prefix)
+		out.Uint64(uint64(in.WorkspaceID))
+	}
+	if in.CreatorID != 0 {
+		const prefix string = ",\"creator_id\":"
+		out.RawString(prefix)
+		out.Uint64(uint64(in.CreatorID))
 	}
 	out.RawByte('}')
 }

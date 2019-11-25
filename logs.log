@@ -36,3 +36,41 @@
 [36mINFO[0m[0210] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40982" [36mwork_time[0m=2m49.206623222s
 [36mINFO[0m[0218] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:40982" [36mwork_time[0m=3.008246ms
 [36mINFO[0m[0226] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:40982" [36mwork_time[0m=2.874209ms
+[31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8080: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8083: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8083: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8081: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[36mINFO[0m[0018] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41666" [36mwork_time[0m=22.390428ms
+[36mINFO[0m[0018] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53552" [36mwork_time[0m=35.399907ms
+[36mINFO[0m[0018] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53232" [36mwork_time[0m=16.994842ms
+[36mINFO[0m[0018] /messages/chats/4                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53232" [36mwork_time[0m=11.321924ms
+[31mERRO[0m[0019] Internal server error                         [31merr[0m="open photos/default.png: no such file or directory" [31mmethod[0m=GET [31mremote_addr[0m="[::1]:41666"
+[36mINFO[0m[0019] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41666" [36mwork_time[0m=1.665424ms
+[31mERRO[0m[0019] Internal server error                         [31merr[0m="open photos/default.png: no such file or directory" [31mmethod[0m=GET [31mremote_addr[0m="[::1]:41702"
+[36mINFO[0m[0019] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41702" [36mwork_time[0m="556.822µs"
+[31mERRO[0m[0019] Internal server error                         [31merr[0m="open photos/default.png: no such file or directory" [31mmethod[0m=GET [31mremote_addr[0m="[::1]:41704"
+[36mINFO[0m[0019] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41704" [36mwork_time[0m="720.285µs"
+[36mINFO[0m[0005] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m=30.268231ms
+[36mINFO[0m[0005] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54100" [36mwork_time[0m=43.005985ms
+[36mINFO[0m[0005] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=19.997784ms
+[36mINFO[0m[0005] /messages/chats/4                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=7.365046ms
+[36mINFO[0m[0005] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m="903.144µs"
+[36mINFO[0m[0005] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m="660.426µs"
+[36mINFO[0m[0005] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42252" [36mwork_time[0m=1.084543ms
+[36mINFO[0m[0011] /users/3                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m=4.646016ms
+[36mINFO[0m[0011] /messages/chats/4                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=5.948345ms
+[36mINFO[0m[0011] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m=1.250388ms
+[36mINFO[0m[0011] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:54100" [36mwork_time[0m=18.100788ms
+[36mINFO[0m[0011] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=5.535079ms
+[36mINFO[0m[0012] /messages/chats/4                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=6.917851ms
+[36mINFO[0m[0012] /users/3                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m=5.785206ms
+[36mINFO[0m[0012] /messages/chats/4                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=5.239004ms
+[36mINFO[0m[0012] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m="766.941µs"
+[36mINFO[0m[0012] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m="696.065µs"
+[36mINFO[0m[0012] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42214" [36mwork_time[0m="792.163µs"
+[36mINFO[0m[0014] /messages/chats/4                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=10.503629ms
+[36mINFO[0m[0017] /messages/chats/4                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=10.095914ms
+[36mINFO[0m[0024] /messages/chats/4                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=7.096864ms
+[36mINFO[0m[0033] /messages/14                                  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=8.919393ms

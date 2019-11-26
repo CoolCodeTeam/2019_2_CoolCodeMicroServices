@@ -1,8 +1,6 @@
 package main
 
 import (
-	"flag"
-	"fmt"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/delivery"
 	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/notifications_service"
 	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/usecase"
@@ -11,30 +9,15 @@ import (
 	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	consulapi "github.com/hashicorp/consul/api"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io"
 	"net"
 	"net/http"
 	"os"
-	"strings"
-	"sync"
-)
-
-var (
-	consulAddr = flag.String("consul", "95.163.209.195:8010", "consul addr")
-
-	consul          *consulapi.Client
-	consulLastIndex uint64 = 0
-
-	globalCfg   = make(map[string]string)
-	globalCfgMu = &sync.RWMutex{}
-
-	cfgPrefix      = "notifications/"
-	prefixStripper = strings.NewReplacer(cfgPrefix, "")
 )
 
 func startNotificationsGRPCService(port string, service grpc_utils.NotificationsServiceServer) {
@@ -64,36 +47,6 @@ func connectGRPC(address string) *grpc.ClientConn {
 	return conn
 }
 
-func loadConfig() {
-	qo := &consulapi.QueryOptions{
-		WaitIndex: consulLastIndex,
-	}
-	kvPairs, qm, err := consul.KV().List(cfgPrefix, qo)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	if consulLastIndex == qm.LastIndex {
-		return
-	}
-
-	newConfig := make(map[string]string)
-
-	for _, item := range kvPairs {
-		if item.Key == cfgPrefix {
-			continue
-		}
-		key := prefixStripper.Replace(item.Key)
-		newConfig[key] = string(item.Value)
-	}
-
-	globalCfgMu.Lock()
-	globalCfg = newConfig
-	consulLastIndex = qm.LastIndex
-	globalCfgMu.Unlock()
-}
-
 func main() {
 	//Init logrus
 	logrusLogger := logrus.New()
@@ -106,15 +59,18 @@ func main() {
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
 
-	consulConfig := consulapi.DefaultConfig()
-	consulConfig.Address = *consulAddr
-	consul, err = consulapi.NewClient(consulConfig)
-	if err != nil {
-		logrusLogger.Error("Can`t get consul config:" + err.Error())
+	viper.AddConfigPath("./notifications")
+	viper.SetConfigName("config")
+	if err := viper.ReadInConfig(); err != nil {
+		logrusLogger.Error("Can`t get viper config:" + err.Error())
 	}
-	loadConfig()
 
-	port := ":" + globalCfg["port"]
+	consulCfg := viper.GetStringMapString("consul")
+
+	consul := utils.GetConsul(consulCfg["url"])
+	configs := utils.LoadConfig(consul, consulCfg["prefix"])
+
+	port := ":" + configs["port"]
 
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	notificationsUseCase := useCase.NewNotificationUseCase()

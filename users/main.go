@@ -15,18 +15,16 @@ import (
 	"github.com/gomodule/redigo/redis"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
-	consulapi "github.com/hashicorp/consul/api"
 	_ "github.com/lib/pq"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io"
 	"net"
 	"net/http"
 	"os"
-	"strings"
-	"sync"
 )
 
 type DBConfig struct {
@@ -36,17 +34,7 @@ type DBConfig struct {
 }
 
 var (
-	redisAddr  = flag.String("addr", "redis://localhost:6379", "redis addr")
-	consulAddr = flag.String("consul", "95.163.209.195:8010", "consul addr")
-
-	consul          *consulapi.Client
-	consulLastIndex uint64 = 0
-
-	globalCfg   = make(map[string]string)
-	globalCfgMu = &sync.RWMutex{}
-
-	cfgPrefix      = "users/"
-	prefixStripper = strings.NewReplacer(cfgPrefix, "")
+	redisAddr = flag.String("addr", "redis://localhost:6379", "redis addr")
 )
 
 func connectDatabase(config DBConfig) (*sql.DB, error) {
@@ -83,36 +71,6 @@ func startUsersGRPCService(port string, service grpc_utils.UsersServiceServer) {
 	}()
 }
 
-func loadConfig() {
-	qo := &consulapi.QueryOptions{
-		WaitIndex: consulLastIndex,
-	}
-	kvPairs, qm, err := consul.KV().List(cfgPrefix, qo)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	if consulLastIndex == qm.LastIndex {
-		return
-	}
-
-	newConfig := make(map[string]string)
-
-	for _, item := range kvPairs {
-		if item.Key == cfgPrefix {
-			continue
-		}
-		key := prefixStripper.Replace(item.Key)
-		newConfig[key] = string(item.Value)
-	}
-
-	globalCfgMu.Lock()
-	globalCfg = newConfig
-	consulLastIndex = qm.LastIndex
-	globalCfgMu.Unlock()
-}
-
 func main() {
 	//Init logrus
 	logrusLogger := logrus.New()
@@ -125,20 +83,23 @@ func main() {
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
 
-	consulConfig := consulapi.DefaultConfig()
-	consulConfig.Address = *consulAddr
-	consul, err = consulapi.NewClient(consulConfig)
-	if err != nil {
-		logrusLogger.Error("Can`t get consul config:" + err.Error())
+	viper.AddConfigPath("./users")
+	viper.SetConfigName("config")
+	if err := viper.ReadInConfig(); err != nil {
+		logrusLogger.Error("Can`t get viper config:" + err.Error())
 	}
-	loadConfig()
+
+	consulCfg := viper.GetStringMapString("consul")
+
+	consul := utils.GetConsul(consulCfg["url"])
+	configs := utils.LoadConfig(consul, consulCfg["prefix"])
 
 	dbconfig := DBConfig{
-		globalCfg["db_name"],
-		globalCfg["db_user"],
-		globalCfg["db_password"],
+		configs["db_name"],
+		configs["db_user"],
+		configs["db_password"],
 	}
-	port := ":" + globalCfg["port"]
+	port := ":" + configs["port"]
 
 	//Connect databases
 	redis := connectRedis()

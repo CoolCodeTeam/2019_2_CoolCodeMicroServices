@@ -2,8 +2,8 @@ package grpc_utils
 
 import (
 	"context"
-	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 type ChatsGRPCProxy struct {

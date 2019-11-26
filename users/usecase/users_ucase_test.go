@@ -2,8 +2,8 @@ package useCase
 
 import (
 	"errors"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/stretchr/testify/assert"
 	"golang.org/x/crypto/bcrypt"
 	"testing"

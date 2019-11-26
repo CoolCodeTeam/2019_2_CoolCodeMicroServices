@@ -2,13 +2,13 @@ package delivery
 
 import (
 	"errors"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
 	"os"
 
-	//"github.com/go-park-mail-ru/2019_2_CoolCode/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	//"github.com/CoolCodeTeam/2019_2_CoolCode/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/sirupsen/logrus"
 	"github.com/steinfletcher/apitest"
 	"io/ioutil"
@@ -30,7 +30,7 @@ type UserTestCase struct {
 	Handler    http.HandlerFunc
 	Users      useCase.UsersUseCase
 	Photos     repository.PhotoRepository
-	Sessions repository.SessionRepository
+	Sessions   repository.SessionRepository
 	//utils      utils.HandlersUtils
 }
 

@@ -1,9 +1,9 @@
 package useCase
 
 import (
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/repository"
-	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/repository"
+	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"net/http"
 )
 

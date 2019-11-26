@@ -1,11 +1,11 @@
 package delivery
 
 import (
-	chats "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/usecase"
-	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	chats "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
+	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
 	"net/http"

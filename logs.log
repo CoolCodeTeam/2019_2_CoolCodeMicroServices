@@ -82,3 +82,10 @@
 [36mINFO[0m[0046] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56540" [36mwork_time[0m=1.758986ms
 [36mINFO[0m[0046] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56588" [36mwork_time[0m="769.497µs"
 [36mINFO[0m[0046] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56592" [36mwork_time[0m=1.604524ms
+[36mINFO[0m[0007] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60126" [36mwork_time[0m=38.86659ms
+[36mINFO[0m[0007] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:51778" [36mwork_time[0m=49.923406ms
+[36mINFO[0m[0008] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45532" [36mwork_time[0m=27.087275ms
+[36mINFO[0m[0008] /messages/chats/4                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:45532" [36mwork_time[0m=6.694565ms
+[36mINFO[0m[0008] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60126" [36mwork_time[0m=1.24678ms
+[36mINFO[0m[0008] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60126" [36mwork_time[0m=1.029507ms
+[36mINFO[0m[0008] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60126" [36mwork_time[0m=3.218506ms

@@ -3,10 +3,10 @@ package delivery
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/usecase"
-	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
+	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/mailru/easyjson"
 
 	"github.com/gorilla/mux"

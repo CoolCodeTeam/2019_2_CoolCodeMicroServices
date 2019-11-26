@@ -2,8 +2,8 @@ package grpc_utils
 
 import (
 	"context"
-	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 type UsersGRPCProxy struct {
@@ -11,13 +11,13 @@ type UsersGRPCProxy struct {
 }
 
 func (u *UsersGRPCProxy) GetUserBySession(session string) (uint64, error) {
-	id,err:=u.client.GetUserBySession(context.Background(),&Session{
+	id, err := u.client.GetUserBySession(context.Background(), &Session{
 		Value: session,
 	})
-	if err!=nil{
-		return 0,err
+	if err != nil {
+		return 0, err
 	}
-	return id.ID,err
+	return id.ID, err
 }
 
 func (u *UsersGRPCProxy) GetUserByID(id uint64) (models.User, error) {

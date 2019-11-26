@@ -3,9 +3,9 @@ package chats_service
 import (
 	"context"
 	"errors"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/grpc_utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"reflect"
 	"testing"
 )

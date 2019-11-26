@@ -2,9 +2,9 @@ package useCase
 
 import (
 	"errors"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/repository"
-	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/repository"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 
 	"github.com/stretchr/testify/assert"
 	"net/http"
@@ -12,7 +12,6 @@ import (
 )
 
 var chatsUseCase = ChatsUseCaseImpl{}
-
 
 func TestChatsUseCaseImpl_GetChatByID(t *testing.T) {
 	chatID := 0
@@ -45,7 +44,7 @@ func TestChatsUseCaseImpl_GetChatByID(t *testing.T) {
 			return models.Chat{Members: []uint64{0}}, nil
 		},
 		GetMessageLastFunc: func(ID uint64) (message models.Message, e error) {
-			return models.Message{},nil
+			return models.Message{}, nil
 		},
 	}
 
@@ -77,8 +76,8 @@ func TestChatsUseCaseImpl_GetChatsByUserID(t *testing.T) {
 			return models.Message{}, nil
 		},
 	}
-	
-	chatsUseCase.users=&useCase.UsersUseCaseMock{
+
+	chatsUseCase.users = &useCase.UsersUseCaseMock{
 		GetUserByIDFunc: func(ID uint64) (user models.User, e error) {
 			return models.User{Username: "testname"}, nil
 		},
@@ -139,7 +138,6 @@ func TestChatsUseCaseImpl_DeleteChat(t *testing.T) {
 			return models.Message{}, nil
 		},
 	}
-	
 
 	err = chatsUseCase.DeleteChat(uint64(userID), uint64(chatID))
 	assert.Nil(t, err)

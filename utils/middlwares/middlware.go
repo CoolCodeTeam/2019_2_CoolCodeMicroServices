@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"time"

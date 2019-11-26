@@ -2,9 +2,9 @@ package useCase
 
 import (
 	"errors"
-	chats "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	chats "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 
 	"github.com/stretchr/testify/assert"
 	"testing"

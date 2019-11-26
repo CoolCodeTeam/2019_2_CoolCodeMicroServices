@@ -1,8 +1,8 @@
 package useCase
 
 import (
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 //go:generate moq -out notifications_ucase_mock.go . NotificationUseCase

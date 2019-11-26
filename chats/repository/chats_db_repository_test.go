@@ -3,8 +3,8 @@ package repository
 import (
 	"database/sql"
 	"fmt"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
 	"reflect"
 
 	"testing"

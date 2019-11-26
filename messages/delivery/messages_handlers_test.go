@@ -2,14 +2,14 @@ package delivery
 
 import (
 	"errors"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 
-	messages "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/usecase"
-	notification "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/usecase"
-	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
+	messages "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
+	notification "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
+	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 
-	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
+	middleware "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/sirupsen/logrus"
 	"github.com/steinfletcher/apitest"
 	"io/ioutil"

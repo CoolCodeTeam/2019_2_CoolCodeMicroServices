@@ -2,11 +2,11 @@ package delivery
 
 import (
 	"encoding/json"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/usecase"
-	notifications "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/usecase"
-	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
+	notifications "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
+	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/gorilla/mux"
 	"github.com/mailru/easyjson"
 	"net/http"

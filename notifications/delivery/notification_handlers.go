@@ -90,9 +90,6 @@ func (h *NotificationHandlers) HandleNewWSConnection(w http.ResponseWriter, r *h
 
 func (h NotificationHandlers) parseCookie(r *http.Request) (models.User, error) {
 	id := r.Context().Value("user_id").(uint64)
-	//if err != nil {
-	//	return models.User{}, models.NewClientError(err, http.StatusUnauthorized, "Bad request : not valid cookie:(")
-	//}
 	print(id)
 	user, err := h.Users.GetUserByID(id)
 	if err == nil {

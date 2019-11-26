@@ -8,7 +8,7 @@ import (
 type WebSocketHub struct {
 	Clients          map[string]*WebSocketClient
 	AddClientChan    chan *websocket.Conn
-	removeClientChan chan *websocket.Conn
+	RemoveClientChan chan *websocket.Conn
 	BroadcastChan    chan []byte
 }
 
@@ -16,7 +16,7 @@ func NewHub() *WebSocketHub {
 	return &WebSocketHub{
 		Clients:          make(map[string]*WebSocketClient),
 		AddClientChan:    make(chan *websocket.Conn),
-		removeClientChan: make(chan *websocket.Conn),
+		RemoveClientChan: make(chan *websocket.Conn),
 		BroadcastChan:    make(chan []byte),
 	}
 }
@@ -26,7 +26,7 @@ func (h *WebSocketHub) Run() {
 		select {
 		case conn := <-h.AddClientChan:
 			h.addClient(conn)
-		case conn := <-h.removeClientChan:
+		case conn := <-h.RemoveClientChan:
 			h.RemoveClient(conn)
 		case m := <-h.BroadcastChan:
 			h.broadcastMessage(m)

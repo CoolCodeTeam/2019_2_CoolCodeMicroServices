@@ -74,3 +74,11 @@
 [36mINFO[0m[0017] /messages/chats/4                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=10.095914ms
 [36mINFO[0m[0024] /messages/chats/4                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=7.096864ms
 [36mINFO[0m[0033] /messages/14                                  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:53780" [36mwork_time[0m=8.919393ms
+[36mINFO[0m[0044] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56540" [36mwork_time[0m=39.067814ms
+[36mINFO[0m[0045] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56540" [36mwork_time[0m=1.474309ms
+[36mINFO[0m[0045] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:48202" [36mwork_time[0m=69.697524ms
+[36mINFO[0m[0046] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41956" [36mwork_time[0m=35.822634ms
+[36mINFO[0m[0046] /messages/chats/4                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41956" [36mwork_time[0m=10.633159ms
+[36mINFO[0m[0046] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56540" [36mwork_time[0m=1.758986ms
+[36mINFO[0m[0046] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56588" [36mwork_time[0m="769.497µs"
+[36mINFO[0m[0046] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56592" [36mwork_time[0m=1.604524ms

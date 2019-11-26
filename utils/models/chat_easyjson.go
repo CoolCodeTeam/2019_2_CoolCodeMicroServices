@@ -17,7 +17,7 @@ var (
 	_ easyjson.Marshaler
 )
 
-func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(in *jlexer.Lexer, out *ResponseChatsArray) {
+func easyjson9b8f5552DecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(in *jlexer.Lexer, out *ResponseChatsArray) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -36,7 +36,7 @@ func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			continue
 		}
 		switch key {
-		case "Chats":
+		case "chats":
 			if in.IsNull() {
 				in.Skip()
 				out.Chats = nil
@@ -59,7 +59,7 @@ func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 				}
 				in.Delim(']')
 			}
-		case "Workspaces":
+		case "workspaces":
 			if in.IsNull() {
 				in.Skip()
 				out.Workspaces = nil
@@ -76,7 +76,7 @@ func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 				}
 				for !in.IsDelim(']') {
 					var v2 Workspace
-					easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels1(in, &v2)
+					(v2).UnmarshalEasyJSON(in)
 					out.Workspaces = append(out.Workspaces, v2)
 					in.WantComma()
 				}
@@ -92,12 +92,12 @@ func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 		in.Consumed()
 	}
 }
-func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(out *jwriter.Writer, in ResponseChatsArray) {
+func easyjson9b8f5552EncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(out *jwriter.Writer, in ResponseChatsArray) {
 	out.RawByte('{')
 	first := true
 	_ = first
 	{
-		const prefix string = ",\"Chats\":"
+		const prefix string = ",\"chats\":"
 		out.RawString(prefix[1:])
 		if in.Chats == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 			out.RawString("null")
@@ -113,7 +113,7 @@ func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 		}
 	}
 	{
-		const prefix string = ",\"Workspaces\":"
+		const prefix string = ",\"workspaces\":"
 		out.RawString(prefix)
 		if in.Workspaces == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 			out.RawString("null")
@@ -123,7 +123,7 @@ func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 				if v5 > 0 {
 					out.RawByte(',')
 				}
-				easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels1(out, v6)
+				(v6).MarshalEasyJSON(out)
 			}
 			out.RawByte(']')
 		}
@@ -134,27 +134,27 @@ func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 // MarshalJSON supports json.Marshaler interface
 func (v ResponseChatsArray) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(&w, v)
+	easyjson9b8f5552EncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v ResponseChatsArray) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(w, v)
+	easyjson9b8f5552EncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *ResponseChatsArray) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(&r, v)
+	easyjson9b8f5552DecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *ResponseChatsArray) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(l, v)
+	easyjson9b8f5552DecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(l, v)
 }
-func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels1(in *jlexer.Lexer, out *Workspace) {
+func easyjson9b8f5552DecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels1(in *jlexer.Lexer, out *Chat) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -173,42 +173,11 @@ func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			continue
 		}
 		switch key {
-		case "ID":
+		case "id":
 			out.ID = uint64(in.Uint64())
-		case "Name":
+		case "name":
 			out.Name = string(in.String())
-		case "Channels":
-			if in.IsNull() {
-				in.Skip()
-				out.Channels = nil
-			} else {
-				in.Delim('[')
-				if out.Channels == nil {
-					if !in.IsDelim(']') {
-						out.Channels = make([]*Channel, 0, 8)
-					} else {
-						out.Channels = []*Channel{}
-					}
-				} else {
-					out.Channels = (out.Channels)[:0]
-				}
-				for !in.IsDelim(']') {
-					var v7 *Channel
-					if in.IsNull() {
-						in.Skip()
-						v7 = nil
-					} else {
-						if v7 == nil {
-							v7 = new(Channel)
-						}
-						easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels2(in, v7)
-					}
-					out.Channels = append(out.Channels, v7)
-					in.WantComma()
-				}
-				in.Delim(']')
-			}
-		case "Members":
+		case "members":
 			if in.IsNull() {
 				in.Skip()
 				out.Members = nil
@@ -224,318 +193,14 @@ func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 					out.Members = (out.Members)[:0]
 				}
 				for !in.IsDelim(']') {
-					var v8 uint64
-					v8 = uint64(in.Uint64())
-					out.Members = append(out.Members, v8)
+					var v7 uint64
+					v7 = uint64(in.Uint64())
+					out.Members = append(out.Members, v7)
 					in.WantComma()
 				}
 				in.Delim(']')
 			}
-		case "Admins":
-			if in.IsNull() {
-				in.Skip()
-				out.Admins = nil
-			} else {
-				in.Delim('[')
-				if out.Admins == nil {
-					if !in.IsDelim(']') {
-						out.Admins = make([]uint64, 0, 8)
-					} else {
-						out.Admins = []uint64{}
-					}
-				} else {
-					out.Admins = (out.Admins)[:0]
-				}
-				for !in.IsDelim(']') {
-					var v9 uint64
-					v9 = uint64(in.Uint64())
-					out.Admins = append(out.Admins, v9)
-					in.WantComma()
-				}
-				in.Delim(']')
-			}
-		case "CreatorID":
-			out.CreatorID = uint64(in.Uint64())
-		default:
-			in.SkipRecursive()
-		}
-		in.WantComma()
-	}
-	in.Delim('}')
-	if isTopLevel {
-		in.Consumed()
-	}
-}
-func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels1(out *jwriter.Writer, in Workspace) {
-	out.RawByte('{')
-	first := true
-	_ = first
-	{
-		const prefix string = ",\"ID\":"
-		out.RawString(prefix[1:])
-		out.Uint64(uint64(in.ID))
-	}
-	{
-		const prefix string = ",\"Name\":"
-		out.RawString(prefix)
-		out.String(string(in.Name))
-	}
-	{
-		const prefix string = ",\"Channels\":"
-		out.RawString(prefix)
-		if in.Channels == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
-			out.RawString("null")
-		} else {
-			out.RawByte('[')
-			for v10, v11 := range in.Channels {
-				if v10 > 0 {
-					out.RawByte(',')
-				}
-				if v11 == nil {
-					out.RawString("null")
-				} else {
-					easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels2(out, *v11)
-				}
-			}
-			out.RawByte(']')
-		}
-	}
-	{
-		const prefix string = ",\"Members\":"
-		out.RawString(prefix)
-		if in.Members == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
-			out.RawString("null")
-		} else {
-			out.RawByte('[')
-			for v12, v13 := range in.Members {
-				if v12 > 0 {
-					out.RawByte(',')
-				}
-				out.Uint64(uint64(v13))
-			}
-			out.RawByte(']')
-		}
-	}
-	{
-		const prefix string = ",\"Admins\":"
-		out.RawString(prefix)
-		if in.Admins == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
-			out.RawString("null")
-		} else {
-			out.RawByte('[')
-			for v14, v15 := range in.Admins {
-				if v14 > 0 {
-					out.RawByte(',')
-				}
-				out.Uint64(uint64(v15))
-			}
-			out.RawByte(']')
-		}
-	}
-	{
-		const prefix string = ",\"CreatorID\":"
-		out.RawString(prefix)
-		out.Uint64(uint64(in.CreatorID))
-	}
-	out.RawByte('}')
-}
-func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels2(in *jlexer.Lexer, out *Channel) {
-	isTopLevel := in.IsStart()
-	if in.IsNull() {
-		if isTopLevel {
-			in.Consumed()
-		}
-		in.Skip()
-		return
-	}
-	in.Delim('{')
-	for !in.IsDelim('}') {
-		key := in.UnsafeString()
-		in.WantColon()
-		if in.IsNull() {
-			in.Skip()
-			in.WantComma()
-			continue
-		}
-		switch key {
-		case "ID":
-			out.ID = uint64(in.Uint64())
-		case "Name":
-			out.Name = string(in.String())
-		case "TotalMSGCount":
-			out.TotalMSGCount = int64(in.Int64())
-		case "Members":
-			if in.IsNull() {
-				in.Skip()
-				out.Members = nil
-			} else {
-				in.Delim('[')
-				if out.Members == nil {
-					if !in.IsDelim(']') {
-						out.Members = make([]uint64, 0, 8)
-					} else {
-						out.Members = []uint64{}
-					}
-				} else {
-					out.Members = (out.Members)[:0]
-				}
-				for !in.IsDelim(']') {
-					var v16 uint64
-					v16 = uint64(in.Uint64())
-					out.Members = append(out.Members, v16)
-					in.WantComma()
-				}
-				in.Delim(']')
-			}
-		case "Admins":
-			if in.IsNull() {
-				in.Skip()
-				out.Admins = nil
-			} else {
-				in.Delim('[')
-				if out.Admins == nil {
-					if !in.IsDelim(']') {
-						out.Admins = make([]uint64, 0, 8)
-					} else {
-						out.Admins = []uint64{}
-					}
-				} else {
-					out.Admins = (out.Admins)[:0]
-				}
-				for !in.IsDelim(']') {
-					var v17 uint64
-					v17 = uint64(in.Uint64())
-					out.Admins = append(out.Admins, v17)
-					in.WantComma()
-				}
-				in.Delim(']')
-			}
-		case "WorkspaceID":
-			out.WorkspaceID = uint64(in.Uint64())
-		case "CreatorID":
-			out.CreatorID = uint64(in.Uint64())
-		default:
-			in.SkipRecursive()
-		}
-		in.WantComma()
-	}
-	in.Delim('}')
-	if isTopLevel {
-		in.Consumed()
-	}
-}
-func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels2(out *jwriter.Writer, in Channel) {
-	out.RawByte('{')
-	first := true
-	_ = first
-	{
-		const prefix string = ",\"ID\":"
-		out.RawString(prefix[1:])
-		out.Uint64(uint64(in.ID))
-	}
-	{
-		const prefix string = ",\"Name\":"
-		out.RawString(prefix)
-		out.String(string(in.Name))
-	}
-	{
-		const prefix string = ",\"TotalMSGCount\":"
-		out.RawString(prefix)
-		out.Int64(int64(in.TotalMSGCount))
-	}
-	{
-		const prefix string = ",\"Members\":"
-		out.RawString(prefix)
-		if in.Members == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
-			out.RawString("null")
-		} else {
-			out.RawByte('[')
-			for v18, v19 := range in.Members {
-				if v18 > 0 {
-					out.RawByte(',')
-				}
-				out.Uint64(uint64(v19))
-			}
-			out.RawByte(']')
-		}
-	}
-	{
-		const prefix string = ",\"Admins\":"
-		out.RawString(prefix)
-		if in.Admins == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
-			out.RawString("null")
-		} else {
-			out.RawByte('[')
-			for v20, v21 := range in.Admins {
-				if v20 > 0 {
-					out.RawByte(',')
-				}
-				out.Uint64(uint64(v21))
-			}
-			out.RawByte(']')
-		}
-	}
-	{
-		const prefix string = ",\"WorkspaceID\":"
-		out.RawString(prefix)
-		out.Uint64(uint64(in.WorkspaceID))
-	}
-	{
-		const prefix string = ",\"CreatorID\":"
-		out.RawString(prefix)
-		out.Uint64(uint64(in.CreatorID))
-	}
-	out.RawByte('}')
-}
-func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels3(in *jlexer.Lexer, out *Chat) {
-	isTopLevel := in.IsStart()
-	if in.IsNull() {
-		if isTopLevel {
-			in.Consumed()
-		}
-		in.Skip()
-		return
-	}
-	in.Delim('{')
-	for !in.IsDelim('}') {
-		key := in.UnsafeString()
-		in.WantColon()
-		if in.IsNull() {
-			in.Skip()
-			in.WantComma()
-			continue
-		}
-		switch key {
-		case "ID":
-			out.ID = uint64(in.Uint64())
-		case "Name":
-			out.Name = string(in.String())
-		case "TotalMSGCount":
-			out.TotalMSGCount = int64(in.Int64())
-		case "Members":
-			if in.IsNull() {
-				in.Skip()
-				out.Members = nil
-			} else {
-				in.Delim('[')
-				if out.Members == nil {
-					if !in.IsDelim(']') {
-						out.Members = make([]uint64, 0, 8)
-					} else {
-						out.Members = []uint64{}
-					}
-				} else {
-					out.Members = (out.Members)[:0]
-				}
-				for !in.IsDelim(']') {
-					var v22 uint64
-					v22 = uint64(in.Uint64())
-					out.Members = append(out.Members, v22)
-					in.WantComma()
-				}
-				in.Delim(']')
-			}
-		case "LastMessage":
+		case "last_message":
 			out.LastMessage = string(in.String())
 		default:
 			in.SkipRecursive()
@@ -547,43 +212,38 @@ func easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 		in.Consumed()
 	}
 }
-func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels3(out *jwriter.Writer, in Chat) {
+func easyjson9b8f5552EncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels1(out *jwriter.Writer, in Chat) {
 	out.RawByte('{')
 	first := true
 	_ = first
 	{
-		const prefix string = ",\"ID\":"
+		const prefix string = ",\"id\":"
 		out.RawString(prefix[1:])
 		out.Uint64(uint64(in.ID))
 	}
 	{
-		const prefix string = ",\"Name\":"
+		const prefix string = ",\"name\":"
 		out.RawString(prefix)
 		out.String(string(in.Name))
 	}
 	{
-		const prefix string = ",\"TotalMSGCount\":"
-		out.RawString(prefix)
-		out.Int64(int64(in.TotalMSGCount))
-	}
-	{
-		const prefix string = ",\"Members\":"
+		const prefix string = ",\"members\":"
 		out.RawString(prefix)
 		if in.Members == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 			out.RawString("null")
 		} else {
 			out.RawByte('[')
-			for v23, v24 := range in.Members {
-				if v23 > 0 {
+			for v8, v9 := range in.Members {
+				if v8 > 0 {
 					out.RawByte(',')
 				}
-				out.Uint64(uint64(v24))
+				out.Uint64(uint64(v9))
 			}
 			out.RawByte(']')
 		}
 	}
 	{
-		const prefix string = ",\"LastMessage\":"
+		const prefix string = ",\"last_message\":"
 		out.RawString(prefix)
 		out.String(string(in.LastMessage))
 	}
@@ -593,23 +253,23 @@ func easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 // MarshalJSON supports json.Marshaler interface
 func (v Chat) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels3(&w, v)
+	easyjson9b8f5552EncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels1(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Chat) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjson9b8f5552EncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels3(w, v)
+	easyjson9b8f5552EncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels1(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *Chat) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels3(&r, v)
+	easyjson9b8f5552DecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels1(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *Chat) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjson9b8f5552DecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels3(l, v)
+	easyjson9b8f5552DecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels1(l, v)
 }

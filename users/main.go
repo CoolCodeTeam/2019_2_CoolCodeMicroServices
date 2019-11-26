@@ -94,6 +94,8 @@ func main() {
 	consul := utils.GetConsul(consulCfg["url"])
 	configs := utils.LoadConfig(consul, consulCfg["prefix"])
 
+	fmt.Println(configs)
+
 	dbconfig := DBConfig{
 		configs["db_name"],
 		configs["db_user"],

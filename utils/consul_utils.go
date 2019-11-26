@@ -17,6 +17,7 @@ func GetConsul(url string) *consulapi.Client {
 }
 
 func LoadConfig(consul *consulapi.Client, cfgPrefix string) map[string]string {
+	cfgPrefix = cfgPrefix + "/"
 	prefixStripper := strings.NewReplacer(cfgPrefix, "")
 
 	qo := &consulapi.QueryOptions{

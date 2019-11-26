@@ -17,7 +17,7 @@ var (
 		prometheus.CounterOpts{
 			Name: "hits",
 		},
-		[]string{"status", "path"},
+		[]string{"status", "path", "method"},
 	)
 
 	timings = prometheus.NewSummaryVec(
@@ -123,7 +123,7 @@ func (m *HandlersMiddlwares) LogMiddleware(next http.Handler, logrusLogger *logr
 		}).Info(r.URL.Path)
 
 		hits.
-			WithLabelValues(strconv.Itoa(logWriter.status), r.URL.Path).
+			WithLabelValues(strconv.Itoa(logWriter.status), r.URL.Path, r.Method).
 			Inc()
 
 		timings.

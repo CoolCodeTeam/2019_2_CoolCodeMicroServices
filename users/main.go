@@ -1,10 +1,7 @@
 package main
 
 import (
-	"database/sql"
-	"errors"
 	"flag"
-	"fmt"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/delivery"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
@@ -27,30 +24,9 @@ import (
 	"os"
 )
 
-type DBConfig struct {
-	DBName     string
-	DBUser     string
-	DBPassword string
-}
-
 var (
 	redisAddr = flag.String("addr", "redis://localhost:6379", "redis addr")
 )
-
-func connectDatabase(config DBConfig) (*sql.DB, error) {
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		config.DBUser, config.DBPassword, config.DBName)
-
-	db, err := sql.Open("postgres", dbinfo)
-	if err != nil {
-		return db, err
-	}
-	if db == nil {
-		return db, errors.New("Can not connect to database")
-	}
-	return db, nil
-
-}
 
 func startUsersGRPCService(port string, service grpc_utils.UsersServiceServer) {
 	lis, err := net.Listen("tcp", ":5000")
@@ -94,16 +70,17 @@ func main() {
 	consul := utils.GetConsul(consulCfg["url"])
 	configs := utils.LoadConfig(consul, consulCfg["prefix"])
 
-	dbconfig := DBConfig{
+	dbconfig := utils.DBConfig{
 		configs["db_name"],
 		configs["db_user"],
 		configs["db_password"],
+		configs["db_host"],
 	}
 	port := ":" + configs["port"]
 
 	//Connect databases
 	redis := connectRedis()
-	db, err := connectDatabase(dbconfig)
+	db, err := utils.ConnectDatabase(dbconfig)
 
 	sessionRepository := repository.NewSessionRedisStore(redis)
 	users := useCase.NewUserUseCase(repository.NewUserDBStore(db), sessionRepository)
@@ -142,7 +119,7 @@ func main() {
 	r.Handle("/users/names/{name:[\\s\\S]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
 	r.Handle("/metrics", promhttp.Handler())
-	logrus.Info("Users http server started")
+	logrus.Info("Users http server started on port: " + port)
 	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)

@@ -1,9 +1,6 @@
 package main
 
 import (
-	"database/sql"
-	"errors"
-	"fmt"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/chats_service"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/delivery"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/repository"
@@ -25,37 +22,9 @@ import (
 	"os"
 )
 
-type DBConfig struct {
-	DBName     string
-	DBUser     string
-	DBPassword string
-}
-
 const (
 	users_address = "localhost:5000"
 )
-
-func connectDatabase(config DBConfig) (*sql.DB, error) {
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		config.DBUser, config.DBPassword, config.DBName)
-
-	db, err := sql.Open("postgres", dbinfo)
-	if err != nil {
-		return db, err
-	}
-	if db == nil {
-		return db, errors.New("Can not connect to database")
-	}
-	return db, nil
-}
-
-func connectGRPC(address string) *grpc.ClientConn {
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	if err != nil {
-		logrus.Fatalf("can not connect to usersGRPC %v", err)
-	}
-	return conn
-}
 
 func startChatsGRPCService(port string, service grpc_utils.ChatsServiceServer) {
 	lis, err := net.Listen("tcp", ":5001")
@@ -99,18 +68,19 @@ func main() {
 	consul := utils.GetConsul(consulCfg["url"])
 	configs := utils.LoadConfig(consul, consulCfg["prefix"])
 
-	dbconfig := DBConfig{
+	dbconfig := utils.DBConfig{
 		configs["db_name"],
 		configs["db_user"],
 		configs["db_password"],
+		configs["db_host"],
 	}
 	port := ":" + configs["port"]
 
 	//Connect database
-	db, err := connectDatabase(dbconfig)
+	db, err := utils.ConnectDatabase(dbconfig)
 
 	//Connect to users
-	conn := connectGRPC(users_address)
+	conn := utils.ConnectGRPC(users_address)
 	defer conn.Close()
 
 	client := grpc_utils.NewUsersServiceClient(conn)

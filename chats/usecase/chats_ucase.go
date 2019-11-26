@@ -63,6 +63,7 @@ func (c *ChatsUseCaseImpl) GetChatsByUserID(ID uint64) ([]models.Chat, error) {
 	}
 	for _, chat := range chats {
 		var memberID uint64
+		memberID = ID
 		if contains(chat.Members, ID) {
 			for _, userID := range chat.Members {
 				if userID != ID {

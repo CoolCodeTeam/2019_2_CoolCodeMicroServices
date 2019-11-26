@@ -1,13 +1,24 @@
 package utils
 
 import (
+	"database/sql"
+	"errors"
+	"fmt"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/sirupsen/logrus"
+	"google.golang.org/grpc"
 	"net/http"
 )
 
 type HandlersUtils struct {
 	log *logrus.Logger
+}
+
+type DBConfig struct {
+	DBName     string
+	DBUser     string
+	DBPassword string
+	Server     string
 }
 
 func NewHandlersUtils(logger *logrus.Logger) HandlersUtils {
@@ -72,4 +83,26 @@ func (u *HandlersUtils) LogError(err error, r *http.Request) {
 		"remote_addr": r.RemoteAddr,
 	}).Error(string(body))
 
+}
+
+func ConnectDatabase(config DBConfig) (*sql.DB, error) {
+	dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable",
+		config.Server, config.DBUser, config.DBPassword, config.DBName)
+
+	db, err := sql.Open("postgres", dbinfo)
+	if err != nil {
+		return db, err
+	}
+	if db == nil {
+		return db, errors.New("Can not connect to database")
+	}
+	return db, nil
+}
+
+func ConnectGRPC(address string) *grpc.ClientConn {
+	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	if err != nil {
+		logrus.Fatalf("can not connect to usersGRPC %v", err)
+	}
+	return conn
 }

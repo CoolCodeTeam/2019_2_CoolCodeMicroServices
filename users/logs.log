@@ -408,3 +408,7 @@
 [36mINFO[0m[0029] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:55038" [36mstatus_code[0m=200 [36mwork_time[0m="555.111µs"
 [36mINFO[0m[0029] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:55038" [36mstatus_code[0m=200 [36mwork_time[0m="694.238µs"
 [36mINFO[0m[0029] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:55038" [36mstatus_code[0m=200 [36mwork_time[0m="508.453µs"
+[31mERRO[0m[0000] Can`t get viper config:Config File "config" Not Found in "[/home/anton/Programs/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users]" 
+[31mERRO[0m[0000] Can`t get viper config:Config File "config" Not Found in "[/home/anton/Programs/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users]" 
+[31mERRO[0m[0000] Can`t get viper config:Config File "config" Not Found in "[/home/anton/Programs/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users]" 
+[31mERRO[0m[0000] Can`t get viper config:Config File "config" Not Found in "[/home/anton/Programs/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users]" 

@@ -141,3 +141,9 @@
 [36mINFO[0m[0105] /messages/channels/2                          [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60216" [36mstatus_code[0m=500 [36mwork_time[0m=26.474776ms
 [36mINFO[0m[0113] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60216" [36mstatus_code[0m=200 [36mwork_time[0m=22.005305ms
 [36mINFO[0m[0001] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:32870" [36mstatus_code[0m=200 [36mwork_time[0m=28.677373ms
+[36mINFO[0m[0007] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46214" [36mstatus_code[0m=200 [36mwork_time[0m=9.698112ms
+[36mINFO[0m[0032] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41012" [36mstatus_code[0m=401 [36mwork_time[0m="175.974µs"
+[36mINFO[0m[0002] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41204" [36mstatus_code[0m=401 [36mwork_time[0m="207.016µs"
+[36mINFO[0m[0007] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:45652" [36mstatus_code[0m=200 [36mwork_time[0m=279.39686ms
+[36mINFO[0m[0002] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:57806" [36mstatus_code[0m=200 [36mwork_time[0m=1.043064059s
+[36mINFO[0m[0005] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:58310" [36mstatus_code[0m=200 [36mwork_time[0m=991.694114ms

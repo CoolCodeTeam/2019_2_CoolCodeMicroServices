@@ -103,8 +103,12 @@ func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *
 }
 
 func (m *HandlersMiddlwares) LogMiddleware(next http.Handler, logrusLogger *logrus.Logger) http.Handler {
-	prometheus.MustRegister(hits)
-	prometheus.MustRegister(timings)
+
+	err := prometheus.Register(hits)
+	err = prometheus.Register(timings)
+	if err != nil {
+		logrus.Error("Can not register prometheus :" + err.Error())
+	}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()

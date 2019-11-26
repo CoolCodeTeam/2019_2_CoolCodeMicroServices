@@ -44,14 +44,6 @@ func startNotificationsGRPCService(port string, service grpc_utils.Notifications
 	}()
 }
 
-func connectGRPC(address string) *grpc.ClientConn {
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	if err != nil {
-		logrus.Fatalf("can not connect to usersGRPC %v", err)
-	}
-	return conn
-}
-
 func main() {
 	//Init logrus
 	logrusLogger := logrus.New()
@@ -79,9 +71,9 @@ func main() {
 
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	notificationsUseCase := useCase.NewNotificationUseCase()
-	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(connectGRPC(users_address)))
+	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(utils.ConnectGRPC(users_address)))
 	notificationApi := delivery.NewNotificationHandlers(users,
-		grpc_utils.NewChatsGRPCProxy(grpc_utils.NewChatsServiceClient(connectGRPC(chats_adress))), notificationsUseCase, handlersUtils)
+		grpc_utils.NewChatsGRPCProxy(grpc_utils.NewChatsServiceClient(utils.ConnectGRPC(chats_adress))), notificationsUseCase, handlersUtils)
 
 	startNotificationsGRPCService("5002", notifications_service.NewNotificationsGRPCService(notificationsUseCase))
 

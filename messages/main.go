@@ -1,9 +1,6 @@
 package main
 
 import (
-	"database/sql"
-	"errors"
-	"fmt"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/delivery"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/repository"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
@@ -16,46 +13,16 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"google.golang.org/grpc"
 	"io"
 	"net/http"
 	"os"
 )
-
-type DBConfig struct {
-	DBName     string
-	DBUser     string
-	DBPassword string
-}
 
 const (
 	users_address         = "localhost:5000"
 	chats_adress          = "localhost:5001"
 	notifications_address = "localhost:5002"
 )
-
-func connectDatabase(config DBConfig) (*sql.DB, error) {
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		config.DBUser, config.DBPassword, config.DBName)
-
-	db, err := sql.Open("postgres", dbinfo)
-	if err != nil {
-		return db, err
-	}
-	if db == nil {
-		return db, errors.New("Can not connect to database")
-	}
-	return db, nil
-
-}
-
-func connectGRPC(address string) *grpc.ClientConn {
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	if err != nil {
-		logrus.Fatalf("can not connect to usersGRPC %v", err)
-	}
-	return conn
-}
 
 func main() {
 	//Init logrus
@@ -80,26 +47,27 @@ func main() {
 	consul := utils.GetConsul(consulCfg["url"])
 	configs := utils.LoadConfig(consul, consulCfg["prefix"])
 
-	dbconfig := DBConfig{
+	dbconfig := utils.DBConfig{
 		configs["db_name"],
 		configs["db_user"],
 		configs["db_password"],
+		configs["db_host"],
 	}
 	port := ":" + configs["port"]
 
 	//Connect database
-	db, err := connectDatabase(dbconfig)
+	db, err := utils.ConnectDatabase(dbconfig)
 
 	//connect to users
-	usersConn := connectGRPC(users_address)
+	usersConn := utils.ConnectGRPC(users_address)
 	defer usersConn.Close()
 
 	//connect to chats
-	chatsConn := connectGRPC(chats_adress)
+	chatsConn := utils.ConnectGRPC(chats_adress)
 	defer chatsConn.Close()
 
 	//connect to notifications
-	notificationsConn := connectGRPC(notifications_address)
+	notificationsConn := utils.ConnectGRPC(notifications_address)
 	defer chatsConn.Close()
 
 	chatsClient := grpc_utils.NewChatsServiceClient(chatsConn)

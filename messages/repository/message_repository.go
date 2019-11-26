@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+import "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 
 //go:generate moq -out message_repo_mock.go . MessageRepository
 
@@ -12,4 +12,5 @@ type MessageRepository interface {
 	UpdateMessage(message *models.Message) error
 	HideMessageForAuthor(userID uint64) error
 	FindMessages(s string) (models.Messages, error)
+	Like(messageID uint64) error
 }

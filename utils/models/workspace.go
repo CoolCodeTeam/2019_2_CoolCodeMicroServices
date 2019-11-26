@@ -1,10 +1,10 @@
 package models
 
 type Workspace struct {
-	ID        uint64
-	Name      string
-	Channels  []*Channel
-	Members   []uint64
-	Admins    []uint64
-	CreatorID uint64
+	ID        uint64     `json:"id"`
+	Name      string     `json:"name"`
+	Channels  []*Channel `json:"channels,omitempty"`
+	Members   []uint64   `json:"members"`
+	Admins    []uint64   `json:"admins"`
+	CreatorID uint64     `json:"creator_id,omitempty"`
 }

@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/delivery"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/notifications_service"
-	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/grpc_utils"
-	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/delivery"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/notifications_service"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
+	middleware "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
@@ -18,6 +18,11 @@ import (
 	"net"
 	"net/http"
 	"os"
+)
+
+const (
+	users_address = "localhost:5000"
+	chats_adress  = "localhost:5001"
 )
 
 func startNotificationsGRPCService(port string, service grpc_utils.NotificationsServiceServer) {
@@ -74,9 +79,9 @@ func main() {
 
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	notificationsUseCase := useCase.NewNotificationUseCase()
-	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(connectGRPC("5000")))
+	users := grpc_utils.NewUsersGRPCProxy(grpc_utils.NewUsersServiceClient(connectGRPC(users_address)))
 	notificationApi := delivery.NewNotificationHandlers(users,
-		grpc_utils.NewChatsGRPCProxy(grpc_utils.NewChatsServiceClient(connectGRPC("5001"))), notificationsUseCase, handlersUtils)
+		grpc_utils.NewChatsGRPCProxy(grpc_utils.NewChatsServiceClient(connectGRPC(chats_adress))), notificationsUseCase, handlersUtils)
 
 	startNotificationsGRPCService("5002", notifications_service.NewNotificationsGRPCService(notificationsUseCase))
 
@@ -86,7 +91,11 @@ func main() {
 	}
 
 	corsMiddleware := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com", "https://boiling-chamber-90136.herokuapp.com", "http://localhost:3000"}),
+		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com",
+			"https://boiling-chamber-90136.herokuapp.com",
+			"http://localhost:3000",
+			"http://localhost:8000",
+			"http://95.163.209.195:8000"}),
 		handlers.AllowedMethods([]string{"POST", "GET", "PUT", "DELETE"}),
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 		handlers.AllowCredentials(),
@@ -94,10 +103,11 @@ func main() {
 
 	r := mux.NewRouter()
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
-	r.Handle("/chats/{id:[0-9]+}/notifications", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
-	r.Handle("/metrics", promhttp.Handler())
-	logrus.Info("Server started")
+	r.Handle("/notifications/chats/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
+	r.Handle("/notifications/channels/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
 	err = http.ListenAndServe(port, corsMiddleware(handler))
+	logrus.Info("Notfications http server started")
+	r.Handle("/metrics", promhttp.Handler())
 	if err != nil {
 		logrusLogger.Error(err)
 		return

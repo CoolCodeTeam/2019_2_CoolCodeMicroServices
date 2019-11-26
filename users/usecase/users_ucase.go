@@ -1,8 +1,8 @@
 package useCase
 
 import (
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
@@ -17,17 +17,17 @@ type UsersUseCase interface {
 	Login(user models.User) (models.User, error)
 	ChangeUser(user *models.User) error
 	FindUsers(name string) (models.Users, error)
-	GetUserBySession(session string) (uint64,error)
+	GetUserBySession(session string) (uint64, error)
 }
 
 type usersUseCase struct {
 	repository repository.UserRepo
-	sessions repository.SessionRepository
+	sessions   repository.SessionRepository
 }
 
-func (u *usersUseCase) GetUserBySession(session string) (uint64,error) {
-	id,err:=u.sessions.GetID(session)
-		return id, err
+func (u *usersUseCase) GetUserBySession(session string) (uint64, error) {
+	id, err := u.sessions.GetID(session)
+	return id, err
 
 }
 
@@ -47,10 +47,10 @@ func (u *usersUseCase) Login(loginUser models.User) (models.User, error) {
 
 }
 
-func NewUserUseCase(repo repository.UserRepo,sessions repository.SessionRepository) UsersUseCase {
+func NewUserUseCase(repo repository.UserRepo, sessions repository.SessionRepository) UsersUseCase {
 	return &usersUseCase{
 		repository: repo,
-		sessions:sessions,
+		sessions:   sessions,
 	}
 }
 

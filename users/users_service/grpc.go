@@ -2,9 +2,9 @@ package users_service
 
 import (
 	"context"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/grpc_utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/sirupsen/logrus"
 )
 
@@ -21,11 +21,11 @@ type UsersServiceImpl struct {
 	UseCase useCase.UsersUseCase
 }
 
-func (u *UsersServiceImpl) GetUserBySession(ctx context.Context,r *grpc_utils.Session) (*grpc_utils.UserID, error) {
-	id,err:=u.UseCase.GetUserBySession(r.Value)
+func (u *UsersServiceImpl) GetUserBySession(ctx context.Context, r *grpc_utils.Session) (*grpc_utils.UserID, error) {
+	id, err := u.UseCase.GetUserBySession(r.Value)
 	return &grpc_utils.UserID{
 		ID: id,
-	},err
+	}, err
 }
 
 func (u *UsersServiceImpl) GetUserByID(ctx context.Context, userID *grpc_utils.UserID) (*grpc_utils.User, error) {

@@ -12,6 +12,7 @@ type Message struct {
 	ChatID        uint64 `json:"chat_id"`
 	FileID        uint64 `json:"file_id"`
 	HideForAuthor bool   `json:"-"`
+	Likes         uint64 `json:"likes"`
 }
 
 type Messages struct {

@@ -5,13 +5,13 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/delivery"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/users_service"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/grpc_utils"
-	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/delivery"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users_service"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
+	middleware "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/gomodule/redigo/redis"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -120,7 +120,11 @@ func main() {
 	}
 
 	corsMiddleware := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com", "https://boiling-chamber-90136.herokuapp.com", "http://localhost:3000"}),
+		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com",
+			"https://boiling-chamber-90136.herokuapp.com",
+			"http://localhost:3000",
+			"http://95.163.209.195:8000",
+			"http://localhost:8000"}),
 		handlers.AllowedMethods([]string{"POST", "GET", "PUT", "DELETE"}),
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 		handlers.AllowCredentials(),
@@ -129,17 +133,17 @@ func main() {
 	r := mux.NewRouter()
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
 	r.HandleFunc("/users", usersApi.SignUp).Methods("POST")
-	r.HandleFunc("/login", usersApi.Login).Methods("POST")
+	r.HandleFunc("/users/login", usersApi.Login).Methods("POST")
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.EditProfile)).Methods("PUT")
-	r.Handle("/logout", middlewares.AuthMiddleware(usersApi.Logout)).Methods("DELETE")
-	r.Handle("/photos", middlewares.AuthMiddleware(usersApi.SavePhoto)).Methods("POST")
-	r.Handle("/photos/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetPhoto)).Methods("GET")
+	r.Handle("/users/logout", middlewares.AuthMiddleware(usersApi.Logout)).Methods("DELETE")
+	r.Handle("/users/photos", middlewares.AuthMiddleware(usersApi.SavePhoto)).Methods("POST")
+	r.Handle("/users/photos/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetPhoto)).Methods("GET")
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetUser)).Methods("GET")
-	r.Handle("/users/{name:[((a-z)|(A-Z))0-9_-]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
+	r.Handle("/users/names/{name:[\\s\\S]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
 	r.Handle("/metrics", promhttp.Handler())
-	logrus.Info("Server started")
 	err = http.ListenAndServe(port, corsMiddleware(handler))
+	logrus.Info("Users http server started")
 	if err != nil {
 		logrusLogger.Error(err)
 		return

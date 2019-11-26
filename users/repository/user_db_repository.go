@@ -2,7 +2,7 @@ package repository
 
 import (
 	"database/sql"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"net/http"
 )
 

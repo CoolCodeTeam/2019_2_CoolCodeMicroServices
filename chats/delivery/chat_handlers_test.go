@@ -2,12 +2,12 @@ package delivery
 
 import (
 	"errors"
-	"github.com/go-park-mail-ru/2019_2_CoolCode/repository"
-	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/chats/usecase"
-	users "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	middleware "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/middlwares"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 
 	"github.com/sirupsen/logrus"
 	"github.com/steinfletcher/apitest"
@@ -18,7 +18,6 @@ import (
 
 var chatApi ChatHandlers
 var middlware = middleware.HandlersMiddlwares{}
-const user_test_id = 1
 
 type ChatTestCase struct {
 	name       string
@@ -29,11 +28,10 @@ type ChatTestCase struct {
 	URL        string
 	Response   string
 	StatusCode int
-	Handler    func(w http.ResponseWriter,r *http.Request)
+	Handler    func(w http.ResponseWriter, r *http.Request)
 	Chats      useCase.ChatsUseCase
-	Sessions 	repository.SessionRepository
+	Sessions   repository.SessionRepository
 	Users      users.UsersUseCase
-	utils      utils.HandlersUtils
 }
 
 func runTableChatAPITests(t *testing.T, cases []*ChatTestCase) {
@@ -49,7 +47,7 @@ func runChatAPITest(t *testing.T, testCase *ChatTestCase) {
 		}
 		if testCase.Users != nil {
 			chatApi.Users = testCase.Users
-			middlware.Users=testCase.Users
+			middlware.Users = testCase.Users
 		}
 
 		apitest.New().
@@ -68,10 +66,8 @@ func init() {
 	emptyLogger := logrus.New()
 	emptyLogger.Out = ioutil.Discard
 	chatApi.utils = utils.NewHandlersUtils(emptyLogger)
-	middlware.Logger=emptyLogger
+	middlware.Logger = emptyLogger
 }
-
-
 
 func TestChatHandlers_PostChat(t *testing.T) {
 	tests := []*ChatTestCase{
@@ -96,7 +92,7 @@ func TestChatHandlers_PostChat(t *testing.T) {
 					return models.User{}, nil
 				},
 				GetUserBySessionFunc: func(session string) (u uint64, e error) {
-					return 0,nil
+					return 0, nil
 				},
 			},
 			StatusCode: 400,
@@ -113,7 +109,7 @@ func TestChatHandlers_PostChat(t *testing.T) {
 					return models.User{}, nil
 				},
 				GetUserBySessionFunc: func(session string) (u uint64, e error) {
-					return 0,nil
+					return 0, nil
 				},
 			},
 			StatusCode: 500,
@@ -128,7 +124,7 @@ func TestChatHandlers_PostChat(t *testing.T) {
 					return models.User{}, nil
 				},
 				GetUserBySessionFunc: func(session string) (u uint64, e error) {
-					return 0,nil
+					return 0, nil
 				},
 			},
 			Chats: &useCase.ChatsUseCaseMock{
@@ -147,7 +143,7 @@ func TestChatHandlers_PostChat(t *testing.T) {
 					return models.User{}, nil
 				},
 				GetUserBySessionFunc: func(session string) (u uint64, e error) {
-					return 0,nil
+					return 0, nil
 				},
 			},
 			Chats: &useCase.ChatsUseCaseMock{
@@ -196,7 +192,6 @@ func TestChatHandlers_GetChatsByUser(t *testing.T) {
 				GetChatsByUserIDFunc: func(ID uint64) (chats []models.Chat, e error) {
 					return []models.Chat{}, errors.New("Internal error")
 				},
-
 			},
 			StatusCode: 500,
 			Handler:    http.HandlerFunc(chatApi.GetChatsByUser),
@@ -249,7 +244,6 @@ func TestChatHandlers_GetChatById(t *testing.T) {
 				GetUserBySessionFunc: func(session string) (u uint64, e error) {
 					return 0, errors.New("Internal error")
 				},
-
 			},
 			StatusCode: 401,
 			Handler:    http.HandlerFunc(chatApi.GetChatById),
@@ -260,7 +254,7 @@ func TestChatHandlers_GetChatById(t *testing.T) {
 				GetUserByIDFunc: func(id uint64) (user models.User, e error) {
 					return models.User{}, errors.New("Internal error")
 				},
-				GetUserBySessionFunc:func(session string) (u uint64, e error) {
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
 					return 0, nil
 				},
 			},
@@ -278,7 +272,7 @@ func TestChatHandlers_GetChatById(t *testing.T) {
 				GetUserByIDFunc: func(id uint64) (user models.User, e error) {
 					return models.User{}, nil
 				},
-				GetUserBySessionFunc:func(session string) (u uint64, e error) {
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
 					return 0, nil
 				},
 			},
@@ -296,7 +290,7 @@ func TestChatHandlers_GetChatById(t *testing.T) {
 				GetUserByIDFunc: func(id uint64) (user models.User, e error) {
 					return models.User{}, nil
 				},
-				GetUserBySessionFunc:func(session string) (u uint64, e error) {
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
 					return 0, nil
 				},
 			},
@@ -362,10 +356,8 @@ func TestChatHandlers_RemoveChat(t *testing.T) {
 			Handler:    http.HandlerFunc(chatApi.RemoveChat),
 		},
 		{
-			name: "SuccessTest",
-			Sessions: &repository.SessionRepositoryMock{
-
-			},
+			name:     "SuccessTest",
+			Sessions: &repository.SessionRepositoryMock{},
 			Users: &users.UsersUseCaseMock{
 				GetUserByIDFunc: func(id uint64) (user models.User, e error) {
 					return models.User{}, nil
@@ -498,7 +490,7 @@ func TestChatHandlers_GetChannelById(t *testing.T) {
 				GetUserByIDFunc: func(id uint64) (user models.User, e error) {
 					return models.User{}, nil
 				},
-				GetUserBySessionFunc:func(session string) (u uint64, e error) {
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
 					return 0, nil
 				},
 			},
@@ -516,7 +508,7 @@ func TestChatHandlers_GetChannelById(t *testing.T) {
 				GetUserByIDFunc: func(id uint64) (user models.User, e error) {
 					return models.User{}, nil
 				},
-				GetUserBySessionFunc:func(session string) (u uint64, e error) {
+				GetUserBySessionFunc: func(session string) (u uint64, e error) {
 					return 0, nil
 				},
 			},

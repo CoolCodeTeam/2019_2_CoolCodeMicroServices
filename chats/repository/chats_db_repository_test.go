@@ -3,10 +3,10 @@ package repository
 import (
 	"database/sql"
 	"fmt"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/DATA-DOG/go-sqlmock"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
-
 	"reflect"
+
 	"testing"
 )
 
@@ -1263,7 +1263,7 @@ func TestChatsDBRepository_UpdateChannel_CommitConnError(t *testing.T) {
 	}
 }
 
-// GetWorkspaceByID ====================================================================================================
+//GetWorkspaceByID ====================================================================================================
 
 func TestChatsDBRepository_GetWorkspaceByID_Successful(t *testing.T) {
 	db, mock, err := sqlmock.New()
@@ -1301,6 +1301,7 @@ func TestChatsDBRepository_GetWorkspaceByID_Successful(t *testing.T) {
 		db: db,
 	}
 
+	mock.ExpectBegin()
 	mock.ExpectBegin()
 	mock.
 		ExpectQuery("SELECT id, name, creatorid FROM workspaces WHERE").
@@ -1340,6 +1341,7 @@ func TestChatsDBRepository_GetWorkspaceByID_DBErrorFirst(t *testing.T) {
 		db: db,
 	}
 
+	mock.ExpectBegin()
 	mock.ExpectBegin()
 	mock.
 		ExpectQuery("SELECT id, name, creatorid FROM workspaces WHERE").
@@ -1384,6 +1386,7 @@ func TestChatsDBRepository_GetWorkspaceByID_DBErrorSecond(t *testing.T) {
 		db: db,
 	}
 
+	mock.ExpectBegin()
 	mock.ExpectBegin()
 	mock.
 		ExpectQuery("SELECT id, name, creatorid FROM workspaces WHERE").
@@ -1443,6 +1446,7 @@ func TestChatsDBRepository_GetWorkspaceByID_ScanErrorFirst(t *testing.T) {
 	}
 
 	mock.ExpectBegin()
+	mock.ExpectBegin()
 	mock.
 		ExpectQuery("SELECT id, name, creatorid FROM workspaces WHERE").
 		WithArgs(elemID).
@@ -1490,6 +1494,7 @@ func TestChatsDBRepository_GetWorkspaceByID_ScanErrorSecond(t *testing.T) {
 		db: db,
 	}
 
+	mock.ExpectBegin()
 	mock.ExpectBegin()
 	mock.
 		ExpectQuery("SELECT id, name, creatorid FROM workspaces WHERE").

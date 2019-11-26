@@ -4,12 +4,12 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/delivery"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/messages/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/grpc_utils"
-	middleware "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/middlwares"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/delivery"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
+	middleware "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
@@ -118,7 +118,11 @@ func main() {
 	}
 
 	corsMiddleware := handlers.CORS(
-		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com", "https://boiling-chamber-90136.herokuapp.com", "http://localhost:3000"}),
+		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com",
+			"https://boiling-chamber-90136.herokuapp.com",
+			"http://localhost:3000",
+			"http://95.163.209.195:8000",
+			"http://localhost:8000"}),
 		handlers.AllowedMethods([]string{"POST", "GET", "PUT", "DELETE"}),
 		handlers.AllowedHeaders([]string{"Content-Type"}),
 		handlers.AllowCredentials(),
@@ -126,17 +130,19 @@ func main() {
 
 	r := mux.NewRouter()
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
-	r.Handle("/channels/{id:[0-9]+}/messages", middlewares.AuthMiddleware(messagesApi.SendMessage)).Methods("POST")
-	r.Handle("/channels/{id:[0-9]+}/messages", middlewares.AuthMiddleware(messagesApi.GetMessagesByChatID)).Methods("GET")
-	r.Handle("/chats/{id:[0-9]+}/messages", middlewares.AuthMiddleware(messagesApi.SendMessage)).Methods("POST").
+	r.Handle("/messages/channels/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.SendMessage)).Methods("POST")
+	r.Handle("/messages/channels/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.GetMessagesByChatID)).Methods("GET")
+	r.Handle("/messages/chats/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.SendMessage)).Methods("POST").
 		HeadersRegexp("Content-Type", "application/(text|json)")
-	r.Handle("/chats/{id:[0-9]+}/messages", middlewares.AuthMiddleware(messagesApi.GetMessagesByChatID)).Methods("GET")
-	r.Handle("/messages/{text:[((a-z)|(A-Z))0-9_-]+}", middlewares.AuthMiddleware(messagesApi.FindMessages)).Methods("GET")
+	r.Handle("/messages/chats/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.GetMessagesByChatID)).Methods("GET")
+	r.Handle("/messages/{text:[\\s\\S]+}", middlewares.AuthMiddleware(messagesApi.FindMessages)).Methods("GET")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.DeleteMessage)).Methods("DELETE")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.EditMessage)).Methods("PUT")
+	r.Handle("/messages/{id:[0-9]+}/likes", middlewares.AuthMiddleware(messagesApi.Like)).Methods("POST")
 	r.Handle("/metrics", promhttp.Handler())
-	logrus.Info("Server started")
+	logrus.Info("Messages http server started")
 	err = http.ListenAndServe(port, corsMiddleware(handler))
+
 	if err != nil {
 		logrusLogger.Error(err)
 		return

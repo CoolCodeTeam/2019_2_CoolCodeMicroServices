@@ -2,8 +2,8 @@ package notifications_service
 
 import (
 	"context"
-	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/notifications/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/grpc_utils"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
 )
 
 type NotificationsServiceImpl struct {

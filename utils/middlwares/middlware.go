@@ -1,10 +1,13 @@
 package middleware
 
 import (
+	"bufio"
 	"context"
 	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/prometheus/client_golang/prometheus"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/sirupsen/logrus"
+	"net"
 	"net/http"
 	"strconv"
 	"time"
@@ -46,6 +49,10 @@ func (l *LogResponse) Write(body []byte) (int, error) {
 	return l.w.Write(body)
 }
 
+func (l *LogResponse) Hijack() (net.Conn, *bufio.ReadWriter, error) {
+	return l.w.(http.Hijacker).Hijack()
+}
+
 func (l *LogResponse) WriteHeader(code int) {
 	l.w.WriteHeader(code)
 	l.status = code
@@ -63,6 +70,7 @@ func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
+		logrus.Info("cookie = " + session.Value)
 		id, err := m.Users.GetUserBySession(session.Value)
 		if err != nil {
 			logrus.SetFormatter(&logrus.TextFormatter{})
@@ -126,7 +134,6 @@ func (m *HandlersMiddlwares) LogMiddleware(next http.Handler, logrusLogger *logr
 }
 
 func (m *HandlersMiddlwares) PanicMiddleware(next http.Handler) http.Handler {
-
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if err := recover(); err != nil {

@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/sirupsen/logrus"
 	"net/http"
 )

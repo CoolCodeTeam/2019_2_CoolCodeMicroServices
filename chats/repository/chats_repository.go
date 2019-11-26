@@ -1,6 +1,6 @@
 package repository
 
-import "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+import "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 
 //go:generate moq -out chats_repo_mock.go . ChatsRepository
 

@@ -55,3 +55,223 @@
 [31mERRO[0m[0343] {"Cause":{},"Detail":"chat not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:52508"
 [36mINFO[0m[0343] /chats/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52508" [36mwork_time[0m=3.853812ms
 [36mINFO[0m[0352] /chats/5                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52508" [36mwork_time[0m=2.150809ms
+[36mINFO[0m[0537] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=10.150649ms
+[31mERRO[0m[0540] {"Cause":null,"Detail":"Actual id: 1, Requested id: 2","Status":401}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:47996"
+[36mINFO[0m[0540] /users/2/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="724.815µs"
+[36mINFO[0m[0545] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=3.495786ms
+[36mINFO[0m[0568] //chats                                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="7.529µs"
+[36mINFO[0m[0568] /chats                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="9.189µs"
+[36mINFO[0m[0618] //chats                                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="9.869µs"
+[36mINFO[0m[0618] /chats                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="10.987µs"
+[36mINFO[0m[0623] //chats                                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="15.269µs"
+[36mINFO[0m[0623] /chats                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="19.07µs"
+[36mINFO[0m[0647] //chats                                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="8.094µs"
+[36mINFO[0m[0647] /chats                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="9.959µs"
+[36mINFO[0m[0654] /chats                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=9.976262ms
+[36mINFO[0m[0658] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=6.27628ms
+[31mERRO[0m[0663] {"Cause":null,"Detail":"Actual id: 1, Requested id: 2","Status":401}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:47996"
+[36mINFO[0m[0663] /users/2/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="604.272µs"
+[36mINFO[0m[0667] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=4.454889ms
+[36mINFO[0m[0670] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=1.987828ms
+[36mINFO[0m[0673] /chats/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=3.127567ms
+[31mERRO[0m[0676] {"Cause":{},"Detail":"chat not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:47996"
+[36mINFO[0m[0676] /chats/20                                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=1.672126ms
+[36mINFO[0m[0679] /chats/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=2.220661ms
+[36mINFO[0m[0695] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="73.891µs"
+[36mINFO[0m[0701] /chats/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="60.673µs"
+[36mINFO[0m[0703] /chats/3                                      [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="109.595µs"
+[36mINFO[0m[0709] /chats                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m="82.391µs"
+[36mINFO[0m[0728] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=10.305797ms
+[31mERRO[0m[0732] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:47996"
+[36mINFO[0m[0732] /workspaces/3                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=2.129239ms
+[36mINFO[0m[0735] /workspaces/1                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=2.089844ms
+[36mINFO[0m[0735] /workspaces/1                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:47996" [36mwork_time[0m=2.89847ms
+[31mERRO[0m[0739] /workspaces/3                                 [31mmethod[0m=PUT [31mpanic[0m="runtime error: invalid memory address or nil pointer dereference" [31mremote_addr[0m="[::1]:47996"
+[31mERRO[0m[0745] /workspaces/1                                 [31mmethod[0m=PUT [31mpanic[0m="runtime error: invalid memory address or nil pointer dereference" [31mremote_addr[0m="[::1]:47996"
+[31mERRO[0m[0752] /workspaces/1                                 [31mmethod[0m=PUT [31mpanic[0m="runtime error: invalid memory address or nil pointer dereference" [31mremote_addr[0m="[::1]:47996"
+[31mERRO[0m[0002] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=DELETE [31mremote_addr[0m="[::1]:50418"
+[36mINFO[0m[0002] /workspaces/5                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:50418" [36mwork_time[0m=15.873526ms
+[36mINFO[0m[0006] /workspaces/1                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:50418" [36mwork_time[0m=8.963543ms
+[31mERRO[0m[0009] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:50418"
+[36mINFO[0m[0009] /workspaces/1                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50418" [36mwork_time[0m=1.980653ms
+[36mINFO[0m[0011] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:50418" [36mwork_time[0m=13.118293ms
+[31mERRO[0m[0028] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:50418"
+[36mINFO[0m[0028] /workspaces/1                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50418" [36mwork_time[0m=2.089828ms
+[36mINFO[0m[0033] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:50418" [36mwork_time[0m=10.111798ms
+[36mINFO[0m[0039] /workspaces/5                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50418" [36mwork_time[0m=2.836512ms
+[36mINFO[0m[0008] /workspaces/5/channels                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:50776" [36mwork_time[0m=12.533238ms
+[36mINFO[0m[0027] /channels/3                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50776" [36mwork_time[0m=8.852247ms
+[31mERRO[0m[0038] /channels/3                                   [31mmethod[0m=PUT [31mpanic[0m="runtime error: invalid memory address or nil pointer dereference" [31mremote_addr[0m="[::1]:50776"
+[31mERRO[0m[0002] {"Cause":{},"Detail":"channel not exists: sql: Scan error on column index 3, name \"creatorid\": converting NULL to uint64 is unsupported","Status":400}  [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:50902"
+[36mINFO[0m[0002] /channels/3                                   [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=6.032864ms
+[36mINFO[0m[0008] /channels/3                                   [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=13.064246ms
+[36mINFO[0m[0011] /channels/3                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=2.489573ms
+[36mINFO[0m[0033] /channels/3                                   [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=6.716593ms
+[31mERRO[0m[0037] {"Cause":{},"Detail":"channel not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:50902"
+[36mINFO[0m[0037] /channels/3                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=1.728288ms
+[36mINFO[0m[0042] /workspaces/5/channels                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=10.980619ms
+[36mINFO[0m[0046] /chats/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=2.386988ms
+[31mERRO[0m[0064] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:50902"
+[36mINFO[0m[0064] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50902" [36mwork_time[0m=7.228756ms
+[36mINFO[0m[0057] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=20.698741ms
+[36mINFO[0m[0059] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=11.152603ms
+[36mINFO[0m[0061] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=9.28693ms
+[36mINFO[0m[0069] /workspaces/1                                 [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=10.992989ms
+[36mINFO[0m[0074] /workspaces/1                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=2.259887ms
+[36mINFO[0m[0080] /workspaces/1                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=5.574087ms
+[31mERRO[0m[0088] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:52862"
+[36mINFO[0m[0088] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=6.986983ms
+[31mERRO[0m[0260] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=DELETE [31mremote_addr[0m="[::1]:52862"
+[36mINFO[0m[0260] /workspaces/1                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=3.792586ms
+[36mINFO[0m[0269] /workspaces/2                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=3.791933ms
+[31mERRO[0m[0501] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=DELETE [31mremote_addr[0m="[::1]:52862"
+[36mINFO[0m[0501] /workspaces/2                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=2.31916ms
+[36mINFO[0m[0751] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=4.142347ms
+[36mINFO[0m[0752] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=11.038074ms
+[36mINFO[0m[0759] /workspaces/5/channels                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=16.8251ms
+[36mINFO[0m[0774] /channels/1                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=4.600617ms
+[31mERRO[0m[0784] {"Cause":{},"Detail":"channel not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:52862"
+[36mINFO[0m[0784] /channels/1                                   [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=1.726864ms
+[36mINFO[0m[0788] /channels/1                                   [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=13.69586ms
+[36mINFO[0m[0792] /channels/1                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=3.714868ms
+[31mERRO[0m[0822] /chats                                        [31mmethod[0m=POST [31mpanic[0m="runtime error: invalid memory address or nil pointer dereference" [31mremote_addr[0m="[::1]:52862"
+[36mINFO[0m[0861] /chats                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=12.79461ms
+[31mERRO[0m[0867] {"Cause":{},"Detail":"chat not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:52862"
+[36mINFO[0m[0867] /chats/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=2.171364ms
+[36mINFO[0m[0876] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52862" [36mwork_time[0m=14.335318ms
+[36mINFO[0m[0005] /chats/users/2                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43280" [36mwork_time[0m=8.126562ms
+[36mINFO[0m[0045] /chats/users/2                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43280" [36mwork_time[0m=2.091957ms
+[36mINFO[0m[0123] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43280" [36mwork_time[0m="915.764µs"
+[36mINFO[0m[0138] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43280" [36mwork_time[0m="735.247µs"
+[36mINFO[0m[0158] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43280" [36mwork_time[0m="828.762µs"
+[36mINFO[0m[0028] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56324" [36mwork_time[0m=1.229969ms
+[36mINFO[0m[0025] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56938" [36mwork_time[0m=2.712187ms
+[36mINFO[0m[0085] /chats                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:56938" [36mwork_time[0m="668.219µs"
+[36mINFO[0m[0095] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56938" [36mwork_time[0m="668.92µs"
+[36mINFO[0m[0376] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56938" [36mwork_time[0m=5.348372ms
+[36mINFO[0m[0594] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56938" [36mwork_time[0m=3.281597ms
+[36mINFO[0m[0600] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56938" [36mwork_time[0m="671.483µs"
+[36mINFO[0m[0616] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56938" [36mwork_time[0m="780.972µs"
+[31mERRO[0m[0005] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:35156"
+[36mINFO[0m[0005] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:35156" [36mwork_time[0m=10.40821ms
+[36mINFO[0m[0014] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:35156" [36mwork_time[0m="803.101µs"
+[31mERRO[0m[0035] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:35156"
+[36mINFO[0m[0035] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:35156" [36mwork_time[0m=7.086624ms
+[31mERRO[0m[0048] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:35156"
+[36mINFO[0m[0048] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:35156" [36mwork_time[0m=3.430255ms
+[31mERRO[0m[0317] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:35156"
+[36mINFO[0m[0317] /users/1/chats                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:35156" [36mwork_time[0m=10.133258ms
+[36mINFO[0m[0327] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:35156" [36mwork_time[0m=3.47356ms
+[31mERRO[0m[0014] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:39192"
+[36mINFO[0m[0014] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m=12.372595ms
+[31mERRO[0m[0027] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:39192"
+[36mINFO[0m[0027] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m=5.87263ms
+[31mERRO[0m[0045] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:39192"
+[36mINFO[0m[0045] /workspaces/1                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m=4.443553ms
+[31mERRO[0m[0090] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:39192"
+[36mINFO[0m[0090] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m=3.51258ms
+[31mERRO[0m[0163] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:39192"
+[36mINFO[0m[0163] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m=4.151361ms
+[36mINFO[0m[0212] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m=1.707864ms
+[36mINFO[0m[0220] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m="667.114µs"
+[36mINFO[0m[0242] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m="756.362µs"
+[36mINFO[0m[0389] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m="664.305µs"
+[36mINFO[0m[0476] /workspaces/5/channels                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:39192" [36mwork_time[0m="843.549µs"
+[36mINFO[0m[0560] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=9.707759ms
+[36mINFO[0m[0567] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=1.349751ms
+[36mINFO[0m[0657] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m="102.87µs"
+[36mINFO[0m[0669] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m="93.798µs"
+[36mINFO[0m[0883] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m="409.287µs"
+[31mERRO[0m[0934] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:44740"
+[36mINFO[0m[0934] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=36.698618ms
+[31mERRO[0m[0935] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:44740"
+[36mINFO[0m[0935] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=5.442411ms
+[31mERRO[0m[0936] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:44740"
+[36mINFO[0m[0936] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=4.817614ms
+[31mERRO[0m[0936] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:44740"
+[36mINFO[0m[0936] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=4.103676ms
+[31mERRO[0m[0942] {"Cause":{},"Detail":"workspace not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:44740"
+[36mINFO[0m[0942] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=10.578577ms
+[36mINFO[0m[0994] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=26.030177ms
+[36mINFO[0m[0994] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m="24.607µs"
+[36mINFO[0m[1007] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=18.661762ms
+[36mINFO[0m[1007] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m="24.277µs"
+[36mINFO[0m[1016] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=15.762736ms
+[36mINFO[0m[1016] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m="31.488µs"
+[36mINFO[0m[1053] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:44740" [36mwork_time[0m=2.697118ms
+[36mINFO[0m[0033] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="172.619µs"
+[36mINFO[0m[0047] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=24.817956ms
+[36mINFO[0m[0047] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="69.972µs"
+[36mINFO[0m[0155] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=31.306113ms
+[36mINFO[0m[0155] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="24.605µs"
+[36mINFO[0m[0158] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=18.090714ms
+[36mINFO[0m[0158] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="25.043µs"
+[36mINFO[0m[0242] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=23.471437ms
+[36mINFO[0m[0243] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="29.644µs"
+[36mINFO[0m[0268] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=23.884404ms
+[36mINFO[0m[0268] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="28.21µs"
+[36mINFO[0m[0328] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=15.455824ms
+[36mINFO[0m[0328] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="36.573µs"
+[36mINFO[0m[0420] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=33.323837ms
+[36mINFO[0m[0420] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="39.821µs"
+[36mINFO[0m[0473] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m=19.684524ms
+[36mINFO[0m[0473] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:50482" [36mwork_time[0m="25.363µs"
+[36mINFO[0m[1149] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33330" [36mwork_time[0m=32.285922ms
+[36mINFO[0m[1149] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33330" [36mwork_time[0m="37.201µs"
+[36mINFO[0m[1237] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33330" [36mwork_time[0m=24.079879ms
+[36mINFO[0m[1237] /chats/2/messages                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33330" [36mwork_time[0m="31.979µs"
+[36mINFO[0m[1324] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33330" [36mwork_time[0m=25.797083ms
+[36mINFO[0m[1327] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33330" [36mwork_time[0m=20.424345ms
+[36mINFO[0m[1385] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:33330" [36mwork_time[0m=23.904616ms
+[36mINFO[0m[1413] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36146" [36mwork_time[0m=8.629457ms
+[36mINFO[0m[1422] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36146" [36mwork_time[0m=3.717629ms
+[36mINFO[0m[1468] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36146" [36mwork_time[0m=10.16389ms
+[36mINFO[0m[0005] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=13.987838ms
+[36mINFO[0m[0010] /chats                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=40.575313ms
+[36mINFO[0m[0010] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=7.823095ms
+[36mINFO[0m[0010] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=5.791524ms
+[36mINFO[0m[0019] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:37200" [36mwork_time[0m=20.792659ms
+[36mINFO[0m[0027] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:37200" [36mwork_time[0m=16.451427ms
+[36mINFO[0m[0034] /chats                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:37200" [36mwork_time[0m=12.421136ms
+[36mINFO[0m[0034] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:37200" [36mwork_time[0m=19.170519ms
+[36mINFO[0m[0034] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:37200" [36mwork_time[0m=16.394025ms
+[36mINFO[0m[0041] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=6.517878ms
+[36mINFO[0m[0043] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=6.656929ms
+[36mINFO[0m[0070] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:37200" [36mwork_time[0m=22.531924ms
+[36mINFO[0m[0093] /workspaces                                   [36mmethod[0m=POST [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=7.409669ms
+[36mINFO[0m[0093] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=7.405732ms
+[36mINFO[0m[0093] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=12.173516ms
+[36mINFO[0m[0102] /workspaces/6/channels                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=23.08942ms
+[36mINFO[0m[0102] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=10.981651ms
+[36mINFO[0m[0102] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=10.83209ms
+[36mINFO[0m[0104] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=3.719159ms
+[36mINFO[0m[0104] /channels/5                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=2.432096ms
+[36mINFO[0m[0104] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=10.04164ms
+[36mINFO[0m[0123] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=6.531115ms
+[36mINFO[0m[0123] /channels/5                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=5.950941ms
+[36mINFO[0m[0123] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=13.926774ms
+[36mINFO[0m[0135] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=4.362356ms
+[36mINFO[0m[0135] /channels/5                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=8.016916ms
+[36mINFO[0m[0135] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=14.479587ms
+[36mINFO[0m[0172] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=29.779793ms
+[36mINFO[0m[0172] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=27.289983ms
+[36mINFO[0m[0187] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=9.082346ms
+[36mINFO[0m[0187] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=10.227483ms
+[36mINFO[0m[0230] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=4.824057ms
+[36mINFO[0m[0230] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=19.806893ms
+[36mINFO[0m[0237] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:36996" [36mwork_time[0m=9.766845ms
+[36mINFO[0m[0237] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:38510" [36mwork_time[0m=18.217935ms
+[36mINFO[0m[0003] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=29.304659ms
+[36mINFO[0m[0003] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=19.672262ms
+[36mINFO[0m[0016] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=11.601254ms
+[36mINFO[0m[0021] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=5.405505ms
+[36mINFO[0m[0021] /channels/5                                   [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=3.501486ms
+[36mINFO[0m[0021] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=13.986197ms
+[36mINFO[0m[0128] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=33.708675ms
+[36mINFO[0m[0137] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=19.939206ms
+[36mINFO[0m[0147] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=22.450363ms
+[36mINFO[0m[0152] /workspaces/6                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=5.10009ms
+[36mINFO[0m[0152] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=10.240924ms
+[36mINFO[0m[0159] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=14.800265ms
+[36mINFO[0m[0160] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=15.980179ms
+[36mINFO[0m[0013] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46696" [36mstatus_code[0m=200 [36mwork_time[0m=29.145594ms

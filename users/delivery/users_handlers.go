@@ -4,15 +4,17 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/go-park-mail-ru/2019_2_CoolCode/repository"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils"
-	"github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/utils/models"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/google/uuid"
 	"github.com/gorilla/csrf"
 	"github.com/gorilla/mux"
+	"github.com/mailru/easyjson"
 	"github.com/sirupsen/logrus"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 )
@@ -35,9 +37,7 @@ func NewUsersHandlers(users useCase.UsersUseCase, sessions repository.SessionRep
 
 func (handlers *UserHandlers) SignUp(w http.ResponseWriter, r *http.Request) {
 	var newUser models.User
-	body := r.Body
-	decoder := json.NewDecoder(body)
-	err := decoder.Decode(&newUser)
+	err := easyjson.UnmarshalFromReader(r.Body, &newUser)
 	if err != nil {
 		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid JSON.")
 		handlers.utils.HandleError(err, w, r)
@@ -54,9 +54,7 @@ func (handlers *UserHandlers) SignUp(w http.ResponseWriter, r *http.Request) {
 func (handlers *UserHandlers) Login(w http.ResponseWriter, r *http.Request) {
 	var loginUser models.User
 	w.Header().Set("X-CSRF-Token", csrf.Token(r))
-	body := r.Body
-	decoder := json.NewDecoder(body)
-	err := decoder.Decode(&loginUser)
+	err := easyjson.UnmarshalFromReader(r.Body, &loginUser)
 	if err != nil {
 		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid JSON.")
 		handlers.utils.HandleError(err, w, r)
@@ -77,13 +75,15 @@ func (handlers *UserHandlers) Login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		user.Password = ""
-		body, err := json.Marshal(user)
+		body, err := easyjson.Marshal(user)
 		if err != nil {
 			handlers.utils.HandleError(err, w, r)
 			return
 		}
+		cookie.Path = "/"
 		http.SetCookie(w, &cookie)
 		w.Header().Set("content-type", "application/json")
+		logrus.Info("Cookie = " + cookie.Value)
 
 		//create csrf token
 		tokenExpiration := time.Now().Add(24 * time.Hour)
@@ -183,7 +183,7 @@ func (handlers *UserHandlers) GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	user.Password = ""
-	body, err := json.Marshal(user)
+	body, err := easyjson.Marshal(user)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return
@@ -198,18 +198,19 @@ func (handlers *UserHandlers) GetUser(w http.ResponseWriter, r *http.Request) {
 
 func (handlers *UserHandlers) GetUserBySession(w http.ResponseWriter, r *http.Request) {
 	sessionID, err := r.Cookie("session_id")
+
 	if err != nil {
 		handlers.utils.HandleError(models.NewClientError(err, http.StatusUnauthorized, "Not authorized:("), w, r)
 		return
 	}
-
+	logrus.Info("cookie = " + sessionID.Value)
 	user, err := handlers.parseCookie(sessionID)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return
 	}
 
-	body, err := json.Marshal(user)
+	body, err := easyjson.Marshal(user)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return
@@ -293,6 +294,11 @@ func (handlers *UserHandlers) FindUsers(w http.ResponseWriter, r *http.Request) 
 	cookie, _ := r.Cookie("session_id")
 
 	user, err := handlers.parseCookie(cookie)
+	if err != nil {
+		handlers.utils.HandleError(err, w, r)
+		return
+	}
+	name, err = url.PathUnescape(name)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return

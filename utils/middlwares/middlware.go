@@ -3,14 +3,19 @@ package middleware
 import (
 	"context"
 	useCase "github.com/go-park-mail-ru/2019_2_CoolCodeMicroServices/users/usecase"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
 	"net/http"
 	"time"
 )
 
+var hits = prometheus.NewCounterVec(prometheus.CounterOpts{
+	Name: "hits",
+}, []string{"status", "path"})
+
 type HandlersMiddlwares struct {
-	Users useCase.UsersUseCase
-	Logger   *logrus.Logger
+	Users  useCase.UsersUseCase
+	Logger *logrus.Logger
 }
 
 func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *http.Request)) http.Handler {
@@ -58,9 +63,13 @@ func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *
 }
 
 func (m *HandlersMiddlwares) LogMiddleware(next http.Handler, logrusLogger *logrus.Logger) http.Handler {
+	prometheus.MustRegister(hits)
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
+
 		next.ServeHTTP(w, r)
+		hits.WithLabelValues("200", r.URL.String()).Inc()
 		m.Logger.WithFields(logrus.Fields{
 			"method":      r.Method,
 			"remote_addr": r.RemoteAddr,
@@ -70,6 +79,7 @@ func (m *HandlersMiddlwares) LogMiddleware(next http.Handler, logrusLogger *logr
 }
 
 func (m *HandlersMiddlwares) PanicMiddleware(next http.Handler) http.Handler {
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
 			if err := recover(); err != nil {

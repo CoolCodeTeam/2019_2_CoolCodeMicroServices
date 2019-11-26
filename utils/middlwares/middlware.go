@@ -1,9 +1,11 @@
 package middleware
 
 import (
+	"bufio"
 	"context"
 	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/sirupsen/logrus"
+	"net"
 	"net/http"
 	"time"
 )
@@ -24,6 +26,10 @@ func (l *LogResponse) Header() http.Header {
 
 func (l *LogResponse) Write(body []byte) (int, error) {
 	return l.w.Write(body)
+}
+
+func (l *LogResponse) Hijack() (net.Conn, *bufio.ReadWriter, error) {
+	return l.w.(http.Hijacker).Hijack()
 }
 
 func (l *LogResponse) WriteHeader(code int) {

@@ -55,7 +55,7 @@ func runMessageAPITest(t *testing.T, testCase *MessageTestCase) {
 			middlware.Users = testCase.Users
 		}
 		apitest.New().
-			Handler(middlware.LogMiddleware(middlware.AuthMiddleware(testCase.Handler), logrus.e)).
+			Handler(middlware.LogMiddleware(middlware.AuthMiddleware(testCase.Handler), logrus.New())).
 			Method(testCase.Method).
 			Headers(testCase.Headers).
 			URL(testCase.URL).

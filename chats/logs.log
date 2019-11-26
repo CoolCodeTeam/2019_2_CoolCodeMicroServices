@@ -274,3 +274,4 @@
 [36mINFO[0m[0152] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=10.240924ms
 [36mINFO[0m[0159] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=14.800265ms
 [36mINFO[0m[0160] /chats/users/3                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41214" [36mwork_time[0m=15.980179ms
+[36mINFO[0m[0013] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46696" [36mstatus_code[0m=200 [36mwork_time[0m=29.145594ms

@@ -404,3 +404,7 @@
 [36mINFO[0m[0464] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56082" [36mwork_time[0m="667.538µs"
 [36mINFO[0m[0464] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56082" [36mwork_time[0m="740.242µs"
 [36mINFO[0m[0464] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56082" [36mwork_time[0m=3.514145ms
+[36mINFO[0m[0029] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:55038" [36mstatus_code[0m=200 [36mwork_time[0m=5.099983ms
+[36mINFO[0m[0029] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:55038" [36mstatus_code[0m=200 [36mwork_time[0m="555.111µs"
+[36mINFO[0m[0029] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:55038" [36mstatus_code[0m=200 [36mwork_time[0m="694.238µs"
+[36mINFO[0m[0029] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:55038" [36mstatus_code[0m=200 [36mwork_time[0m="508.453µs"

@@ -294,6 +294,10 @@ func (handlers *UserHandlers) FindUsers(w http.ResponseWriter, r *http.Request) 
 	cookie, _ := r.Cookie("session_id")
 
 	user, err := handlers.parseCookie(cookie)
+	if err != nil {
+		handlers.utils.HandleError(err, w, r)
+		return
+	}
 	name, err = url.PathUnescape(name)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)

@@ -13,6 +13,24 @@ type HandlersMiddlwares struct {
 	Logger *logrus.Logger
 }
 
+type LogResponse struct {
+	w      http.ResponseWriter
+	status int
+}
+
+func (l *LogResponse) Header() http.Header {
+	return l.w.Header()
+}
+
+func (l *LogResponse) Write(body []byte) (int, error) {
+	return l.w.Write(body)
+}
+
+func (l *LogResponse) WriteHeader(code int) {
+	l.w.WriteHeader(code)
+	l.status = code
+}
+
 func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *http.Request)) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		session, err := r.Cookie("session_id")
@@ -61,11 +79,16 @@ func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *
 func (m *HandlersMiddlwares) LogMiddleware(next http.Handler, logrusLogger *logrus.Logger) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
-		next.ServeHTTP(w, r)
+		logWriter := LogResponse{
+			w:      w,
+			status: 200,
+		}
+		next.ServeHTTP(&logWriter, r)
 		m.Logger.WithFields(logrus.Fields{
 			"method":      r.Method,
 			"remote_addr": r.RemoteAddr,
 			"work_time":   time.Since(start),
+			"status_code": logWriter.status,
 		}).Info(r.URL.Path)
 	})
 }

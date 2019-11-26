@@ -320,11 +320,13 @@ func TestMessageUseCaseImpl_FindMessages(t *testing.T) {
 	assert.NotNil(t, err)
 
 	//test chat not permission, channel ok
-	messagesSlice := make([]*models.Message, 1)
-	messagesSlice = append(messagesSlice, &models.Message{})
+	messagesSlice := make([]*models.Message, 0)
+	messagesSlice = append(messagesSlice, &models.Message{ChatID: 0})
 	messageUseCase.repository = &repository.MessageRepositoryMock{
 		FindMessagesFunc: func(s string) (messages models.Messages, e error) {
-			return models.Messages{}, nil
+			return models.Messages{
+				Messages: messagesSlice,
+			}, nil
 		},
 	}
 	messageUseCase.chats = &chats.ChatsUseCaseMock{

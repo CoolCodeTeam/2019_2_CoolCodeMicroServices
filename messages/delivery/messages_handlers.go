@@ -244,6 +244,10 @@ func (m *MessageHandlersImpl) FindMessages(w http.ResponseWriter, r *http.Reques
 		findString = ""
 	}
 	user, err := m.parseCookie(r)
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+		return
+	}
 	findString, err = url.PathUnescape(findString)
 	if err != nil {
 		m.utils.HandleError(err, w, r)

@@ -121,7 +121,7 @@ func main() {
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetUser)).Methods("GET")
 	r.Handle("/users/names/{name:[\\s\\S]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
-	logrus.Info("Server started")
+	logrus.Info("Users http server started")
 	err = http.ListenAndServe(":8001", corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)

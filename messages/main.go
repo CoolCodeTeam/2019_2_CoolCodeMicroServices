@@ -119,7 +119,7 @@ func main() {
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.DeleteMessage)).Methods("DELETE")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.EditMessage)).Methods("PUT")
 	r.Handle("/messages/{id:[0-9]+}/likes", middlewares.AuthMiddleware(messagesApi.Like)).Methods("POST")
-	logrus.Info("Server started")
+	logrus.Info("Messages http server started")
 	err = http.ListenAndServe(":8004", corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)

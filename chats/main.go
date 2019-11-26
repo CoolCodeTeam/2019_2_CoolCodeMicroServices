@@ -157,8 +157,8 @@ func main() {
 	r.Handle("/workspaces/{id:[0-9]+}", middlewares.AuthMiddleware(chatsApi.RemoveWorkspace)).Methods("DELETE")
 	r.Handle("/workspaces", middlewares.AuthMiddleware(chatsApi.PostWorkspace)).Methods("POST")
 	r.Handle("/metrics", promhttp.Handler())
-	err = http.ListenAndServe(port, corsMiddleware(handler))
 	logrus.Info("Chats http server started")
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

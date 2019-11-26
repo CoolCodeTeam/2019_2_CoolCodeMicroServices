@@ -106,8 +106,8 @@ func main() {
 	r.Handle("/notifications/chats/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
 	r.Handle("/notifications/channels/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
 	r.Handle("/metrics", promhttp.Handler())
-	err = http.ListenAndServe(port, corsMiddleware(handler))
 	logrus.Info("Notfications http server started")
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

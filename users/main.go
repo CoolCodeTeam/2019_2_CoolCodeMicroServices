@@ -94,8 +94,6 @@ func main() {
 	consul := utils.GetConsul(consulCfg["url"])
 	configs := utils.LoadConfig(consul, consulCfg["prefix"])
 
-	fmt.Println(configs)
-
 	dbconfig := DBConfig{
 		configs["db_name"],
 		configs["db_user"],
@@ -144,8 +142,8 @@ func main() {
 	r.Handle("/users/names/{name:[\\s\\S]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
 	r.Handle("/metrics", promhttp.Handler())
-	err = http.ListenAndServe(port, corsMiddleware(handler))
 	logrus.Info("Users http server started")
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

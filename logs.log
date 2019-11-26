@@ -137,3 +137,58 @@
 [36mINFO[0m[0011] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56586" [36mstatus_code[0m=200 [36mwork_time[0m="740.08µs"
 [36mINFO[0m[0011] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56546" [36mstatus_code[0m=200 [36mwork_time[0m="653.239µs"
 [31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[36mINFO[0m[0006] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43468" [36mstatus_code[0m=200 [36mwork_time[0m=4.552496ms
+[36mINFO[0m[0009] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43652" [36mstatus_code[0m=200 [36mwork_time[0m=4.422498ms
+[36mINFO[0m[0014] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51040" [36mstatus_code[0m=200 [36mwork_time[0m=4.526333ms
+[36mINFO[0m[0021] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43468" [36mstatus_code[0m=200 [36mwork_time[0m=3.604772ms
+[31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[36mINFO[0m[0003] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51150" [36mstatus_code[0m=200 [36mwork_time[0m=4.430217ms
+[36mINFO[0m[0009] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43586" [36mstatus_code[0m=200 [36mwork_time[0m=4.564275ms
+[36mINFO[0m[0012] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43770" [36mstatus_code[0m=200 [36mwork_time[0m=2.672659ms
+[31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[36mINFO[0m[0003] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43684" [36mstatus_code[0m=200 [36mwork_time[0m=3.751066ms
+[36mINFO[0m[0006] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43880" [36mstatus_code[0m=200 [36mwork_time[0m=2.400719ms
+[36mINFO[0m[0011] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51272" [36mstatus_code[0m=200 [36mwork_time[0m=4.696596ms
+[36mINFO[0m[0003] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=1.96555ms
+[36mINFO[0m[0003] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=1.531642ms
+[36mINFO[0m[0005] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=2.705545ms
+[36mINFO[0m[0011] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=4.774586ms
+[36mINFO[0m[0018] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=1.762915ms
+[36mINFO[0m[0018] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=4.190024ms
+[36mINFO[0m[0020] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=1.3783ms
+[36mINFO[0m[0026] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=2.406117ms
+[36mINFO[0m[0033] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=1.183924ms
+[36mINFO[0m[0033] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=5.512574ms
+[36mINFO[0m[0035] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=2.345231ms
+[36mINFO[0m[0041] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=5.6595ms
+[36mINFO[0m[0048] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=1.829918ms
+[36mINFO[0m[0048] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=1.208114ms
+[36mINFO[0m[0050] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=2.064356ms
+[36mINFO[0m[0056] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=2.51676ms
+[36mINFO[0m[0063] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=1.393447ms
+[36mINFO[0m[0063] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=2.669893ms
+[36mINFO[0m[0065] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=2.7272ms
+[36mINFO[0m[0071] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=2.4934ms
+[36mINFO[0m[0078] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=5.776466ms
+[36mINFO[0m[0078] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=2.955154ms
+[36mINFO[0m[0080] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=3.287961ms
+[36mINFO[0m[0086] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=1.109989ms
+[36mINFO[0m[0093] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=2.841435ms
+[36mINFO[0m[0093] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=1.598925ms
+[36mINFO[0m[0095] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=2.189501ms
+[36mINFO[0m[0101] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=2.08911ms
+[31mERRO[0m[0000] listen tcp :8082: bind: address already in use 
+[36mINFO[0m[0108] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43780" [36mstatus_code[0m=200 [36mwork_time[0m=1.250273ms
+[36mINFO[0m[0108] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:39940" [36mstatus_code[0m=200 [36mwork_time[0m=1.083454ms
+[36mINFO[0m[0110] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43966" [36mstatus_code[0m=200 [36mwork_time[0m=2.129566ms
+[36mINFO[0m[0116] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51352" [36mstatus_code[0m=200 [36mwork_time[0m=1.106609ms
+[36mINFO[0m[0000] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43832" [36mstatus_code[0m=200 [36mwork_time[0m=1.515846ms
+[36mINFO[0m[0001] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:40008" [36mstatus_code[0m=200 [36mwork_time[0m=3.486433ms
+[36mINFO[0m[0004] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:44034" [36mstatus_code[0m=200 [36mwork_time[0m=1.223402ms
+[36mINFO[0m[0009] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51420" [36mstatus_code[0m=200 [36mwork_time[0m=1.201021ms
+[36mINFO[0m[0015] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:43832" [36mstatus_code[0m=200 [36mwork_time[0m=1.098117ms
+[36mINFO[0m[0016] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:40008" [36mstatus_code[0m=200 [36mwork_time[0m=2.928962ms
+[36mINFO[0m[0019] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:44034" [36mstatus_code[0m=200 [36mwork_time[0m=3.18885ms
+[36mINFO[0m[0024] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:51420" [36mstatus_code[0m=200 [36mwork_time[0m=1.250086ms

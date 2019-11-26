@@ -69,7 +69,6 @@ func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *
 			w.WriteHeader(http.StatusUnauthorized)
 			return
 		}
-		logrus.Info("cookie = " + session.Value)
 		id, err := m.Users.GetUserBySession(session.Value)
 		if err != nil {
 			logrus.SetFormatter(&logrus.TextFormatter{})

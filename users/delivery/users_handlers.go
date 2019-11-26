@@ -83,7 +83,6 @@ func (handlers *UserHandlers) Login(w http.ResponseWriter, r *http.Request) {
 		cookie.Path = "/"
 		http.SetCookie(w, &cookie)
 		w.Header().Set("content-type", "application/json")
-		logrus.Info("Cookie = " + cookie.Value)
 
 		//create csrf token
 		tokenExpiration := time.Now().Add(24 * time.Hour)
@@ -203,7 +202,6 @@ func (handlers *UserHandlers) GetUserBySession(w http.ResponseWriter, r *http.Re
 		handlers.utils.HandleError(models.NewClientError(err, http.StatusUnauthorized, "Not authorized:("), w, r)
 		return
 	}
-	logrus.Info("cookie = " + sessionID.Value)
 	user, err := handlers.parseCookie(sessionID)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)

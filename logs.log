@@ -101,3 +101,4 @@
 [36mINFO[0m[0015] /chats/2                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40876" [36mstatus_code[0m=200 [36mwork_time[0m=7.249655ms
 [31mERRO[0m[0021] {"Cause":{},"Detail":"chat not exists: sql: no rows in result set","Status":400}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:40876"
 [36mINFO[0m[0021] /chats/10                                     [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40876" [36mstatus_code[0m=400 [36mwork_time[0m=1.851943ms
+[36mINFO[0m[0008] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:43796" [36mstatus_code[0m=200 [36mwork_time[0m=22.958991ms

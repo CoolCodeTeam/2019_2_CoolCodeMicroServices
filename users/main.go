@@ -16,7 +16,9 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io"
@@ -25,19 +27,19 @@ import (
 	"os"
 )
 
-const (
-	DB_USER     = "postgres"
-	DB_PASSWORD = "1"
-	DB_NAME     = "postgres"
-)
+type DBConfig struct {
+	DBName     string
+	DBUser     string
+	DBPassword string
+}
 
 var (
 	redisAddr = flag.String("addr", "redis://localhost:6379", "redis addr")
 )
 
-func connectDatabase() (*sql.DB, error) {
+func connectDatabase(config DBConfig) (*sql.DB, error) {
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		DB_USER, DB_PASSWORD, DB_NAME)
+		config.DBUser, config.DBPassword, config.DBName)
 
 	db, err := sql.Open("postgres", dbinfo)
 	if err != nil {
@@ -70,10 +72,6 @@ func startUsersGRPCService(port string, service grpc_utils.UsersServiceServer) {
 }
 
 func main() {
-	//Connect databases
-	redis := connectRedis()
-	db, err := connectDatabase()
-
 	//Init logrus
 	logrusLogger := logrus.New()
 	logrusLogger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
@@ -84,6 +82,28 @@ func main() {
 	defer f.Close()
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
+
+	viper.AddConfigPath("./users")
+	viper.SetConfigName("config")
+	if err := viper.ReadInConfig(); err != nil {
+		logrusLogger.Error("Can`t get viper config:" + err.Error())
+	}
+
+	consulCfg := viper.GetStringMapString("consul")
+
+	consul := utils.GetConsul(consulCfg["url"])
+	configs := utils.LoadConfig(consul, consulCfg["prefix"])
+
+	dbconfig := DBConfig{
+		configs["db_name"],
+		configs["db_user"],
+		configs["db_password"],
+	}
+	port := ":" + configs["port"]
+
+	//Connect databases
+	redis := connectRedis()
+	db, err := connectDatabase(dbconfig)
 
 	sessionRepository := repository.NewSessionRedisStore(redis)
 	users := useCase.NewUserUseCase(repository.NewUserDBStore(db), sessionRepository)
@@ -121,13 +141,13 @@ func main() {
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetUser)).Methods("GET")
 	r.Handle("/users/names/{name:[\\s\\S]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
+	r.Handle("/metrics", promhttp.Handler())
 	logrus.Info("Users http server started")
-	err = http.ListenAndServe(":8001", corsMiddleware(handler))
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return
 	}
-
 }
 
 func connectRedis() *redis.Pool {

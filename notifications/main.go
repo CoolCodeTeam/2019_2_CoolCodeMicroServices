@@ -9,7 +9,9 @@ import (
 	middleware "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/middlwares"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io"
@@ -51,7 +53,6 @@ func connectGRPC(address string) *grpc.ClientConn {
 }
 
 func main() {
-
 	//Init logrus
 	logrusLogger := logrus.New()
 	logrusLogger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
@@ -62,6 +63,19 @@ func main() {
 	defer f.Close()
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
+
+	viper.AddConfigPath("./notifications")
+	viper.SetConfigName("config")
+	if err := viper.ReadInConfig(); err != nil {
+		logrusLogger.Error("Can`t get viper config:" + err.Error())
+	}
+
+	consulCfg := viper.GetStringMapString("consul")
+
+	consul := utils.GetConsul(consulCfg["url"])
+	configs := utils.LoadConfig(consul, consulCfg["prefix"])
+
+	port := ":" + configs["port"]
 
 	handlersUtils := utils.NewHandlersUtils(logrusLogger)
 	notificationsUseCase := useCase.NewNotificationUseCase()
@@ -91,8 +105,9 @@ func main() {
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
 	r.Handle("/notifications/chats/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
 	r.Handle("/notifications/channels/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
+	r.Handle("/metrics", promhttp.Handler())
 	logrus.Info("Notfications http server started")
-	err = http.ListenAndServe(":8003", corsMiddleware(handler))
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

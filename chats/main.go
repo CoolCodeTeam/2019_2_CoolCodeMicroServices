@@ -14,7 +14,9 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 	"io"
@@ -23,19 +25,19 @@ import (
 	"os"
 )
 
-const (
-	DB_USER     = "postgres"
-	DB_PASSWORD = "1"
-	DB_NAME     = "postgres"
-)
+type DBConfig struct {
+	DBName     string
+	DBUser     string
+	DBPassword string
+}
 
 const (
 	users_address = "localhost:5000"
 )
 
-func connectDatabase() (*sql.DB, error) {
+func connectDatabase(config DBConfig) (*sql.DB, error) {
 	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable",
-		DB_USER, DB_PASSWORD, DB_NAME)
+		config.DBUser, config.DBPassword, config.DBName)
 
 	db, err := sql.Open("postgres", dbinfo)
 	if err != nil {
@@ -45,7 +47,6 @@ func connectDatabase() (*sql.DB, error) {
 		return db, errors.New("Can not connect to database")
 	}
 	return db, nil
-
 }
 
 func connectGRPC(address string) *grpc.ClientConn {
@@ -76,9 +77,6 @@ func startChatsGRPCService(port string, service grpc_utils.ChatsServiceServer) {
 }
 
 func main() {
-	//Connect to Redis
-	db, err := connectDatabase()
-
 	//Init logrus
 	logrusLogger := logrus.New()
 	logrusLogger.SetFormatter(&logrus.TextFormatter{ForceColors: true})
@@ -89,6 +87,27 @@ func main() {
 	defer f.Close()
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
+
+	viper.AddConfigPath("./chats")
+	viper.SetConfigName("config")
+	if err := viper.ReadInConfig(); err != nil {
+		logrusLogger.Error("Can`t get viper config:" + err.Error())
+	}
+
+	consulCfg := viper.GetStringMapString("consul")
+
+	consul := utils.GetConsul(consulCfg["url"])
+	configs := utils.LoadConfig(consul, consulCfg["prefix"])
+
+	dbconfig := DBConfig{
+		configs["db_name"],
+		configs["db_user"],
+		configs["db_password"],
+	}
+	port := ":" + configs["port"]
+
+	//Connect database
+	db, err := connectDatabase(dbconfig)
 
 	//Connect to users
 	conn := connectGRPC(users_address)
@@ -137,8 +156,9 @@ func main() {
 	//TODO: r.Handle("/workspaces/{id:[0-9]+}/members", middlewares.AuthMiddleware(chatsApi.LogoutFromWorkspace)).Methods("DELETE")
 	r.Handle("/workspaces/{id:[0-9]+}", middlewares.AuthMiddleware(chatsApi.RemoveWorkspace)).Methods("DELETE")
 	r.Handle("/workspaces", middlewares.AuthMiddleware(chatsApi.PostWorkspace)).Methods("POST")
+	r.Handle("/metrics", promhttp.Handler())
 	logrus.Info("Chats http server started")
-	err = http.ListenAndServe(":8002", corsMiddleware(handler))
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

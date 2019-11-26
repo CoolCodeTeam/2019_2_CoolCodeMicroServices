@@ -136,3 +136,8 @@
 [36mINFO[0m[0010] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56546" [36mstatus_code[0m=200 [36mwork_time[0m="696.286µs"
 [36mINFO[0m[0011] /users/photos/3                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56586" [36mstatus_code[0m=200 [36mwork_time[0m="740.08µs"
 [36mINFO[0m[0011] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:56546" [36mstatus_code[0m=200 [36mwork_time[0m="653.239µs"
+[36mINFO[0m[0085] /messages/channels/2                          [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60216" [36mstatus_code[0m=401 [36mwork_time[0m=2.869377ms
+[31mERRO[0m[0105] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = channel not exists: sql: Scan error on column index 3, name \"creatorid\": converting NULL to uint64 is unsupported : sql: Scan error on column index 3, name \"creatorid\": converting NULL to uint64 is unsupported" [31mmethod[0m=GET [31mremote_addr[0m="[::1]:60216"
+[36mINFO[0m[0105] /messages/channels/2                          [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60216" [36mstatus_code[0m=500 [36mwork_time[0m=26.474776ms
+[36mINFO[0m[0113] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60216" [36mstatus_code[0m=200 [36mwork_time[0m=22.005305ms
+[36mINFO[0m[0001] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:32870" [36mstatus_code[0m=200 [36mwork_time[0m=28.677373ms

@@ -6,16 +6,49 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
 	"net/http"
+	"strconv"
 	"time"
 )
 
-var hits = prometheus.NewCounterVec(prometheus.CounterOpts{
-	Name: "hits",
-}, []string{"status", "path"})
+var (
+	hits = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "hits",
+		},
+		[]string{"status", "path"},
+	)
+
+	timings = prometheus.NewSummaryVec(
+		prometheus.SummaryOpts{
+			Name:       "timings",
+			Help:       "Timings",
+			Objectives: map[float64]float64{0.5: 0.05, 0.9: 0.01, 0.99: 0.001},
+		},
+		[]string{"path"},
+	)
+)
 
 type HandlersMiddlwares struct {
 	Users  useCase.UsersUseCase
 	Logger *logrus.Logger
+}
+
+type LogResponse struct {
+	w      http.ResponseWriter
+	status int
+}
+
+func (l *LogResponse) Header() http.Header {
+	return l.w.Header()
+}
+
+func (l *LogResponse) Write(body []byte) (int, error) {
+	return l.w.Write(body)
+}
+
+func (l *LogResponse) WriteHeader(code int) {
+	l.w.WriteHeader(code)
+	l.status = code
 }
 
 func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *http.Request)) http.Handler {
@@ -64,17 +97,31 @@ func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *
 
 func (m *HandlersMiddlwares) LogMiddleware(next http.Handler, logrusLogger *logrus.Logger) http.Handler {
 	prometheus.MustRegister(hits)
+	prometheus.MustRegister(timings)
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 
-		next.ServeHTTP(w, r)
-		hits.WithLabelValues("200", r.URL.String()).Inc()
+		logWriter := LogResponse{
+			w:      w,
+			status: 200,
+		}
+		next.ServeHTTP(&logWriter, r)
+
 		m.Logger.WithFields(logrus.Fields{
 			"method":      r.Method,
 			"remote_addr": r.RemoteAddr,
 			"work_time":   time.Since(start),
+			"status_code": logWriter.status,
 		}).Info(r.URL.Path)
+
+		hits.
+			WithLabelValues(strconv.Itoa(logWriter.status), r.URL.Path).
+			Inc()
+
+		timings.
+			WithLabelValues(r.URL.Path).
+			Observe(float64(time.Since(start).Milliseconds()))
 	})
 }
 

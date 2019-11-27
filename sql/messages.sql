@@ -7,6 +7,7 @@ CREATE TABLE "messages"(
     chatID BIGINT NOT NULL,
     messageTime timestamp,
     authorID BIGINT NOT NULL,
+    likes BIGINT DEFAULT 0,
     hideForAuthor bool default false
 
 );

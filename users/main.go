@@ -24,10 +24,6 @@ import (
 	"os"
 )
 
-var (
-	redisAddr = flag.String("addr", "redis://localhost:6379", "redis addr")
-)
-
 func startUsersGRPCService(port string, service grpc_utils.UsersServiceServer) {
 	lis, err := net.Listen("tcp", ":5000")
 	if err != nil {
@@ -79,7 +75,7 @@ func main() {
 	port := ":" + configs["port"]
 
 	//Connect databases
-	redis := connectRedis()
+	redis := connectRedis(configs["redis_host"], configs["redis_port"])
 	db, err := utils.ConnectDatabase(dbconfig)
 
 	sessionRepository := repository.NewSessionRedisStore(redis)
@@ -127,7 +123,8 @@ func main() {
 	}
 }
 
-func connectRedis() *redis.Pool {
+func connectRedis(host, port string) *redis.Pool {
+	redisAddr := flag.String("addr", "redis://"+host+":"+port, "redis addr")
 	redisConn := &redis.Pool{
 		Dial: func() (conn redis.Conn, e error) {
 			return redis.DialURL(*redisAddr)

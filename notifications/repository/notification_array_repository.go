@@ -11,8 +11,7 @@ type NotificationArrayRepository struct {
 }
 
 func (n *NotificationArrayRepository) GetNotificationHub(chatID uint64) *models.WebSocketHub {
-	n.mutex.Lock()
-	defer n.mutex.Unlock()
+
 	if hub, ok := n.Hubs[chatID]; ok {
 		return hub
 	}

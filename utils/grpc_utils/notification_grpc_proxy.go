@@ -1,6 +1,7 @@
 package grpc_utils
 
 import (
+	"context"
 	"errors"
 	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
@@ -15,7 +16,11 @@ func (n NotificationsGRPCProxy) OpenConn(ID uint64) (*models.WebSocketHub, error
 }
 
 func (n NotificationsGRPCProxy) SendMessage(chatID uint64, message []byte) error {
-	return nil
+	_, err := n.client.SendMessage(context.Background(), &RequestMessageNotification{
+		ChatID:  chatID,
+		Message: message,
+	})
+	return err
 }
 
 func NewNotificationsGRPCProxy(client NotificationsServiceClient) useCase.NotificationUseCase {

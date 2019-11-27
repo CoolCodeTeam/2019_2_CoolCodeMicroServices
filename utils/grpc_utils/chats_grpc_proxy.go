@@ -186,7 +186,7 @@ func (c *ChatsGRPCProxy) LogoutFromWorkspace(userID uint64, workspaceID uint64) 
 }
 
 func (c *ChatsGRPCProxy) LogoutFromChannel(userID uint64, channelID uint64) error {
-	_, err := c.client.LogoutFromWorkspace(context.Background(), &RequestMessage{
+	_, err := c.client.LogoutFromChannel(context.Background(), &RequestMessage{
 		UserID: userID,
 		ChatID: channelID,
 	})

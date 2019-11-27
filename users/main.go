@@ -119,7 +119,7 @@ func main() {
 	r.Handle("/users/names/{name:[\\s\\S]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
 	r.Handle("/metrics", promhttp.Handler())
-	logrus.Info("Users http server started on port: " + port)
+	logrus.Infof("Users http server started on %s port: ", port)
 	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)

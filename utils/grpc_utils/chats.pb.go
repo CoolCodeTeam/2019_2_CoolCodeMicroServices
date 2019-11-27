@@ -638,6 +638,7 @@ const _ = grpc.SupportPackageIsVersion4
 // ChatsServiceClient is the client API for ChatsService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+//go:generate moq -out chats_client_mock.go . ChatsServiceClient
 type ChatsServiceClient interface {
 	CheckChatPermission(ctx context.Context, in *RequestMessage, opts ...grpc.CallOption) (*ResponseMessage, error)
 	CheckChannelPermission(ctx context.Context, in *RequestMessage, opts ...grpc.CallOption) (*ResponseMessage, error)

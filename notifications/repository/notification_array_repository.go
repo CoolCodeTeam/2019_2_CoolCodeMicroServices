@@ -11,7 +11,8 @@ type NotificationArrayRepository struct {
 }
 
 func (n *NotificationArrayRepository) GetNotificationHub(chatID uint64) *models.WebSocketHub {
-
+	n.mutex.Lock()
+	defer n.mutex.Unlock()
 	if hub, ok := n.Hubs[chatID]; ok {
 		return hub
 	}
@@ -20,5 +21,5 @@ func (n *NotificationArrayRepository) GetNotificationHub(chatID uint64) *models.
 }
 
 func NewArrayRepo() NotificationRepository {
-	return &NotificationArrayRepository{Hubs: make(map[uint64]*models.WebSocketHub), mutex: sync.Mutex{}}
+	return &NotificationArrayRepository{Hubs: make(map[uint64]*models.WebSocketHub, 0), mutex: sync.Mutex{}}
 }

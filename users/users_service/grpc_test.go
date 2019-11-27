@@ -143,7 +143,7 @@ func TestUsersServiceImpl_FindUsers(t *testing.T) {
 				name: &grpc_utils.UserName{},
 			},
 			want: &grpc_utils.Users{
-				Users: make([]*grpc_utils.User, 0, 0),
+				Users: make([]*grpc_utils.User, 0),
 			},
 			wantErr: false,
 		},

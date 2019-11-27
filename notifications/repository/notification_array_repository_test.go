@@ -15,7 +15,7 @@ func TestNewArrayRepo(t *testing.T) {
 	}{
 		{
 			name: "DefaultTest",
-			want: &NotificationArrayRepository{Hubs: make(map[uint64]*models.WebSocketHub, 0), mutex: sync.Mutex{}},
+			want: &NotificationArrayRepository{Hubs: make(map[uint64]*models.WebSocketHub), mutex: sync.Mutex{}},
 		},
 	}
 	for _, tt := range tests {
@@ -44,7 +44,7 @@ func TestNotificationArrayRepository_GetNotificationHub(t *testing.T) {
 		{
 			name: "Default test",
 			fields: fields{
-				Hubs: make(map[uint64]*models.WebSocketHub, 0), mutex: sync.Mutex{},
+				Hubs: make(map[uint64]*models.WebSocketHub), mutex: sync.Mutex{},
 			},
 			args: args{chatID: 0},
 			want: &models.WebSocketHub{

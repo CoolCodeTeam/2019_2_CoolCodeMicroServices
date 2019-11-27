@@ -147,3 +147,67 @@
 [36mINFO[0m[0007] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:45652" [36mstatus_code[0m=200 [36mwork_time[0m=279.39686ms
 [36mINFO[0m[0002] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:57806" [36mstatus_code[0m=200 [36mwork_time[0m=1.043064059s
 [36mINFO[0m[0005] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:58310" [36mstatus_code[0m=200 [36mwork_time[0m=991.694114ms
+[31mERRO[0m[0001] {"Cause":{"Severity":"ERROR","Code":"42P01","Message":"relation \"chats_users\" does not exist","Detail":"","Hint":"","Position":"20","InternalPosition":"","InternalQuery":"","Where":"","Schema":"","Table":"","Column":"","DataTypeName":"","Constraint":"","File":"parse_relation.c","Line":"1180","Routine":"parserOpenTable"},"Detail":"Can not get chatsId in GetChats: pq: relation \"chats_users\" does not exist","Status":500}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:53226"
+[36mINFO[0m[0001] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53226" [36mstatus_code[0m=500 [36mwork_time[0m=40.927773ms
+[36mINFO[0m[0011] /chats/users/6                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:46400" [36mstatus_code[0m=200 [36mwork_time[0m=354.879383ms
+[31mERRO[0m[0003] listen tcp :8003: bind: address already in use 
+[36mINFO[0m[0082] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59374" [36mstatus_code[0m=200 [36mwork_time[0m=43.750097ms
+[36mINFO[0m[0083] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39916" [36mstatus_code[0m=200 [36mwork_time[0m=240.743173ms
+[36mINFO[0m[0083] /messages/chats/1                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=81.883433ms
+[36mINFO[0m[0083] /messages/chats/3                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=288.728831ms
+[36mINFO[0m[0083] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=48.388444ms
+[36mINFO[0m[0083] /users/4                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59374" [36mstatus_code[0m=200 [36mwork_time[0m=18.843586ms
+[36mINFO[0m[0084] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=84.718939ms
+[36mINFO[0m[0084] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59374" [36mstatus_code[0m=200 [36mwork_time[0m="847.811µs"
+[36mINFO[0m[0084] /users/photos/5                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59418" [36mstatus_code[0m=200 [36mwork_time[0m="695.301µs"
+[36mINFO[0m[0084] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59422" [36mstatus_code[0m=200 [36mwork_time[0m="734.865µs"
+[36mINFO[0m[0084] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59422" [36mstatus_code[0m=200 [36mwork_time[0m="656.073µs"
+[31mERRO[0m[0147] {"Cause":{},"Detail":"Not authorized:(","Status":401}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:59996"
+[36mINFO[0m[0147] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59996" [36mstatus_code[0m=401 [36mwork_time[0m=1.886956ms
+[31mERRO[0m[0147] {"Cause":{},"Detail":"Not authorized:(","Status":401}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:59996"
+[36mINFO[0m[0147] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59996" [36mstatus_code[0m=401 [36mwork_time[0m="90.732µs"
+[36mINFO[0m[0147] /chats/users/undefined                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40534" [36mstatus_code[0m=404 [36mwork_time[0m="58.422µs"
+[31mERRO[0m[0147] {"Cause":{},"Detail":"Not authorized:(","Status":401}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:59996"
+[36mINFO[0m[0147] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59996" [36mstatus_code[0m=401 [36mwork_time[0m="114.381µs"
+[31mERRO[0m[0147] {"Cause":{},"Detail":"Not authorized:(","Status":401}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:59996"
+[36mINFO[0m[0147] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59996" [36mstatus_code[0m=401 [36mwork_time[0m="133.289µs"
+[36mINFO[0m[0156] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59996" [36mstatus_code[0m=200 [36mwork_time[0m=17.100071ms
+[36mINFO[0m[0156] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59996" [36mstatus_code[0m=200 [36mwork_time[0m=6.677151ms
+[36mINFO[0m[0156] /chats/users/4                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40534" [36mstatus_code[0m=200 [36mwork_time[0m=281.708079ms
+[36mINFO[0m[0156] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=74.386916ms
+[36mINFO[0m[0156] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=65.514365ms
+[36mINFO[0m[0156] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59996" [36mstatus_code[0m=200 [36mwork_time[0m=8.336262ms
+[36mINFO[0m[0156] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60096" [36mstatus_code[0m=200 [36mwork_time[0m=1.919301ms
+[36mINFO[0m[0156] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m=1.839806ms
+[36mINFO[0m[0165] /users/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m=14.218813ms
+[36mINFO[0m[0166] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=44.646013ms
+[36mINFO[0m[0166] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m=12.130773ms
+[36mINFO[0m[0166] /chats/users/4                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40534" [36mstatus_code[0m=200 [36mwork_time[0m=256.166049ms
+[36mINFO[0m[0166] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=50.123903ms
+[36mINFO[0m[0166] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=47.272153ms
+[36mINFO[0m[0166] /users/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m=21.385828ms
+[36mINFO[0m[0166] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=63.916742ms
+[36mINFO[0m[0166] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m="493.328µs"
+[36mINFO[0m[0166] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m="551.081µs"
+[36mINFO[0m[0166] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m="588.254µs"
+[36mINFO[0m[0200] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m=7.690621ms
+[36mINFO[0m[0201] /chats/users/4                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:40534" [36mstatus_code[0m=200 [36mwork_time[0m=210.700156ms
+[36mINFO[0m[0201] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=45.140854ms
+[36mINFO[0m[0201] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=53.955659ms
+[36mINFO[0m[0201] /users/1                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m=16.326055ms
+[36mINFO[0m[0201] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:42244" [36mstatus_code[0m=200 [36mwork_time[0m=47.032834ms
+[36mINFO[0m[0201] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60104" [36mstatus_code[0m=200 [36mwork_time[0m="527.127µs"
+[36mINFO[0m[0201] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60096" [36mstatus_code[0m=200 [36mwork_time[0m="362.377µs"
+[36mINFO[0m[0201] /users/photos/1                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60096" [36mstatus_code[0m=200 [36mwork_time[0m="461.011µs"
+[36mINFO[0m[0222] /users                                        [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59422" [36mstatus_code[0m=200 [36mwork_time[0m=10.575088ms
+[36mINFO[0m[0222] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:39916" [36mstatus_code[0m=200 [36mwork_time[0m=573.376731ms
+[36mINFO[0m[0223] /messages/chats/1                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=50.193486ms
+[36mINFO[0m[0223] /messages/chats/3                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=201.081281ms
+[36mINFO[0m[0223] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=55.099718ms
+[36mINFO[0m[0223] /users/4                                      [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59422" [36mstatus_code[0m=200 [36mwork_time[0m=17.688099ms
+[36mINFO[0m[0223] /messages/chats/8                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=110.573691ms
+[36mINFO[0m[0223] /users/photos/5                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59374" [36mstatus_code[0m=200 [36mwork_time[0m=5.377171ms
+[36mINFO[0m[0223] /users/photos/2                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59422" [36mstatus_code[0m=200 [36mwork_time[0m=23.66367ms
+[36mINFO[0m[0223] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59418" [36mstatus_code[0m=200 [36mwork_time[0m="594.923µs"
+[36mINFO[0m[0223] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59418" [36mstatus_code[0m=200 [36mwork_time[0m="547.789µs"
+[36mINFO[0m[0236] /messages/chats/8                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=636.469456ms

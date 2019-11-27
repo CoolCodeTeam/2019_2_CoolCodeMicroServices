@@ -21,5 +21,5 @@ func (n *NotificationArrayRepository) GetNotificationHub(chatID uint64) *models.
 }
 
 func NewArrayRepo() NotificationRepository {
-	return &NotificationArrayRepository{Hubs: make(map[uint64]*models.WebSocketHub, 0), mutex: sync.Mutex{}}
+	return &NotificationArrayRepository{Hubs: make(map[uint64]*models.WebSocketHub), mutex: sync.Mutex{}}
 }

@@ -6,6 +6,7 @@ CREATE TABLE "messages"(
     fileID BIGINT,
     chatID BIGINT NOT NULL,
     messageTime timestamp,
+    likes BIGINT DEFAULT 0,
     authorID BIGINT NOT NULL,
     hideForAuthor bool default false
 

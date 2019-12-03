@@ -119,7 +119,8 @@ func main() {
 	r.Handle("/metrics", promhttp.Handler())
 	logrus.Infof("Users http server started on %s port: ", port)
 	genetateSSL()
-	err = http.ListenAndServeTLS(port, "cert.pem", "key.pem", corsMiddleware(handler))
+	go http.ListenAndServe(port, http.HandlerFunc(redirectToHttps))
+	err = http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", corsMiddleware(handler))
 	//err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
@@ -147,4 +148,9 @@ func genetateSSL() {
 			logrus.Fatal("Ошибка: Не можем сгенерировать https сертификат.")
 		}
 	}
+}
+
+func redirectToHttps(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "https://95.163.209.195:8080"+r.RequestURI,
+		http.StatusMovedPermanently)
 }

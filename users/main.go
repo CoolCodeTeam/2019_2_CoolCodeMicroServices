@@ -12,6 +12,7 @@ import (
 	"github.com/gomodule/redigo/redis"
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
+	"github.com/kabukky/httpscerts"
 	_ "github.com/lib/pq"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
@@ -117,7 +118,9 @@ func main() {
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
 	r.Handle("/metrics", promhttp.Handler())
 	logrus.Infof("Users http server started on %s port: ", port)
-	err = http.ListenAndServe(port, corsMiddleware(handler))
+	genetateSSL()
+	err = http.ListenAndServeTLS(port, "cert.pem", "key.pem", corsMiddleware(handler))
+	//err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return
@@ -132,4 +135,16 @@ func connectRedis(host, port string) *redis.Pool {
 		},
 	}
 	return redisConn
+}
+
+func genetateSSL() {
+	// Проверяем, доступен ли cert файл.
+	err := httpscerts.Check("cert.pem", "key.pem")
+	// Если он недоступен, то генерируем новый.
+	if err != nil {
+		err = httpscerts.Generate("cert.pem", "key.pem", "95.163.209.195:8001")
+		if err != nil {
+			logrus.Fatal("Ошибка: Не можем сгенерировать https сертификат.")
+		}
+	}
 }

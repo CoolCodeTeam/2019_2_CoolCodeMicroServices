@@ -12,6 +12,7 @@ require (
 	github.com/gorilla/handlers v1.4.2
 	github.com/gorilla/mux v1.7.3
 	github.com/gorilla/websocket v1.4.1
+	github.com/kabukky/httpscerts v0.0.0-20150320125433-617593d7dcb3
 	github.com/lib/pq v1.2.0
 	github.com/mailru/easyjson v0.7.0
 	github.com/prometheus/client_golang v1.2.1

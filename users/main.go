@@ -118,10 +118,10 @@ func main() {
 	r.HandleFunc("/users", usersApi.GetUserBySession).Methods("GET") //TODO:Добавить в API
 	r.Handle("/metrics", promhttp.Handler())
 	logrus.Infof("Users http server started on %s port: ", port)
-	genetateSSL()
-	go http.ListenAndServe(port, http.HandlerFunc(redirectToHttps))
-	err = http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", corsMiddleware(handler))
-	//err = http.ListenAndServe(port, corsMiddleware(handler))
+	//genetateSSL()
+	//go http.ListenAndServe(port, http.HandlerFunc(redirectToHttps))
+	//err = http.ListenAndServeTLS(":8080", "cert.pem", "key.pem", corsMiddleware(handler))
+	err = http.ListenAndServe(port, corsMiddleware(handler))
 	if err != nil {
 		logrusLogger.Error(err)
 		return

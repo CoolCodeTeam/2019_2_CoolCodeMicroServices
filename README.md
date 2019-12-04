@@ -1,7 +1,7 @@
 ## CoolSlack
 
 Frontend:   
-[95.163.209.195:8000](http://95.163.209.195:8000)
+[coolcode.site:8000](http://coolcode.site:8000)
 
 
 
@@ -14,4 +14,4 @@ Frontend:
 
 ### Monitoring
 Grafana:  
-[95.163.209.195:8008](http://95.163.209.195:8008)
+[coolcode.site:8008](http://coolcode.site:8008)

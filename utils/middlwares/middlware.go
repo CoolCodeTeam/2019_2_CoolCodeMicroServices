@@ -3,6 +3,7 @@ package middleware
 import (
 	"bufio"
 	"context"
+	"fmt"
 	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/sirupsen/logrus"
@@ -61,6 +62,7 @@ func (m *HandlersMiddlwares) AuthMiddleware(next func(w http.ResponseWriter, r *
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		session, err := r.Cookie("session_id")
 		if err != nil {
+			fmt.Println(r.Cookies())
 			logrus.SetFormatter(&logrus.TextFormatter{})
 			logrus.WithFields(logrus.Fields{
 				"method":      r.Method,

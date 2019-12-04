@@ -211,3 +211,25 @@
 [36mINFO[0m[0223] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59418" [36mstatus_code[0m=200 [36mwork_time[0m="594.923µs"
 [36mINFO[0m[0223] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59418" [36mstatus_code[0m=200 [36mwork_time[0m="547.789µs"
 [36mINFO[0m[0236] /messages/chats/8                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=636.469456ms
+[36mINFO[0m[0089] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:44822" [36mstatus_code[0m=200 [36mwork_time[0m=1.506371ms
+[36mINFO[0m[0091] /favicon.ico                                  [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:44822" [36mstatus_code[0m=404 [36mwork_time[0m="30.828µs"
+[36mINFO[0m[0016] /                                             [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:36270" [36mstatus_code[0m=404 [36mwork_time[0m="13.758µs"
+[36mINFO[0m[0016] /favicon.ico                                  [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:36270" [36mstatus_code[0m=404 [36mwork_time[0m="64.197µs"
+[36mINFO[0m[0020] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:36270" [36mstatus_code[0m=200 [36mwork_time[0m=1.730982ms
+[36mINFO[0m[0075] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:36270" [36mstatus_code[0m=200 [36mwork_time[0m=1.319956ms
+[36mINFO[0m[0090] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:36270" [36mstatus_code[0m=200 [36mwork_time[0m=1.287317ms
+[31mERRO[0m[0000] listen tcp: address 7001: missing port in address 
+[36mINFO[0m[0030] /                                             [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:57922" [36mstatus_code[0m=404 [36mwork_time[0m="45.687µs"
+[36mINFO[0m[0031] /favicon.ico                                  [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:57922" [36mstatus_code[0m=404 [36mwork_time[0m="29.725µs"
+[36mINFO[0m[0034] /                                             [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:34874" [36mstatus_code[0m=404 [36mwork_time[0m="12.654µs"
+[36mINFO[0m[0035] /favicon.ico                                  [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:34874" [36mstatus_code[0m=404 [36mwork_time[0m="71.963µs"
+[36mINFO[0m[0013] /metrics                                      [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:50020" [36mstatus_code[0m=200 [36mwork_time[0m=1.314632ms
+[36mINFO[0m[0013] /favicon.ico                                  [36mmethod[0m=GET [36mremote_addr[0m="127.0.0.1:50020" [36mstatus_code[0m=404 [36mwork_time[0m="24.325µs"
+[36mINFO[0m[0016] /logout                                       [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:42900" [36mstatus_code[0m=404 [36mwork_time[0m="57.634µs"
+[31mERRO[0m[0029] {"Cause":null,"Detail":"Bad request : user already contains.","Status":400}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:42900"
+[36mINFO[0m[0029] /users                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:42900" [36mstatus_code[0m=400 [36mwork_time[0m=354.961912ms
+[36mINFO[0m[0041] /users                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:42900" [36mstatus_code[0m=200 [36mwork_time[0m=274.460261ms
+[36mINFO[0m[0154] /users/logout                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:49640" [36mstatus_code[0m=401 [36mwork_time[0m="67.375µs"
+[36mINFO[0m[0160] /users/logout                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:49640" [36mstatus_code[0m=401 [36mwork_time[0m="92.573µs"
+[36mINFO[0m[0161] /users/logout                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:49640" [36mstatus_code[0m=401 [36mwork_time[0m="58.103µs"
+[36mINFO[0m[0162] /users/logout                                 [36mmethod[0m=DELETE [36mremote_addr[0m="[::1]:49640" [36mstatus_code[0m=401 [36mwork_time[0m="59.874µs"

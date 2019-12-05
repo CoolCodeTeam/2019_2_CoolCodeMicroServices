@@ -96,8 +96,8 @@ func main() {
 
 	r := mux.NewRouter()
 	handler := middlewares.PanicMiddleware(middlewares.LogMiddleware(r, logrusLogger))
-	r.Handle("/notifications/chats/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
-	r.Handle("/notifications/channels/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection))
+	r.Handle("/notifications/chats/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection)).Methods("GET")
+	r.Handle("/notifications/channels/{id:[0-9]+}", middlewares.AuthMiddleware(notificationApi.HandleNewWSConnection)).Methods("GET")
 	r.Handle("/metrics", promhttp.Handler())
 	logrus.Infof("Notifications http server started on %s port: ", port)
 	err = http.ListenAndServe(port, corsMiddleware(handler))

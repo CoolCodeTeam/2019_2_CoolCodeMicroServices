@@ -89,10 +89,22 @@ func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) 
 		return
 	}
 
+	//save message to db
+	message:=&models.Message{
+		MessageType:1,
+		FileID:uid,
+		ChatID: uint64(chatID),
+		AuthorID:user.ID,
+	}
+
+	m.Messages.SaveChatMessage(message)
+
 	jsonResponse, err := json.Marshal(map[string]string{
 		"id": uid,
 	})
 	_,err=w.Write(jsonResponse)
+
+
 
 	if err!=nil{
 		m.utils.LogError(err,r)
@@ -104,11 +116,8 @@ func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) 
 
 
 	websocketMessage := models.WebsocketMessage{
-		WebsocketEventType: 2,//Photo message
-		Body:               models.Message{
-			FileID:uid,
-			ChatID: uint64(chatID),
-		},
+		WebsocketEventType: 1,//Photo message
+		Body:               *message,
 	}
 	websocketJson, err := easyjson.Marshal(websocketMessage)
 	if err != nil {

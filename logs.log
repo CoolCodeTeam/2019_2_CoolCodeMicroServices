@@ -299,3 +299,5 @@
 [31mERRO[0m[0287] /messages/chats/1/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [31mmethod[0m=PUT [31mpanic[0m="runtime error: invalid memory address or nil pointer dereference" [31mremote_addr[0m="[::1]:61202"
 [31mERRO[0m[0304] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = can not begin transaction for GetChat: write tcp 100.96.165.72:59600->95.163.209.195:5432: write: can't assign requested address : write tcp 100.96.165.72:59600->95.163.209.195:5432: write: can't assign requested address" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:61202"
 [36mINFO[0m[0304] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61202" [36mstatus_code[0m=500 [36mwork_time[0m=239.373867ms
+[31mERRO[0m[0000] listen tcp :8004: bind: address already in use 
+[31mERRO[0m[0000] listen tcp :8004: bind: address already in use 

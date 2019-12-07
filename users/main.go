@@ -28,7 +28,7 @@ import (
 func startUsersGRPCService(port string, service grpc_utils.UsersServiceServer) {
 	lis, err := net.Listen("tcp", ":5000")
 	if err != nil {
-		//
+		logrus.Fatalf("Can not start grpc users service: %s",err.Error())
 	}
 	s := grpc.NewServer()
 

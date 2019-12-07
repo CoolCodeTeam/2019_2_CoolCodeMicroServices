@@ -104,7 +104,7 @@ func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) 
 
 
 	websocketMessage := models.WebsocketMessage{
-		WebsocketEventType: 1,
+		WebsocketEventType: 2,//Photo message
 		Body:               models.Message{
 			FileID:uid,
 			ChatID: uint64(chatID),

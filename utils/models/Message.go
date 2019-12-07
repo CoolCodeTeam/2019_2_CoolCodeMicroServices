@@ -10,7 +10,7 @@ type Message struct {
 	AuthorID      uint64 `json:"author_id"`
 	MessageTime   string `json:"message_time"`
 	ChatID        uint64 `json:"chat_id"`
-	FileID        uint64 `json:"file_id"`
+	FileID        string `json:"file_id"`
 	HideForAuthor bool   `json:"-"`
 	Likes         uint64 `json:"likes"`
 }

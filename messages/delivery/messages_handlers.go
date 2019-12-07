@@ -101,6 +101,23 @@ func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) 
 		"method":      r.Method,
 		"remote_addr": r.RemoteAddr,
 	}).Info("Successfully downloaded file")
+
+
+	websocketMessage := models.WebsocketMessage{
+		WebsocketEventType: 1,
+		Body:               models.Message{
+			FileID:uid,
+			ChatID: uint64(chatID),
+		},
+	}
+	websocketJson, err := easyjson.Marshal(websocketMessage)
+	if err != nil {
+		m.utils.LogError(err, r)
+	}
+	err = m.Notifications.SendMessage(uint64(chatID), websocketJson)
+	if err != nil {
+		m.utils.LogError(err, r)
+	}
 }
 
 func (m *MessageHandlersImpl) GetPhoto(w http.ResponseWriter, r *http.Request) {

@@ -1,6 +1,7 @@
 package delivery
 
 import (
+	"bufio"
 	"encoding/json"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
 	notifications "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
@@ -9,6 +10,7 @@ import (
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/gorilla/mux"
 	"github.com/mailru/easyjson"
+	"github.com/sirupsen/logrus"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -22,6 +24,8 @@ type MessageHandlers interface {
 	EditMessage(w http.ResponseWriter, r *http.Request)
 	FindMessages(w http.ResponseWriter, r *http.Request)
 	Like(w http.ResponseWriter, r *http.Request)
+	SendPhoto(w http.ResponseWriter, r *http.Request)
+	GetPhoto(w http.ResponseWriter, r *http.Request)
 }
 
 type MessageHandlersImpl struct {
@@ -50,6 +54,93 @@ func (m *MessageHandlersImpl) Like(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		m.utils.HandleError(err, w, r)
 	}
+}
+
+func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) {
+	chatID, err := strconv.Atoi(mux.Vars(r)["id"])
+
+
+	if err != nil {
+		m.utils.LogError(models.NewClientError(err, http.StatusBadRequest, "Bad request: malformed data:("), r)
+	}
+
+	user, err := m.parseCookie(r)
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+		return
+	}
+
+	err = r.ParseMultipartForm(10 << 20)
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+		return
+	}
+	file, _, err := r.FormFile("file")
+
+	if err != nil {
+		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid Photo.")
+		m.utils.HandleError(err, w, r)
+		return
+	}
+
+	uid, err := m.Messages.SavePhoto(user.ID, uint64(chatID), file)
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+		return
+	}
+
+	jsonResponse, err := json.Marshal(map[string]string{
+		"id": uid,
+	})
+	_,err=w.Write(jsonResponse)
+
+	if err!=nil{
+		m.utils.LogError(err,r)
+	}
+	logrus.WithFields(logrus.Fields{
+		"method":      r.Method,
+		"remote_addr": r.RemoteAddr,
+	}).Info("Successfully downloaded file")
+}
+
+func (m *MessageHandlersImpl) GetPhoto(w http.ResponseWriter, r *http.Request) {
+	chatID, err := strconv.Atoi(mux.Vars(r)["id"])
+	photoID := mux.Vars(r)["uid"]
+
+	if err != nil {
+		m.utils.LogError(models.NewClientError(err, http.StatusBadRequest, "Bad request: malformed data:("), r)
+	}
+	user, err := m.parseCookie(r)
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+		return
+	}
+
+	file, err := m.Messages.GetPhoto(user.ID, uint64(chatID),photoID)
+
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+		return
+	}
+	reader := bufio.NewReader(file)
+	fileInfo, _ := file.Stat()
+	size := fileInfo.Size()
+
+	bytes := make([]byte, size)
+	_, err = reader.Read(bytes)
+
+	w.Header().Set("content-type", "multipart/form-data;boundary=1")
+
+	_, err = w.Write(bytes)
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+		return
+	}
+
+	logrus.WithFields(logrus.Fields{
+		"method":      r.Method,
+		"remote_addr": r.RemoteAddr,
+	}).Info("Successfully uploaded file")
 }
 
 func (m *MessageHandlersImpl) SendMessage(w http.ResponseWriter, r *http.Request) {

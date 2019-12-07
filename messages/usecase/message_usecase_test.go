@@ -11,8 +11,8 @@ import (
 )
 
 var messageUseCase = MessageUseCaseImpl{
-	repository: &repository.MessageRepositoryMock{},
-	chats:      &chats.ChatsUseCaseMock{},
+	messageRepository: &repository.MessageRepositoryMock{},
+	chats:             &chats.ChatsUseCaseMock{},
 }
 
 func TestMessageUseCaseImpl_GetChatMessages(t *testing.T) {
@@ -47,7 +47,7 @@ func TestMessageUseCaseImpl_GetChatMessages(t *testing.T) {
 			return true, nil
 		},
 	}
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessagesByChatIDFunc: func(chatID uint64) (messages models.Messages, e error) {
 			return models.Messages{}, nil
 		},
@@ -90,7 +90,7 @@ func TestMessageUseCaseImpl_GetChannelMessages(t *testing.T) {
 			return true, nil
 		},
 	}
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessagesByChatIDFunc: func(chatID uint64) (messages models.Messages, e error) {
 			return models.Messages{}, nil
 		},
@@ -135,7 +135,7 @@ func TestMessageUseCaseImpl_SaveChatMessage(t *testing.T) {
 			return true, nil
 		},
 	}
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		PutMessageFunc: func(message *models.Message) (u uint64, e error) {
 			return 0, nil
 		},
@@ -180,7 +180,7 @@ func TestMessageUseCaseImpl_SaveChannelMessage(t *testing.T) {
 			return true, nil
 		},
 	}
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		PutMessageFunc: func(message *models.Message) (u uint64, e error) {
 			return 0, nil
 		},
@@ -199,7 +199,7 @@ func TestMessageUseCaseImpl_EditMessage(t *testing.T) {
 	}
 
 	//test internal error
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{}, errors.New("Internal error")
 		},
@@ -210,7 +210,7 @@ func TestMessageUseCaseImpl_EditMessage(t *testing.T) {
 	assert.NotNil(t, err)
 
 	//test not permission
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{AuthorID: 1}, errors.New("Internal error")
 		},
@@ -227,7 +227,7 @@ func TestMessageUseCaseImpl_DeleteMessage(t *testing.T) {
 	messageID := 0
 
 	//test internal error
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{}, errors.New("Internal error")
 		},
@@ -238,7 +238,7 @@ func TestMessageUseCaseImpl_DeleteMessage(t *testing.T) {
 	assert.NotNil(t, err)
 
 	//test not permission
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{AuthorID: 1}, nil
 		},
@@ -250,7 +250,7 @@ func TestMessageUseCaseImpl_DeleteMessage(t *testing.T) {
 
 	//test success
 	authorID = 1
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{AuthorID: 1}, nil
 		},
@@ -269,7 +269,7 @@ func TestMessageUseCaseImpl_HideMessageForAuthor(t *testing.T) {
 	messageID := 0
 
 	//test internal error
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{}, errors.New("Internal error")
 		},
@@ -280,7 +280,7 @@ func TestMessageUseCaseImpl_HideMessageForAuthor(t *testing.T) {
 	assert.NotNil(t, err)
 
 	//test not permission
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{AuthorID: 1}, nil
 		},
@@ -292,7 +292,7 @@ func TestMessageUseCaseImpl_HideMessageForAuthor(t *testing.T) {
 
 	//test success
 	authorID = 1
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		GetMessageByIDFunc: func(messageID uint64) (message *models.Message, e error) {
 			return &models.Message{AuthorID: 1}, nil
 		},
@@ -309,7 +309,7 @@ func TestMessageUseCaseImpl_HideMessageForAuthor(t *testing.T) {
 func TestMessageUseCaseImpl_FindMessages(t *testing.T) {
 	authorID := 0
 	//test internal error
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		FindMessagesFunc: func(s string) (messages models.Messages, e error) {
 			return models.Messages{}, errors.New("internal error")
 		},
@@ -322,7 +322,7 @@ func TestMessageUseCaseImpl_FindMessages(t *testing.T) {
 	//test chat not permission, channel ok
 	messagesSlice := make([]*models.Message, 0)
 	messagesSlice = append(messagesSlice, &models.Message{ChatID: 0})
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		FindMessagesFunc: func(s string) (messages models.Messages, e error) {
 			return models.Messages{
 				Messages: messagesSlice,
@@ -346,7 +346,7 @@ func TestMessageUseCaseImpl_FindMessages(t *testing.T) {
 
 func TestMessageUseCaseImpl_Like(t *testing.T) {
 	messageID := 0
-	messageUseCase.repository = &repository.MessageRepositoryMock{
+	messageUseCase.messageRepository = &repository.MessageRepositoryMock{
 		LikeFunc: func(messageID uint64) error {
 			return nil
 		},

@@ -4,7 +4,9 @@ import (
 	chats "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/repository"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
+	"mime/multipart"
 	"net/http"
+	"os"
 )
 
 //go:generate moq -out messages_ucase_mock.go . MessagesUseCase
@@ -19,22 +21,28 @@ type MessagesUseCase interface {
 	GetChannelMessages(channelID uint64, userID uint64) (models.Messages, error)
 	FindMessages(findString string, ID uint64) (models.Messages, error)
 	Like(ID uint64) error
+	SavePhoto(userID, chatID uint64, file multipart.File) (string, error)
+	GetPhoto(userID, chatID uint64,photoUID string) (*os.File,error)
 }
 
 type MessageUseCaseImpl struct {
-	repository repository.MessageRepository
-	chats      chats.ChatsUseCase
+	messageRepository repository.MessageRepository
+	photos            repository.PhotoRepository
+	chats             chats.ChatsUseCase
 }
 
-func NewMessageUseCase(repository repository.MessageRepository, chats chats.ChatsUseCase) MessagesUseCase {
+
+
+func NewMessageUseCase(messageRepository repository.MessageRepository, chats chats.ChatsUseCase) MessagesUseCase {
 	return &MessageUseCaseImpl{
-		repository: repository,
-		chats:      chats,
+		messageRepository: messageRepository,
+		chats:             chats,
+		photos:            repository.NewPhotosArrayRepository("photos"),
 	}
 }
 
 func (m *MessageUseCaseImpl) Like(ID uint64) error {
-	return m.repository.Like(ID)
+	return m.messageRepository.Like(ID)
 }
 
 func (m *MessageUseCaseImpl) GetChatMessages(chatID uint64, userID uint64) (models.Messages, error) {
@@ -46,7 +54,7 @@ func (m *MessageUseCaseImpl) GetChatMessages(chatID uint64, userID uint64) (mode
 		return models.Messages{}, models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
 	}
 
-	return m.repository.GetMessagesByChatID(chatID)
+	return m.messageRepository.GetMessagesByChatID(chatID)
 }
 
 func (m *MessageUseCaseImpl) GetChannelMessages(chatID uint64, userID uint64) (models.Messages, error) {
@@ -58,11 +66,33 @@ func (m *MessageUseCaseImpl) GetChannelMessages(chatID uint64, userID uint64) (m
 		return models.Messages{}, models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
 	}
 
-	return m.repository.GetMessagesByChatID(chatID)
+	return m.messageRepository.GetMessagesByChatID(chatID)
 }
 
 func (m *MessageUseCaseImpl) GetMessageByID(messageID uint64) (*models.Message, error) {
-	return m.repository.GetMessageByID(messageID)
+	return m.messageRepository.GetMessageByID(messageID)
+}
+
+func (m *MessageUseCaseImpl) SavePhoto(userID, chatID uint64, file multipart.File) (string, error) {
+	permissionOk, err := m.chats.CheckChatPermission(userID,chatID)
+	if err != nil {
+		return "", err
+	}
+	if !permissionOk {
+		return "", models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
+	}
+	return m.photos.SavePhoto(chatID,file)
+}
+
+func (m *MessageUseCaseImpl) GetPhoto(userID,chatID uint64, photoUID string) (*os.File, error) {
+	permissionOk, err := m.chats.CheckChatPermission(userID,chatID)
+	if err != nil {
+		return &os.File{}, err
+	}
+	if !permissionOk {
+		return &os.File{}, models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
+	}
+	return m.photos.GetPhoto(chatID,photoUID)
 }
 
 func (m *MessageUseCaseImpl) SaveChatMessage(message *models.Message) (uint64, error) {
@@ -73,7 +103,7 @@ func (m *MessageUseCaseImpl) SaveChatMessage(message *models.Message) (uint64, e
 	if !permissionOk {
 		return 0, models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
 	}
-	return m.repository.PutMessage(message)
+	return m.messageRepository.PutMessage(message)
 }
 
 func (m *MessageUseCaseImpl) SaveChannelMessage(message *models.Message) (uint64, error) {
@@ -84,44 +114,44 @@ func (m *MessageUseCaseImpl) SaveChannelMessage(message *models.Message) (uint64
 	if !permissionOk {
 		return 0, models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
 	}
-	return m.repository.PutMessage(message)
+	return m.messageRepository.PutMessage(message)
 }
 
 func (m *MessageUseCaseImpl) EditMessage(message *models.Message, userID uint64) error {
-	DBmessage, err := m.repository.GetMessageByID(message.ID)
+	DBmessage, err := m.messageRepository.GetMessageByID(message.ID)
 	if err != nil {
 		return err
 	}
 	if userID != DBmessage.AuthorID {
 		return models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
 	}
-	return m.repository.UpdateMessage(message)
+	return m.messageRepository.UpdateMessage(message)
 }
 
 func (m *MessageUseCaseImpl) DeleteMessage(messageID uint64, userID uint64) error {
-	message, err := m.repository.GetMessageByID(messageID)
+	message, err := m.messageRepository.GetMessageByID(messageID)
 	if err != nil {
 		return err
 	}
 	if userID != message.AuthorID {
 		return models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
 	}
-	return m.repository.RemoveMessage(messageID)
+	return m.messageRepository.RemoveMessage(messageID)
 }
 
 func (m *MessageUseCaseImpl) HideMessageForAuthor(messageID uint64, userID uint64) error {
-	message, err := m.repository.GetMessageByID(messageID)
+	message, err := m.messageRepository.GetMessageByID(messageID)
 	if err != nil {
 		return err
 	}
 	if userID != message.AuthorID {
 		return models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
 	}
-	return m.repository.HideMessageForAuthor(messageID)
+	return m.messageRepository.HideMessageForAuthor(messageID)
 }
 
 func (m *MessageUseCaseImpl) FindMessages(findString string, ID uint64) (models.Messages, error) {
-	messages, err := m.repository.FindMessages(findString)
+	messages, err := m.messageRepository.FindMessages(findString)
 	if err != nil {
 		return messages, err
 	}

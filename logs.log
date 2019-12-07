@@ -211,3 +211,88 @@
 [36mINFO[0m[0223] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59418" [36mstatus_code[0m=200 [36mwork_time[0m="594.923µs"
 [36mINFO[0m[0223] /users/photos/4                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59418" [36mstatus_code[0m=200 [36mwork_time[0m="547.789µs"
 [36mINFO[0m[0236] /messages/chats/8                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:41548" [36mstatus_code[0m=200 [36mwork_time[0m=636.469456ms
+[36mINFO[0m[0095] /login                                        [36mmethod[0m=POST [36mremote_addr[0m="[::1]:58089" [36mstatus_code[0m=404 [36mwork_time[0m="61.657µs"
+[31mERRO[0m[0148] {"Cause":{"Op":"dial","Net":"tcp","Source":null,"Addr":{"IP":"::1","Port":6379,"Zone":""},"Err":{"Syscall":"connect","Err":61}},"Detail":"can not get session in GetIDdial tcp [::1]:6379: connect: connection refused","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:58089"
+[36mINFO[0m[0148] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:58089" [36mstatus_code[0m=500 [36mwork_time[0m=37.01234ms
+[36mINFO[0m[0556] /messages/chats/1                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59509" [36mstatus_code[0m=404 [36mwork_time[0m="140.735µs"
+[36mINFO[0m[0036] /messages/chats/1                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59533" [36mstatus_code[0m=401 [36mwork_time[0m="180.725µs"
+[31mERRO[0m[0614] {"Cause":{"Op":"dial","Net":"tcp","Source":null,"Addr":{"IP":"::1","Port":6379,"Zone":""},"Err":{"Syscall":"connect","Err":61}},"Detail":"can not get session in GetIDdial tcp [::1]:6379: connect: connection refused","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:59534"
+[36mINFO[0m[0614] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59534" [36mstatus_code[0m=500 [36mwork_time[0m=51.611997ms
+[36mINFO[0m[0705] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59534" [36mstatus_code[0m=200 [36mwork_time[0m=16.407351ms
+[31mERRO[0m[0780] {"Cause":null,"Detail":"Actual id: 4, Requested id: 1","Status":401}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:59596"
+[36mINFO[0m[0780] /chats/users/1                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59596" [36mstatus_code[0m=401 [36mwork_time[0m=2.587958ms
+[36mINFO[0m[0784] /chats/users/4                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:59596" [36mstatus_code[0m=200 [36mwork_time[0m=318.19206ms
+[31mERRO[0m[0240] Internal server error                         [31merr[0m="no multipart boundary param in Content-Type" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:59602"
+[36mINFO[0m[0249] /messages/chats/1                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59602" [36mstatus_code[0m=500 [36mwork_time[0m=25.887711491s
+[36mINFO[0m[0001] /messages/chats/1                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59647" [36mstatus_code[0m=405 [36mwork_time[0m="31.543µs"
+[31mERRO[0m[0107] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = Not enough permissions for this request:(" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:59700"
+[36mINFO[0m[0107] /messages/chats/1                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:59700" [36mstatus_code[0m=500 [36mwork_time[0m=1m44.795806389s
+[36mINFO[0m[0125] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60232" [36mstatus_code[0m=200 [36mwork_time[0m=2m3.592059467s
+[36mINFO[0m[0280] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60232" [36mstatus_code[0m=200 [36mwork_time[0m=1m43.675014294s
+[36mINFO[0m[0001] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60322" [36mstatus_code[0m=200 [36mwork_time[0m=125.404599ms
+[36mINFO[0m[0003] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60322" [36mstatus_code[0m=200 [36mwork_time[0m=113.347013ms
+[36mINFO[0m[0002] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60370" [36mstatus_code[0m=200 [36mwork_time[0m=159.980705ms
+[36mINFO[0m[0013] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60370" [36mstatus_code[0m=200 [36mwork_time[0m=142.08724ms
+[36mINFO[0m[0019] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60370" [36mstatus_code[0m=200 [36mwork_time[0m=177.523502ms
+[36mINFO[0m[0000] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60386" [36mstatus_code[0m=200 [36mwork_time[0m=104.02265ms
+[36mINFO[0m[0006] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60386" [36mstatus_code[0m=200 [36mwork_time[0m=133.120079ms
+[36mINFO[0m[0008] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:60386" [36mstatus_code[0m=200 [36mwork_time[0m=131.235427ms
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60520" [36mstatus_code[0m=200 [36mwork_time[0m=79.032471ms
+[36mINFO[0m[0070] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60520" [36mstatus_code[0m=200 [36mwork_time[0m=17.309452ms
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60604" [36mstatus_code[0m=404 [36mwork_time[0m="99.99µs"
+[36mINFO[0m[0003] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60604" [36mstatus_code[0m=404 [36mwork_time[0m="34.726µs"
+[36mINFO[0m[0003] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60604" [36mstatus_code[0m=404 [36mwork_time[0m="37.412µs"
+[36mINFO[0m[0021] /messages//kek                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60604" [36mstatus_code[0m=301 [36mwork_time[0m="12.793µs"
+[36mINFO[0m[0021] /messages/kek                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60604" [36mstatus_code[0m=404 [36mwork_time[0m="74.508µs"
+[36mINFO[0m[0022] /messages//kek                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60604" [36mstatus_code[0m=301 [36mwork_time[0m="20.149µs"
+[36mINFO[0m[0022] /messages/kek                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60604" [36mstatus_code[0m=404 [36mwork_time[0m="24.277µs"
+[36mINFO[0m[0000] /messages//kek                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60623" [36mstatus_code[0m=301 [36mwork_time[0m="17.586µs"
+[36mINFO[0m[0003] /messages/kek                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60623" [36mstatus_code[0m=200 [36mwork_time[0m=3.04639095s
+[36mINFO[0m[0008] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60623" [36mstatus_code[0m=200 [36mwork_time[0m=76.671224ms
+[36mINFO[0m[0016] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60623" [36mstatus_code[0m=200 [36mwork_time[0m=76.256297ms
+[36mINFO[0m[0004] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60644" [36mstatus_code[0m=200 [36mwork_time[0m=2.165755002s
+[36mINFO[0m[0007] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60644" [36mstatus_code[0m=200 [36mwork_time[0m=51.943221ms
+[36mINFO[0m[0008] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60644" [36mstatus_code[0m=200 [36mwork_time[0m=54.25434ms
+[36mINFO[0m[0000] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60804" [36mstatus_code[0m=404 [36mwork_time[0m="91.238µs"
+[36mINFO[0m[0001] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60804" [36mstatus_code[0m=404 [36mwork_time[0m="33.168µs"
+[36mINFO[0m[0001] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60804" [36mstatus_code[0m=404 [36mwork_time[0m="26.834µs"
+[36mINFO[0m[0012] /messages//kek                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60804" [36mstatus_code[0m=301 [36mwork_time[0m="9.958µs"
+[36mINFO[0m[0012] /messages/kek                                 [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60804" [36mstatus_code[0m=404 [36mwork_time[0m="24.601µs"
+[36mINFO[0m[0015] /messages//kek/                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60804" [36mstatus_code[0m=301 [36mwork_time[0m="15.852µs"
+[36mINFO[0m[0015] /messages/kek/                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60804" [36mstatus_code[0m=404 [36mwork_time[0m="23.629µs"
+[36mINFO[0m[0000] /messages//kek/                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60869" [36mstatus_code[0m=301 [36mwork_time[0m="11.102µs"
+[36mINFO[0m[0002] /messages/kek/                                [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60869" [36mstatus_code[0m=200 [36mwork_time[0m=1.747633226s
+[36mINFO[0m[0007] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60869" [36mstatus_code[0m=200 [36mwork_time[0m=39.067044ms
+[36mINFO[0m[0008] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60869" [36mstatus_code[0m=200 [36mwork_time[0m=49.422174ms
+[36mINFO[0m[0009] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:60869" [36mstatus_code[0m=200 [36mwork_time[0m=54.342882ms
+[36mINFO[0m[0007] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60897" [36mstatus_code[0m=405 [36mwork_time[0m="50.333µs"
+[36mINFO[0m[0008] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60897" [36mstatus_code[0m=405 [36mwork_time[0m="46.954µs"
+[36mINFO[0m[0009] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60897" [36mstatus_code[0m=405 [36mwork_time[0m="29.499µs"
+[36mINFO[0m[0009] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60897" [36mstatus_code[0m=405 [36mwork_time[0m="38.484µs"
+[36mINFO[0m[0001] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60925" [36mstatus_code[0m=405 [36mwork_time[0m="60.532µs"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60925" [36mstatus_code[0m=405 [36mwork_time[0m="18.705µs"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60925" [36mstatus_code[0m=405 [36mwork_time[0m="18.969µs"
+[36mINFO[0m[0005] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60925" [36mstatus_code[0m=405 [36mwork_time[0m="27.913µs"
+[36mINFO[0m[0006] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60925" [36mstatus_code[0m=405 [36mwork_time[0m="31.018µs"
+[36mINFO[0m[0001] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60941" [36mstatus_code[0m=405 [36mwork_time[0m="64.866µs"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60941" [36mstatus_code[0m=405 [36mwork_time[0m="39.721µs"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60941" [36mstatus_code[0m=405 [36mwork_time[0m="29.172µs"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60941" [36mstatus_code[0m=405 [36mwork_time[0m="18.64µs"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60941" [36mstatus_code[0m=405 [36mwork_time[0m="52.857µs"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60941" [36mstatus_code[0m=405 [36mwork_time[0m="19.013µs"
+[36mINFO[0m[0003] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60941" [36mstatus_code[0m=405 [36mwork_time[0m="33.17µs"
+[31mERRO[0m[0001] Internal server error                         [31merr[0m="open photos/22ed372c73-3a53-4e65-90b6-0f75af9fd6ec.png: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:60975"
+[36mINFO[0m[0001] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60975" [36mstatus_code[0m=500 [36mwork_time[0m=138.43793ms
+[31mERRO[0m[0002] Internal server error                         [31merr[0m="open photos/22ed372c73-3a53-4e65-90b6-0f75af9fd6ec.png: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:60975"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:60975" [36mstatus_code[0m=500 [36mwork_time[0m=139.870465ms
+[31mERRO[0m[0001] Internal server error                         [31merr[0m="open photos/2ed372c73-3a53-4e65-90b6-0f75af9fd6ec.png: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:61004"
+[36mINFO[0m[0001] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61004" [36mstatus_code[0m=500 [36mwork_time[0m=103.090761ms
+[31mERRO[0m[0002] Internal server error                         [31merr[0m="open photos/2ed372c73-3a53-4e65-90b6-0f75af9fd6ec.png: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:61004"
+[36mINFO[0m[0002] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61004" [36mstatus_code[0m=500 [36mwork_time[0m=133.546303ms
+[31mERRO[0m[0003] Internal server error                         [31merr[0m="open photos/2ed372c73-3a53-4e65-90b6-0f75af9fd6ec.png: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:61004"
+[36mINFO[0m[0003] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61004" [36mstatus_code[0m=500 [36mwork_time[0m=146.153137ms
+[36mINFO[0m[0001] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61017" [36mstatus_code[0m=200 [36mwork_time[0m=46.802295ms
+[31mERRO[0m[0018] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = chat not exists: sql: no rows in result set : sql: no rows in result set" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:61017"
+[36mINFO[0m[0018] /messages/chats/10/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61017" [36mstatus_code[0m=500 [36mwork_time[0m=94.342258ms
+[31mERRO[0m[0025] Internal server error                         [31merr[0m="rpc error: code = Unknown desc = Not enough permissions for this request:(" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:61017"
+[36mINFO[0m[0025] /messages/chats/1/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61017" [36mstatus_code[0m=500 [36mwork_time[0m=104.138768ms

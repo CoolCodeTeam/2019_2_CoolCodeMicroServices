@@ -5,6 +5,8 @@ package useCase
 
 import (
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
+	"mime/multipart"
+	"os"
 	"sync"
 )
 
@@ -15,10 +17,12 @@ var (
 	lockMessagesUseCaseMockGetChannelMessages   sync.RWMutex
 	lockMessagesUseCaseMockGetChatMessages      sync.RWMutex
 	lockMessagesUseCaseMockGetMessageByID       sync.RWMutex
+	lockMessagesUseCaseMockGetPhoto             sync.RWMutex
 	lockMessagesUseCaseMockHideMessageForAuthor sync.RWMutex
 	lockMessagesUseCaseMockLike                 sync.RWMutex
 	lockMessagesUseCaseMockSaveChannelMessage   sync.RWMutex
 	lockMessagesUseCaseMockSaveChatMessage      sync.RWMutex
+	lockMessagesUseCaseMockSavePhoto            sync.RWMutex
 )
 
 // Ensure, that MessagesUseCaseMock does implement MessagesUseCase.
@@ -49,6 +53,9 @@ var _ MessagesUseCase = &MessagesUseCaseMock{}
 //             GetMessageByIDFunc: func(messageID uint64) (*models.Message, error) {
 // 	               panic("mock out the GetMessageByID method")
 //             },
+//             GetPhotoFunc: func(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
+// 	               panic("mock out the GetPhoto method")
+//             },
 //             HideMessageForAuthorFunc: func(messageID uint64, userID uint64) error {
 // 	               panic("mock out the HideMessageForAuthor method")
 //             },
@@ -60,6 +67,9 @@ var _ MessagesUseCase = &MessagesUseCaseMock{}
 //             },
 //             SaveChatMessageFunc: func(message *models.Message) (uint64, error) {
 // 	               panic("mock out the SaveChatMessage method")
+//             },
+//             SavePhotoFunc: func(userID uint64, chatID uint64, file multipart.File) (string, error) {
+// 	               panic("mock out the SavePhoto method")
 //             },
 //         }
 //
@@ -86,6 +96,9 @@ type MessagesUseCaseMock struct {
 	// GetMessageByIDFunc mocks the GetMessageByID method.
 	GetMessageByIDFunc func(messageID uint64) (*models.Message, error)
 
+	// GetPhotoFunc mocks the GetPhoto method.
+	GetPhotoFunc func(userID uint64, chatID uint64, photoUID string) (*os.File, error)
+
 	// HideMessageForAuthorFunc mocks the HideMessageForAuthor method.
 	HideMessageForAuthorFunc func(messageID uint64, userID uint64) error
 
@@ -97,6 +110,9 @@ type MessagesUseCaseMock struct {
 
 	// SaveChatMessageFunc mocks the SaveChatMessage method.
 	SaveChatMessageFunc func(message *models.Message) (uint64, error)
+
+	// SavePhotoFunc mocks the SavePhoto method.
+	SavePhotoFunc func(userID uint64, chatID uint64, file multipart.File) (string, error)
 
 	// calls tracks calls to the methods.
 	calls struct {
@@ -140,6 +156,15 @@ type MessagesUseCaseMock struct {
 			// MessageID is the messageID argument value.
 			MessageID uint64
 		}
+		// GetPhoto holds details about calls to the GetPhoto method.
+		GetPhoto []struct {
+			// UserID is the userID argument value.
+			UserID uint64
+			// ChatID is the chatID argument value.
+			ChatID uint64
+			// PhotoUID is the photoUID argument value.
+			PhotoUID string
+		}
 		// HideMessageForAuthor holds details about calls to the HideMessageForAuthor method.
 		HideMessageForAuthor []struct {
 			// MessageID is the messageID argument value.
@@ -161,6 +186,15 @@ type MessagesUseCaseMock struct {
 		SaveChatMessage []struct {
 			// Message is the message argument value.
 			Message *models.Message
+		}
+		// SavePhoto holds details about calls to the SavePhoto method.
+		SavePhoto []struct {
+			// UserID is the userID argument value.
+			UserID uint64
+			// ChatID is the chatID argument value.
+			ChatID uint64
+			// File is the file argument value.
+			File multipart.File
 		}
 	}
 }
@@ -371,6 +405,45 @@ func (mock *MessagesUseCaseMock) GetMessageByIDCalls() []struct {
 	return calls
 }
 
+// GetPhoto calls GetPhotoFunc.
+func (mock *MessagesUseCaseMock) GetPhoto(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
+	if mock.GetPhotoFunc == nil {
+		panic("MessagesUseCaseMock.GetPhotoFunc: method is nil but MessagesUseCase.GetPhoto was just called")
+	}
+	callInfo := struct {
+		UserID   uint64
+		ChatID   uint64
+		PhotoUID string
+	}{
+		UserID:   userID,
+		ChatID:   chatID,
+		PhotoUID: photoUID,
+	}
+	lockMessagesUseCaseMockGetPhoto.Lock()
+	mock.calls.GetPhoto = append(mock.calls.GetPhoto, callInfo)
+	lockMessagesUseCaseMockGetPhoto.Unlock()
+	return mock.GetPhotoFunc(userID, chatID, photoUID)
+}
+
+// GetPhotoCalls gets all the calls that were made to GetPhoto.
+// Check the length with:
+//     len(mockedMessagesUseCase.GetPhotoCalls())
+func (mock *MessagesUseCaseMock) GetPhotoCalls() []struct {
+	UserID   uint64
+	ChatID   uint64
+	PhotoUID string
+} {
+	var calls []struct {
+		UserID   uint64
+		ChatID   uint64
+		PhotoUID string
+	}
+	lockMessagesUseCaseMockGetPhoto.RLock()
+	calls = mock.calls.GetPhoto
+	lockMessagesUseCaseMockGetPhoto.RUnlock()
+	return calls
+}
+
 // HideMessageForAuthor calls HideMessageForAuthorFunc.
 func (mock *MessagesUseCaseMock) HideMessageForAuthor(messageID uint64, userID uint64) error {
 	if mock.HideMessageForAuthorFunc == nil {
@@ -496,5 +569,44 @@ func (mock *MessagesUseCaseMock) SaveChatMessageCalls() []struct {
 	lockMessagesUseCaseMockSaveChatMessage.RLock()
 	calls = mock.calls.SaveChatMessage
 	lockMessagesUseCaseMockSaveChatMessage.RUnlock()
+	return calls
+}
+
+// SavePhoto calls SavePhotoFunc.
+func (mock *MessagesUseCaseMock) SavePhoto(userID uint64, chatID uint64, file multipart.File) (string, error) {
+	if mock.SavePhotoFunc == nil {
+		panic("MessagesUseCaseMock.SavePhotoFunc: method is nil but MessagesUseCase.SavePhoto was just called")
+	}
+	callInfo := struct {
+		UserID uint64
+		ChatID uint64
+		File   multipart.File
+	}{
+		UserID: userID,
+		ChatID: chatID,
+		File:   file,
+	}
+	lockMessagesUseCaseMockSavePhoto.Lock()
+	mock.calls.SavePhoto = append(mock.calls.SavePhoto, callInfo)
+	lockMessagesUseCaseMockSavePhoto.Unlock()
+	return mock.SavePhotoFunc(userID, chatID, file)
+}
+
+// SavePhotoCalls gets all the calls that were made to SavePhoto.
+// Check the length with:
+//     len(mockedMessagesUseCase.SavePhotoCalls())
+func (mock *MessagesUseCaseMock) SavePhotoCalls() []struct {
+	UserID uint64
+	ChatID uint64
+	File   multipart.File
+} {
+	var calls []struct {
+		UserID uint64
+		ChatID uint64
+		File   multipart.File
+	}
+	lockMessagesUseCaseMockSavePhoto.RLock()
+	calls = mock.calls.SavePhoto
+	lockMessagesUseCaseMockSavePhoto.RUnlock()
 	return calls
 }

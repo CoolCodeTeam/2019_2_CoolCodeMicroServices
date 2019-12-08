@@ -1,6 +1,6 @@
 .idea
 
 .files
-/photos*
+.photos
 !/photos/default.png
 

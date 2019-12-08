@@ -8,6 +8,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
 	"net/http"
+	"path/filepath"
 )
 
 type HandlersUtils struct {
@@ -105,4 +106,8 @@ func ConnectGRPC(address string) *grpc.ClientConn {
 		logrus.Fatalf("can not connect to usersGRPC %v", err)
 	}
 	return conn
+}
+
+func GetFileExtension(fileName string) string {
+	return filepath.Ext(fileName)
 }

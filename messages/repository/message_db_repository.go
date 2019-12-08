@@ -2,9 +2,10 @@ package repository
 
 import (
 	"database/sql"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"net/http"
 	"time"
+
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 type MessageDBRepository struct {

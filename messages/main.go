@@ -18,16 +18,14 @@ import (
 	"os"
 )
 
-
-
 const (
 	users_address         = "localhost:5000"
 	chats_adress          = "localhost:5001"
 	notifications_address = "localhost:5002"
 )
 
-var(
-	uuid_regexp ="[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}"
+var (
+	uuid_regexp = "[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}"
 )
 
 func main() {
@@ -109,8 +107,10 @@ func main() {
 	r.Handle("/messages/channels/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.GetMessagesByChatID)).Methods("GET")
 	r.Handle("/messages/chats/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.SendMessage)).Methods("POST").
 		HeadersRegexp("Content-Type", "application/(text|json)")
-	r.Handle("/messages/chats/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.SendPhoto)).Methods("POST")
-	r.Handle("/messages/chats/{id:[0-9]+}/photos/{uid:[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}}", middlewares.AuthMiddleware(messagesApi.GetPhoto)).Methods("PUT")
+	r.Handle("/messages/chats/{id:[0-9]+}/files", middlewares.AuthMiddleware(messagesApi.SendFile)).Methods("POST").
+		HeadersRegexp("Content-Type", "multipart/form-data")
+	r.Handle("/messages/chats/{id:[0-9]+}/files/{uid:[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}}",
+		middlewares.AuthMiddleware(messagesApi.GetFile)).Methods("GET")
 	r.Handle("/messages/chats/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.GetMessagesByChatID)).Methods("GET")
 	r.Handle("/messages/{text:[\\s\\S]+}", middlewares.AuthMiddleware(messagesApi.FindMessages)).Methods("GET")
 	r.Handle("/messages/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.DeleteMessage)).Methods("DELETE")

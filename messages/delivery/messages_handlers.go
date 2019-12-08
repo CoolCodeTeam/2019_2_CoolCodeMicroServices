@@ -15,6 +15,7 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type MessageHandlers interface {
@@ -24,8 +25,8 @@ type MessageHandlers interface {
 	EditMessage(w http.ResponseWriter, r *http.Request)
 	FindMessages(w http.ResponseWriter, r *http.Request)
 	Like(w http.ResponseWriter, r *http.Request)
-	SendPhoto(w http.ResponseWriter, r *http.Request)
-	GetPhoto(w http.ResponseWriter, r *http.Request)
+	SendFile(w http.ResponseWriter, r *http.Request)
+	GetFile(w http.ResponseWriter, r *http.Request)
 }
 
 type MessageHandlersImpl struct {
@@ -56,9 +57,8 @@ func (m *MessageHandlersImpl) Like(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) {
+func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 	chatID, err := strconv.Atoi(mux.Vars(r)["id"])
-
 
 	if err != nil {
 		m.utils.LogError(models.NewClientError(err, http.StatusBadRequest, "Bad request: malformed data:("), r)
@@ -75,48 +75,51 @@ func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) 
 		m.utils.HandleError(err, w, r)
 		return
 	}
-	file, _, err := r.FormFile("file")
-
+	file, info, err := r.FormFile("file")
+	logrus.Info("File format: " + info.Filename)
 	if err != nil {
 		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid Photo.")
 		m.utils.HandleError(err, w, r)
 		return
 	}
 
-	uid, err := m.Messages.SavePhoto(user.ID, uint64(chatID), file)
+	uid, err := m.Messages.SaveFile(user.ID, uint64(chatID), models.File{
+		File:      file,
+		Extension: utils.GetFileExtension(info.Filename),
+	})
 	if err != nil {
 		m.utils.HandleError(err, w, r)
 		return
 	}
 
 	//save message to db
-	message:=&models.Message{
-		MessageType:1,
-		FileID:uid,
-		ChatID: uint64(chatID),
-		AuthorID:user.ID,
+	message := &models.Message{
+		MessageType: 1, //FileType
+		FileID:      uid,
+		ChatID:      uint64(chatID),
+		AuthorID:    user.ID,
+		MessageTime: time.Now().Format("02.01.2006 15:04"),
 	}
 
-	m.Messages.SaveChatMessage(message)
+	message_id, err := m.Messages.SaveChatMessage(message)
+	if err != nil {
+		m.utils.HandleError(err, w, r)
+	}
+	message.ID = message_id
 
-	jsonResponse, err := json.Marshal(map[string]string{
-		"id": uid,
-	})
-	_,err=w.Write(jsonResponse)
+	jsonResponse, err := json.Marshal(message)
+	_, err = w.Write(jsonResponse)
 
-
-
-	if err!=nil{
-		m.utils.LogError(err,r)
+	if err != nil {
+		m.utils.LogError(err, r)
 	}
 	logrus.WithFields(logrus.Fields{
 		"method":      r.Method,
 		"remote_addr": r.RemoteAddr,
 	}).Info("Successfully downloaded file")
 
-
 	websocketMessage := models.WebsocketMessage{
-		WebsocketEventType: 1,//Photo message
+		WebsocketEventType: 1,
 		Body:               *message,
 	}
 	websocketJson, err := easyjson.Marshal(websocketMessage)
@@ -129,7 +132,7 @@ func (m *MessageHandlersImpl) SendPhoto(w http.ResponseWriter, r *http.Request) 
 	}
 }
 
-func (m *MessageHandlersImpl) GetPhoto(w http.ResponseWriter, r *http.Request) {
+func (m *MessageHandlersImpl) GetFile(w http.ResponseWriter, r *http.Request) {
 	chatID, err := strconv.Atoi(mux.Vars(r)["id"])
 	photoID := mux.Vars(r)["uid"]
 
@@ -142,7 +145,7 @@ func (m *MessageHandlersImpl) GetPhoto(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	file, err := m.Messages.GetPhoto(user.ID, uint64(chatID),photoID)
+	file, err := m.Messages.GetFile(user.ID, uint64(chatID), photoID)
 
 	if err != nil {
 		m.utils.HandleError(err, w, r)

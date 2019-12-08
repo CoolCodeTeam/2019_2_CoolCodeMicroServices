@@ -1,3 +1,4 @@
 .idea
 .photos
-
+!photos/default.png
+.files

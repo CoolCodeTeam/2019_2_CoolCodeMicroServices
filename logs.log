@@ -301,3 +301,59 @@
 [36mINFO[0m[0304] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:61202" [36mstatus_code[0m=500 [36mwork_time[0m=239.373867ms
 [31mERRO[0m[0000] listen tcp :8004: bind: address already in use 
 [31mERRO[0m[0000] listen tcp :8004: bind: address already in use 
+[31mERRO[0m[0024] Internal server error                         [31merr[0m="open photos/2/ed372c73-3a53-4e65-90b6-0f75af9fd6ec.png: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:52018"
+[36mINFO[0m[0024] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:52018" [36mstatus_code[0m=500 [36mwork_time[0m=99.445711ms
+[31mERRO[0m[0044] Internal server error                         [31merr[0m="open photos/2/upload-151466917.png: no such file or directory" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52018"
+[36mINFO[0m[0044] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52018" [36mstatus_code[0m=500 [36mwork_time[0m=49.844563ms
+[31mERRO[0m[0002] Internal server error                         [31merr[0m="open photos/2/upload-211352270.png: no such file or directory" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52066"
+[36mINFO[0m[0002] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52066" [36mstatus_code[0m=500 [36mwork_time[0m=143.068892ms
+[36mINFO[0m[0014] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52230" [36mstatus_code[0m=200 [36mwork_time[0m=13.703761496s
+[36mINFO[0m[0029] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52230" [36mstatus_code[0m=200 [36mwork_time[0m=2.25195827s
+[31mERRO[0m[0050] Internal server error                         [31merr[0m="open photos/2/ed372c73-3a53-4e65-90b6-0f75af9fd6ec.png: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:52230"
+[36mINFO[0m[0050] /messages/chats/2/photos/ed372c73-3a53-4e65-90b6-0f75af9fd6ec  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:52230" [36mstatus_code[0m=500 [36mwork_time[0m=48.889277ms
+[36mINFO[0m[0065] /messages/chats/2/photos/8cc99a8e-d7df-462c-b514-8c243978c528  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:52230" [36mstatus_code[0m=200 [36mwork_time[0m=44.940132ms
+[36mINFO[0m[0013] /messages/chats/2/photos/8cc99a8e-d7df-462c-b514-8c243978c528  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:52273" [36mstatus_code[0m=200 [36mwork_time[0m=53.430296ms
+[36mINFO[0m[0047] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52484" [36mstatus_code[0m=200 [36mwork_time[0m=26.092299536s
+[36mINFO[0m[1287] /chats//messages                              [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52500" [36mstatus_code[0m=301 [36mwork_time[0m="51.814µs"
+[36mINFO[0m[1287] /chats/messages                               [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52500" [36mstatus_code[0m=404 [36mwork_time[0m="132.257µs"
+[36mINFO[0m[0087] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52484" [36mstatus_code[0m=200 [36mwork_time[0m=58.725921ms
+[36mINFO[0m[0143] /messages/chats/2/messages                    [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52484" [36mstatus_code[0m=405 [36mwork_time[0m="16.269µs"
+[31mERRO[0m[0161] Internal server error                         [31merr[0m="request Content-Type isn't multipart/form-data" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52484"
+[36mINFO[0m[0161] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52484" [36mstatus_code[0m=500 [36mwork_time[0m=17.302882ms
+[31mERRO[0m[0162] Internal server error                         [31merr[0m="request Content-Type isn't multipart/form-data" [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52484"
+[36mINFO[0m[0162] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52484" [36mstatus_code[0m=500 [36mwork_time[0m=18.663663ms
+[31mERRO[0m[0008] {"Cause":{"Layout":"02.01.2006 15:04","Value":"","LayoutElem":"02","ValueElem":"","Message":""},"Detail":"Wrong date format","Status":400}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52545"
+[36mINFO[0m[0008] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52545" [36mstatus_code[0m=400 [36mwork_time[0m=45.557694ms
+[31mERRO[0m[0044] {"Cause":{"Offset":19},"Detail":"Bad request: malformed data:(","Status":400}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52545"
+[36mINFO[0m[0044] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52545" [36mstatus_code[0m=400 [36mwork_time[0m=18.253212ms
+[31mERRO[0m[0051] {"Cause":{"Offset":19},"Detail":"Bad request: malformed data:(","Status":400}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:52545"
+[36mINFO[0m[0051] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52545" [36mstatus_code[0m=400 [36mwork_time[0m=12.922356ms
+[36mINFO[0m[0060] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52545" [36mstatus_code[0m=200 [36mwork_time[0m=156.670107ms
+[36mINFO[0m[0079] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52545" [36mstatus_code[0m=200 [36mwork_time[0m=201.158008ms
+[36mINFO[0m[0017] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52585" [36mstatus_code[0m=200 [36mwork_time[0m=231.528409ms
+[36mINFO[0m[0001] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52599" [36mstatus_code[0m=200 [36mwork_time[0m=617.085024ms
+[36mINFO[0m[0013] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52625" [36mstatus_code[0m=200 [36mwork_time[0m=544.02352ms
+[36mINFO[0m[0098] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52666" [36mstatus_code[0m=200 [36mwork_time[0m=1m33.159486055s
+[36mINFO[0m[0109] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52666" [36mstatus_code[0m=200 [36mwork_time[0m=924.898814ms
+[36mINFO[0m[0002] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52729" [36mstatus_code[0m=200 [36mwork_time[0m=285.132744ms
+[36mINFO[0m[0016] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52892" [36mstatus_code[0m=200 [36mwork_time[0m=258.650415ms
+[36mINFO[0m[0002] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52905" [36mstatus_code[0m=200 [36mwork_time[0m=276.562482ms
+[36mINFO[0m[0000] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52915" [36mstatus_code[0m=200 [36mwork_time[0m=304.595637ms
+[36mINFO[0m[0033] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53633" [36mstatus_code[0m=200 [36mwork_time[0m=33.046243275s
+[36mINFO[0m[0050] /messages/chats/2                             [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53633" [36mstatus_code[0m=200 [36mwork_time[0m=1.848933879s
+[31mERRO[0m[0151] {"Cause":null,"Detail":"Can not find file with uuid: d22c6077-0209-44c7-b3c4-dc264f4ba9c5","Status":500}  [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:53633"
+[36mINFO[0m[0151] /messages/chats/2/photos/d22c6077-0209-44c7-b3c4-dc264f4ba9c5  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:53633" [36mstatus_code[0m=500 [36mwork_time[0m=47.773074ms
+[31mERRO[0m[0004] {"Cause":null,"Detail":"Can not find file with uuid: d22c6077-0209-44c7-b3c4-dc264f4ba9c5","Status":500}  [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:53692"
+[36mINFO[0m[0004] /messages/chats/2/photos/d22c6077-0209-44c7-b3c4-dc264f4ba9c5  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:53692" [36mstatus_code[0m=500 [36mwork_time[0m=59.159463ms
+[31mERRO[0m[0005] {"Cause":null,"Detail":"Can not find file with uuid: d22c6077-0209-44c7-b3c4-dc264f4ba9c5","Status":500}  [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:53692"
+[36mINFO[0m[0005] /messages/chats/2/photos/d22c6077-0209-44c7-b3c4-dc264f4ba9c5  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:53692" [36mstatus_code[0m=500 [36mwork_time[0m=51.66202ms
+[31mERRO[0m[0007] Internal server error                         [31merr[0m="open photos/2/photos/2/d22c6077-0209-44c7-b3c4-dc264f4ba9c5.pdf: no such file or directory" [31mmethod[0m=PUT [31mremote_addr[0m="[::1]:53778"
+[36mINFO[0m[0007] /messages/chats/2/photos/d22c6077-0209-44c7-b3c4-dc264f4ba9c5  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:53778" [36mstatus_code[0m=500 [36mwork_time[0m=7.014817775s
+[36mINFO[0m[0000] /messages/chats/2/photos/d22c6077-0209-44c7-b3c4-dc264f4ba9c5  [36mmethod[0m=PUT [36mremote_addr[0m="[::1]:53796" [36mstatus_code[0m=200 [36mwork_time[0m=56.095765ms
+[31mERRO[0m[0006] {"Cause":{"Op":"mkdir","Path":"files/2","Err":2},"Detail":"Can not create dir in SaveMessageFile","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:53930"
+[36mINFO[0m[0006] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53930" [36mstatus_code[0m=500 [36mwork_time[0m=48.062375ms
+[36mINFO[0m[0001] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53954" [36mstatus_code[0m=200 [36mwork_time[0m=337.058433ms
+[31mERRO[0m[0030] {"Cause":null,"Detail":"Can not find file with uuid: d22c6077-0209-44c7-b3c4-dc264f4ba9c5","Status":500}  [31mmethod[0m=GET [31mremote_addr[0m="[::1]:53954"
+[36mINFO[0m[0030] /messages/chats/2/files/d22c6077-0209-44c7-b3c4-dc264f4ba9c5  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53954" [36mstatus_code[0m=500 [36mwork_time[0m=52.403036ms
+[36mINFO[0m[0066] /messages/chats/2/files/69e7ad75-3cd0-4b9c-8523-d7ca9788f889  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53954" [36mstatus_code[0m=200 [36mwork_time[0m=42.55357ms
+[36mINFO[0m[0002] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:54020" [36mstatus_code[0m=200 [36mwork_time[0m=444.544278ms

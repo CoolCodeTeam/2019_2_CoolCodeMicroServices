@@ -3,7 +3,13 @@ package delivery
 import (
 	"bufio"
 	"encoding/json"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
+	"net/http"
+	"net/url"
+	"strconv"
+	"strings"
+	"time"
+
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
 	notifications "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
 	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
@@ -11,11 +17,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/mailru/easyjson"
 	"github.com/sirupsen/logrus"
-	"net/http"
-	"net/url"
-	"strconv"
-	"strings"
-	"time"
 )
 
 type MessageHandlers interface {
@@ -83,9 +84,10 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fileExtension := utils.GetFileExtension(info.Filename)
 	uid, err := m.Messages.SaveFile(user.ID, uint64(chatID), models.File{
 		File:      file,
-		Extension: utils.GetFileExtension(info.Filename),
+		Extension: fileExtension,
 	})
 	if err != nil {
 		m.utils.HandleError(err, w, r)
@@ -96,6 +98,7 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 	message := &models.Message{
 		MessageType: 1, //FileType
 		FileID:      uid,
+		FileType:    strings.TrimLeft(fileExtension, "."),
 		ChatID:      uint64(chatID),
 		AuthorID:    user.ID,
 		MessageTime: time.Now().Format("02.01.2006 15:04"),

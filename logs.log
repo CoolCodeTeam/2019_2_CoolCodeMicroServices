@@ -357,3 +357,13 @@
 [36mINFO[0m[0030] /messages/chats/2/files/d22c6077-0209-44c7-b3c4-dc264f4ba9c5  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53954" [36mstatus_code[0m=500 [36mwork_time[0m=52.403036ms
 [36mINFO[0m[0066] /messages/chats/2/files/69e7ad75-3cd0-4b9c-8523-d7ca9788f889  [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53954" [36mstatus_code[0m=200 [36mwork_time[0m=42.55357ms
 [36mINFO[0m[0002] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:54020" [36mstatus_code[0m=200 [36mwork_time[0m=444.544278ms
+[36mINFO[0m[0052] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:50815" [36mstatus_code[0m=200 [36mwork_time[0m=2.095407998s
+[36mINFO[0m[0003] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:50886" [36mstatus_code[0m=200 [36mwork_time[0m=2.087560592s
+[31mERRO[0m[0000] listen tcp :8004: bind: address already in use 
+[36mINFO[0m[0004] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51034" [36mstatus_code[0m=200 [36mwork_time[0m=1.109952316s
+[36mINFO[0m[0004] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:51138" [36mstatus_code[0m=200 [36mwork_time[0m=1.366272873s
+[36mINFO[0m[0014] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:51138" [36mstatus_code[0m=200 [36mwork_time[0m=360.715315ms
+[36mINFO[0m[0033] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:51138" [36mstatus_code[0m=200 [36mwork_time[0m=571.805998ms
+[36mINFO[0m[0035] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52122" [36mstatus_code[0m=200 [36mwork_time[0m=2.622231839s
+[36mINFO[0m[0059] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52122" [36mstatus_code[0m=200 [36mwork_time[0m=578.853123ms
+[36mINFO[0m[0003] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52201" [36mstatus_code[0m=200 [36mwork_time[0m=557.091158ms

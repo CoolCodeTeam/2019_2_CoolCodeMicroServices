@@ -103,7 +103,7 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 		AuthorID:    user.ID,
 		MessageTime: time.Now().Format("02.01.2006 15:04"),
 	}
-
+	logrus.Infof("File type: %s", message.FileType)
 	message_id, err := m.Messages.SaveChatMessage(message)
 	if err != nil {
 		m.utils.HandleError(err, w, r)

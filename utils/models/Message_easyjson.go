@@ -160,6 +160,8 @@ func easyjson51ee17fDecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsMo
 			out.ChatID = uint64(in.Uint64())
 		case "file_id":
 			out.FileID = string(in.String())
+		case "file_type":
+			out.FileType = string(in.String())
 		case "likes":
 			out.Likes = uint64(in.Uint64())
 		default:
@@ -210,6 +212,11 @@ func easyjson51ee17fEncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsMo
 		const prefix string = ",\"file_id\":"
 		out.RawString(prefix)
 		out.String(string(in.FileID))
+	}
+	{
+		const prefix string = ",\"file_type\":"
+		out.RawString(prefix)
+		out.String(string(in.FileType))
 	}
 	{
 		const prefix string = ",\"likes\":"

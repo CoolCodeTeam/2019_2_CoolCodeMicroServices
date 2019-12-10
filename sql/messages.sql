@@ -4,6 +4,7 @@ CREATE TABLE "messages"(
     type SMALLINT NOT NULL, --IN ('TEXT','PHOTO','VOICE')
     body TEXT NOT NULL,
     fileID VARCHAR ,
+    fileExtension VARCHAR ,
     chatID BIGINT NOT NULL,
     messageTime timestamp,
     likes BIGINT DEFAULT 0,T

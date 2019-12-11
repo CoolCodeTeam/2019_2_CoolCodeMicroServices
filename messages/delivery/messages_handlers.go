@@ -77,14 +77,18 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	file, info, err := r.FormFile("file")
-	logrus.Info("File format: " + info.Filename)
 	if err != nil {
-		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid Photo.")
+		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid file.")
 		m.utils.HandleError(err, w, r)
 		return
 	}
 
-	fileExtension := utils.GetFileExtension(info.Filename)
+	fileExtension, err := utils.GetFileExtension(info.Filename)
+	if err != nil {
+		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid file  format.")
+		m.utils.HandleError(err, w, r)
+		return
+	}
 	uid, err := m.Messages.SaveFile(user.ID, uint64(chatID), models.File{
 		File:      file,
 		Extension: fileExtension,

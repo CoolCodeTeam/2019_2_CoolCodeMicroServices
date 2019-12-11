@@ -367,3 +367,6 @@
 [36mINFO[0m[0035] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:52122" [36mstatus_code[0m=200 [36mwork_time[0m=2.622231839s
 [36mINFO[0m[0059] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52122" [36mstatus_code[0m=200 [36mwork_time[0m=578.853123ms
 [36mINFO[0m[0003] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:52201" [36mstatus_code[0m=200 [36mwork_time[0m=557.091158ms
+[36mINFO[0m[0022] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53774" [36mstatus_code[0m=200 [36mwork_time[0m=1.226018899s
+[36mINFO[0m[0042] /messages/chats/2/files                       [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53774" [36mstatus_code[0m=200 [36mwork_time[0m=585.105777ms
+[36mINFO[0m[0064] /messages/chats/2                             [36mmethod[0m=GET [36mremote_addr[0m="[::1]:53774" [36mstatus_code[0m=200 [36mwork_time[0m=205.25091ms

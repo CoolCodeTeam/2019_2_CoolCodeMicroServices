@@ -4,11 +4,12 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"net/http"
+	"path/filepath"
+
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
-	"net/http"
-	"path/filepath"
 )
 
 type HandlersUtils struct {
@@ -108,6 +109,10 @@ func ConnectGRPC(address string) *grpc.ClientConn {
 	return conn
 }
 
-func GetFileExtension(fileName string) string {
-	return filepath.Ext(fileName)
+func GetFileExtension(fileName string) (string, error) {
+	extension := filepath.Ext(fileName)
+	if extension == "" {
+		return extension, errors.New("Can not get extension, empty string")
+	}
+	return extension, nil
 }

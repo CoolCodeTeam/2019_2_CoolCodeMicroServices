@@ -1,9 +1,13 @@
 package main
 
 import (
+	"io"
+	"net/http"
+	"os"
+
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/delivery"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/repository"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
 	middleware "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/middlwares"
@@ -13,9 +17,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"io"
-	"net/http"
-	"os"
 )
 
 const (
@@ -110,6 +111,10 @@ func main() {
 	r.Handle("/messages/chats/{id:[0-9]+}/files", middlewares.AuthMiddleware(messagesApi.SendFile)).Methods("POST").
 		HeadersRegexp("Content-Type", "multipart/form-data")
 	r.Handle("/messages/chats/{id:[0-9]+}/files/{uid:[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}}",
+		middlewares.AuthMiddleware(messagesApi.GetFile)).Methods("GET")
+	r.Handle("/messages/channels/{id:[0-9]+}/files", middlewares.AuthMiddleware(messagesApi.SendFile)).Methods("POST").
+		HeadersRegexp("Content-Type", "multipart/form-data")
+	r.Handle("/messages/channels/{id:[0-9]+}/files/{uid:[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{12}}",
 		middlewares.AuthMiddleware(messagesApi.GetFile)).Methods("GET")
 	r.Handle("/messages/chats/{id:[0-9]+}", middlewares.AuthMiddleware(messagesApi.GetMessagesByChatID)).Methods("GET")
 	r.Handle("/messages/{text:[\\s\\S]+}", middlewares.AuthMiddleware(messagesApi.FindMessages)).Methods("GET")

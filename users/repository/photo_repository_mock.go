@@ -28,7 +28,7 @@ var _ PhotoRepository = &PhotoRepositoryMock{}
 // 	               panic("mock out the GetFile method")
 //             },
 //             SavePhotoFunc: func(file multipart.File, id string) error {
-// 	               panic("mock out the SaveFile method")
+// 	               panic("mock out the SaveChatFile method")
 //             },
 //         }
 //
@@ -40,7 +40,7 @@ type PhotoRepositoryMock struct {
 	// GetPhotoFunc mocks the GetFile method.
 	GetPhotoFunc func(id int) (*os.File, error)
 
-	// SavePhotoFunc mocks the SaveFile method.
+	// SavePhotoFunc mocks the SaveChatFile method.
 	SavePhotoFunc func(file multipart.File, id string) error
 
 	// calls tracks calls to the methods.
@@ -50,7 +50,7 @@ type PhotoRepositoryMock struct {
 			// ID is the id argument value.
 			ID int
 		}
-		// SaveFile holds details about calls to the SaveFile method.
+		// SaveChatFile holds details about calls to the SaveChatFile method.
 		SavePhoto []struct {
 			// File is the file argument value.
 			File multipart.File
@@ -91,10 +91,10 @@ func (mock *PhotoRepositoryMock) GetPhotoCalls() []struct {
 	return calls
 }
 
-// SaveFile calls SavePhotoFunc.
+// SaveChatFile calls SavePhotoFunc.
 func (mock *PhotoRepositoryMock) SavePhoto(file multipart.File, id string) error {
 	if mock.SavePhotoFunc == nil {
-		panic("PhotoRepositoryMock.SavePhotoFunc: method is nil but PhotoRepository.SaveFile was just called")
+		panic("PhotoRepositoryMock.SavePhotoFunc: method is nil but PhotoRepository.SaveChatFile was just called")
 	}
 	callInfo := struct {
 		File multipart.File
@@ -109,7 +109,7 @@ func (mock *PhotoRepositoryMock) SavePhoto(file multipart.File, id string) error
 	return mock.SavePhotoFunc(file, id)
 }
 
-// SavePhotoCalls gets all the calls that were made to SaveFile.
+// SavePhotoCalls gets all the calls that were made to SaveChatFile.
 // Check the length with:
 //     len(mockedPhotoRepository.SavePhotoCalls())
 func (mock *PhotoRepositoryMock) SavePhotoCalls() []struct {

@@ -4,9 +4,10 @@
 package useCase
 
 import (
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"os"
 	"sync"
+
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 var (
@@ -68,7 +69,7 @@ var _ MessagesUseCase = &MessagesUseCaseMock{}
 // 	               panic("mock out the SaveChatMessage method")
 //             },
 //             SavePhotoFunc: func(userID uint64, chatID uint64, file models.File) (string, error) {
-// 	               panic("mock out the SaveFile method")
+// 	               panic("mock out the SaveChatFile method")
 //             },
 //         }
 //
@@ -110,7 +111,7 @@ type MessagesUseCaseMock struct {
 	// SaveChatMessageFunc mocks the SaveChatMessage method.
 	SaveChatMessageFunc func(message *models.Message) (uint64, error)
 
-	// SavePhotoFunc mocks the SaveFile method.
+	// SavePhotoFunc mocks the SaveChatFile method.
 	SavePhotoFunc func(userID uint64, chatID uint64, file models.File) (string, error)
 
 	// calls tracks calls to the methods.
@@ -186,7 +187,7 @@ type MessagesUseCaseMock struct {
 			// Message is the message argument value.
 			Message *models.Message
 		}
-		// SaveFile holds details about calls to the SaveFile method.
+		// SaveChatFile holds details about calls to the SaveChatFile method.
 		SavePhoto []struct {
 			// UserID is the userID argument value.
 			UserID uint64
@@ -405,7 +406,7 @@ func (mock *MessagesUseCaseMock) GetMessageByIDCalls() []struct {
 }
 
 // GetFile calls GetPhotoFunc.
-func (mock *MessagesUseCaseMock) GetFile(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
+func (mock *MessagesUseCaseMock) GetChatFile(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
 	if mock.GetPhotoFunc == nil {
 		panic("MessagesUseCaseMock.GetPhotoFunc: method is nil but MessagesUseCase.GetFile was just called")
 	}
@@ -571,10 +572,10 @@ func (mock *MessagesUseCaseMock) SaveChatMessageCalls() []struct {
 	return calls
 }
 
-// SaveFile calls SavePhotoFunc.
-func (mock *MessagesUseCaseMock) SaveFile(userID uint64, chatID uint64, file models.File) (string, error) {
+// SaveChatFile calls SavePhotoFunc.
+func (mock *MessagesUseCaseMock) SaveChatFile(userID uint64, chatID uint64, file models.File) (string, error) {
 	if mock.SavePhotoFunc == nil {
-		panic("MessagesUseCaseMock.SavePhotoFunc: method is nil but MessagesUseCase.SaveFile was just called")
+		panic("MessagesUseCaseMock.SavePhotoFunc: method is nil but MessagesUseCase.SaveChatFile was just called")
 	}
 	callInfo := struct {
 		UserID uint64
@@ -591,7 +592,7 @@ func (mock *MessagesUseCaseMock) SaveFile(userID uint64, chatID uint64, file mod
 	return mock.SavePhotoFunc(userID, chatID, file)
 }
 
-// SavePhotoCalls gets all the calls that were made to SaveFile.
+// SavePhotoCalls gets all the calls that were made to SaveChatFile.
 // Check the length with:
 //     len(mockedMessagesUseCase.SavePhotoCalls())
 func (mock *MessagesUseCaseMock) SavePhotoCalls() []struct {

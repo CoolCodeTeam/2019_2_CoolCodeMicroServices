@@ -1,11 +1,12 @@
 package useCase
 
 import (
+	"net/http"
+	"os"
+
 	chats "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/messages/repository"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
-	"net/http"
-	"os"
 )
 
 //go:generate moq -out messages_ucase_mock.go . MessagesUseCase
@@ -20,8 +21,10 @@ type MessagesUseCase interface {
 	GetChannelMessages(channelID uint64, userID uint64) (models.Messages, error)
 	FindMessages(findString string, ID uint64) (models.Messages, error)
 	Like(ID uint64) error
-	SaveFile(userID, chatID uint64, file models.File) (string, error)
-	GetFile(userID, chatID uint64, photoUID string) (*os.File, error)
+	SaveChatFile(userID, chatID uint64, file models.File) (string, error)
+	GetChatFile(userID, chatID uint64, photoUID string) (*os.File, error)
+	SaveChannelFile(userID, chatID uint64, file models.File) (string, error)
+	GetChannelFile(userID, chatID uint64, photoUID string) (*os.File, error)
 }
 
 type MessageUseCaseImpl struct {
@@ -70,7 +73,7 @@ func (m *MessageUseCaseImpl) GetMessageByID(messageID uint64) (*models.Message, 
 	return m.messageRepository.GetMessageByID(messageID)
 }
 
-func (m *MessageUseCaseImpl) SaveFile(userID, chatID uint64, fileInfo models.File) (string, error) {
+func (m *MessageUseCaseImpl) SaveChatFile(userID, chatID uint64, fileInfo models.File) (string, error) {
 	permissionOk, err := m.chats.CheckChatPermission(userID, chatID)
 	if err != nil {
 		return "", err
@@ -82,8 +85,31 @@ func (m *MessageUseCaseImpl) SaveFile(userID, chatID uint64, fileInfo models.Fil
 	return m.photos.SaveFile(chatID, fileInfo)
 }
 
-func (m *MessageUseCaseImpl) GetFile(userID, chatID uint64, photoUID string) (*os.File, error) {
+func (m *MessageUseCaseImpl) GetChatFile(userID, chatID uint64, photoUID string) (*os.File, error) {
 	permissionOk, err := m.chats.CheckChatPermission(userID, chatID)
+	if err != nil {
+		return &os.File{}, err
+	}
+	if !permissionOk {
+		return &os.File{}, models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
+	}
+	return m.photos.GetFile(chatID, photoUID)
+}
+
+func (m *MessageUseCaseImpl) SaveChannelFile(userID, chatID uint64, fileInfo models.File) (string, error) {
+	permissionOk, err := m.chats.CheckChannelPermission(userID, chatID)
+	if err != nil {
+		return "", err
+	}
+	if !permissionOk {
+		return "", models.NewClientError(nil, http.StatusForbidden, "Not enough permissions for this request:(")
+	}
+
+	return m.photos.SaveFile(chatID, fileInfo)
+}
+
+func (m *MessageUseCaseImpl) GetChannelFile(userID, chatID uint64, photoUID string) (*os.File, error) {
+	permissionOk, err := m.chats.CheckChannelPermission(userID, chatID)
 	if err != nil {
 		return &os.File{}, err
 	}

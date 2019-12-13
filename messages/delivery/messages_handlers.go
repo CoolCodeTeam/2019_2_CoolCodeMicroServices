@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -89,10 +90,19 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 		m.utils.HandleError(err, w, r)
 		return
 	}
-	uid, err := m.Messages.SaveFile(user.ID, uint64(chatID), models.File{
-		File:      file,
-		Extension: fileExtension,
-	})
+
+	var uid string
+	if isChannel(r) {
+		uid, err = m.Messages.SaveChannelFile(user.ID, uint64(chatID), models.File{
+			File:      file,
+			Extension: fileExtension,
+		})
+	} else {
+		uid, err = m.Messages.SaveChatFile(user.ID, uint64(chatID), models.File{
+			File:      file,
+			Extension: fileExtension,
+		})
+	}
 	if err != nil {
 		m.utils.HandleError(err, w, r)
 		return
@@ -151,8 +161,12 @@ func (m *MessageHandlersImpl) GetFile(w http.ResponseWriter, r *http.Request) {
 		m.utils.HandleError(err, w, r)
 		return
 	}
-
-	file, err := m.Messages.GetFile(user.ID, uint64(chatID), photoID)
+	var file *os.File
+	if isChannel(r) {
+		file, err = m.Messages.GetChannelFile(user.ID, uint64(chatID), photoID)
+	} else {
+		file, err = m.Messages.GetChatFile(user.ID, uint64(chatID), photoID)
+	}
 
 	if err != nil {
 		m.utils.HandleError(err, w, r)

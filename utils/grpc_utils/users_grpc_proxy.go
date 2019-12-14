@@ -2,12 +2,18 @@ package grpc_utils
 
 import (
 	"context"
+	"errors"
+
 	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 type UsersGRPCProxy struct {
 	client UsersServiceClient
+}
+
+func (u *UsersGRPCProxy) PutStickerpack(userID uint64, stickerpackID uint64) error {
+	return errors.New("Not implemented")
 }
 
 func (u *UsersGRPCProxy) GetUserBySession(session string) (uint64, error) {

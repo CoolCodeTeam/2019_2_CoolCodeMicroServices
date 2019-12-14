@@ -20,6 +20,10 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+//0 - text type
+//1 - file type
+//2 - sticker type
+
 type MessageHandlers interface {
 	SendMessage(w http.ResponseWriter, r *http.Request)
 	GetMessagesByChatID(w http.ResponseWriter, r *http.Request)

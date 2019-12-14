@@ -15,6 +15,7 @@ var (
 	lockUsersUseCaseMockGetUserByID      sync.RWMutex
 	lockUsersUseCaseMockGetUserBySession sync.RWMutex
 	lockUsersUseCaseMockLogin            sync.RWMutex
+	lockUsersUseCaseMockPutStickerpack   sync.RWMutex
 	lockUsersUseCaseMockSignUp           sync.RWMutex
 )
 
@@ -46,6 +47,9 @@ var _ UsersUseCase = &UsersUseCaseMock{}
 //             LoginFunc: func(user models.User) (models.User, error) {
 // 	               panic("mock out the Login method")
 //             },
+//             PutStickerpackFunc: func(userID uint64, stickerpackID uint64) error {
+// 	               panic("mock out the PutStickerpack method")
+//             },
 //             SignUpFunc: func(user *models.User) error {
 // 	               panic("mock out the SignUp method")
 //             },
@@ -73,6 +77,9 @@ type UsersUseCaseMock struct {
 
 	// LoginFunc mocks the Login method.
 	LoginFunc func(user models.User) (models.User, error)
+
+	// PutStickerpackFunc mocks the PutStickerpack method.
+	PutStickerpackFunc func(userID uint64, stickerpackID uint64) error
 
 	// SignUpFunc mocks the SignUp method.
 	SignUpFunc func(user *models.User) error
@@ -108,6 +115,13 @@ type UsersUseCaseMock struct {
 		Login []struct {
 			// User is the user argument value.
 			User models.User
+		}
+		// PutStickerpack holds details about calls to the PutStickerpack method.
+		PutStickerpack []struct {
+			// UserID is the userID argument value.
+			UserID uint64
+			// StickerpackID is the stickerpackID argument value.
+			StickerpackID uint64
 		}
 		// SignUp holds details about calls to the SignUp method.
 		SignUp []struct {
@@ -300,6 +314,41 @@ func (mock *UsersUseCaseMock) LoginCalls() []struct {
 	lockUsersUseCaseMockLogin.RLock()
 	calls = mock.calls.Login
 	lockUsersUseCaseMockLogin.RUnlock()
+	return calls
+}
+
+// PutStickerpack calls PutStickerpackFunc.
+func (mock *UsersUseCaseMock) PutStickerpack(userID uint64, stickerpackID uint64) error {
+	if mock.PutStickerpackFunc == nil {
+		panic("UsersUseCaseMock.PutStickerpackFunc: method is nil but UsersUseCase.PutStickerpack was just called")
+	}
+	callInfo := struct {
+		UserID        uint64
+		StickerpackID uint64
+	}{
+		UserID:        userID,
+		StickerpackID: stickerpackID,
+	}
+	lockUsersUseCaseMockPutStickerpack.Lock()
+	mock.calls.PutStickerpack = append(mock.calls.PutStickerpack, callInfo)
+	lockUsersUseCaseMockPutStickerpack.Unlock()
+	return mock.PutStickerpackFunc(userID, stickerpackID)
+}
+
+// PutStickerpackCalls gets all the calls that were made to PutStickerpack.
+// Check the length with:
+//     len(mockedUsersUseCase.PutStickerpackCalls())
+func (mock *UsersUseCaseMock) PutStickerpackCalls() []struct {
+	UserID        uint64
+	StickerpackID uint64
+} {
+	var calls []struct {
+		UserID        uint64
+		StickerpackID uint64
+	}
+	lockUsersUseCaseMockPutStickerpack.RLock()
+	calls = mock.calls.PutStickerpack
+	lockUsersUseCaseMockPutStickerpack.RUnlock()
 	return calls
 }
 

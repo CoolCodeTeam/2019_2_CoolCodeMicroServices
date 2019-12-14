@@ -1,12 +1,13 @@
 package useCase
 
 import (
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
-	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
+	"golang.org/x/crypto/bcrypt"
 )
 
 //go:generate moq -out users_ucase_mock.go . UsersUseCase
@@ -18,11 +19,23 @@ type UsersUseCase interface {
 	ChangeUser(user *models.User) error
 	FindUsers(name string) (models.Users, error)
 	GetUserBySession(session string) (uint64, error)
+	PutStickerpack(userID uint64, stickerpackID uint64) error
 }
 
 type usersUseCase struct {
 	repository repository.UserRepo
 	sessions   repository.SessionRepository
+}
+
+func (u *usersUseCase) PutStickerpack(userID uint64, stickerpackID uint64) error {
+	return u.repository.AddStickerpack(userID, stickerpackID)
+}
+
+func NewUserUseCase(repo repository.UserRepo, sessions repository.SessionRepository) UsersUseCase {
+	return &usersUseCase{
+		repository: repo,
+		sessions:   sessions,
+	}
 }
 
 func (u *usersUseCase) GetUserBySession(session string) (uint64, error) {
@@ -34,7 +47,7 @@ func (u *usersUseCase) GetUserBySession(session string) (uint64, error) {
 func (u *usersUseCase) Login(loginUser models.User) (models.User, error) {
 	user, err := u.repository.GetUserByEmail(loginUser.Email)
 	if err != nil {
-		err = models.NewClientError(nil, http.StatusBadRequest, "Bad request: malformed data")
+		err = models.NewClientError(err, http.StatusBadRequest, "Bad request: malformed data")
 		return user, err
 	}
 
@@ -45,13 +58,6 @@ func (u *usersUseCase) Login(loginUser models.User) (models.User, error) {
 		return user, err
 	}
 
-}
-
-func NewUserUseCase(repo repository.UserRepo, sessions repository.SessionRepository) UsersUseCase {
-	return &usersUseCase{
-		repository: repo,
-		sessions:   sessions,
-	}
 }
 
 func (u *usersUseCase) GetUserByID(id uint64) (models.User, error) {

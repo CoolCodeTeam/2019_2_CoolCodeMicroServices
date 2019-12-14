@@ -11,4 +11,6 @@ type UserRepo interface {
 	Replace(ID uint64, newUser *models.User) error
 	Contains(user models.User) bool
 	GetUsers() (models.Users, error)
+	GetUserStickers(userID uint64) ([]uint64, error)
+	AddStickerpack(userID uint64, stickerpackID uint64) error
 }

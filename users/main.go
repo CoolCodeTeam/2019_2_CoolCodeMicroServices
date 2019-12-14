@@ -2,9 +2,14 @@ package main
 
 import (
 	"flag"
+	"io"
+	"net"
+	"net/http"
+	"os"
+
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/delivery"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users_service"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/grpc_utils"
@@ -19,16 +24,12 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"io"
-	"net"
-	"net/http"
-	"os"
 )
 
 func startUsersGRPCService(port string, service grpc_utils.UsersServiceServer) {
 	lis, err := net.Listen("tcp", ":5000")
 	if err != nil {
-		logrus.Fatalf("Can not start grpc users service: %s",err.Error())
+		logrus.Fatalf("Can not start grpc users service: %s", err.Error())
 	}
 	s := grpc.NewServer()
 
@@ -112,6 +113,7 @@ func main() {
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.EditProfile)).Methods("PUT")
 	r.Handle("/users/logout", middlewares.AuthMiddleware(usersApi.Logout)).Methods("DELETE")
 	r.Handle("/users/photos", middlewares.AuthMiddleware(usersApi.SavePhoto)).Methods("POST")
+	r.Handle("/users/{id:[0-9]+}/stickers/{stickerpack_id:[0-9]+}", middlewares.AuthMiddleware(usersApi.PutStickerPack)).Methods("POST")
 	r.Handle("/users/photos/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetPhoto)).Methods("GET")
 	r.Handle("/users/{id:[0-9]+}", middlewares.AuthMiddleware(usersApi.GetUser)).Methods("GET")
 	r.Handle("/users/names/{name:[\\s\\S]+}", middlewares.AuthMiddleware(usersApi.FindUsers)).Methods("GET")

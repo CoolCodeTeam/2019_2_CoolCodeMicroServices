@@ -17,7 +17,7 @@ var (
 	_ easyjson.Marshaler
 )
 
-func easyjson9e1087fdDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(in *jlexer.Lexer, out *User) {
+func easyjson9e1087fdDecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(in *jlexer.Lexer, out *User) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -50,6 +50,29 @@ func easyjson9e1087fdDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 			out.Status = string(in.String())
 		case "phone":
 			out.Phone = string(in.String())
+		case "stickerpacks":
+			if in.IsNull() {
+				in.Skip()
+				out.Stickerpacks = nil
+			} else {
+				in.Delim('[')
+				if out.Stickerpacks == nil {
+					if !in.IsDelim(']') {
+						out.Stickerpacks = make([]uint64, 0, 8)
+					} else {
+						out.Stickerpacks = []uint64{}
+					}
+				} else {
+					out.Stickerpacks = (out.Stickerpacks)[:0]
+				}
+				for !in.IsDelim(']') {
+					var v1 uint64
+					v1 = uint64(in.Uint64())
+					out.Stickerpacks = append(out.Stickerpacks, v1)
+					in.WantComma()
+				}
+				in.Delim(']')
+			}
 		default:
 			in.SkipRecursive()
 		}
@@ -60,7 +83,7 @@ func easyjson9e1087fdDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 		in.Consumed()
 	}
 }
-func easyjson9e1087fdEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(out *jwriter.Writer, in User) {
+func easyjson9e1087fdEncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(out *jwriter.Writer, in User) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -99,29 +122,45 @@ func easyjson9e1087fdEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsM
 		out.RawString(prefix)
 		out.String(string(in.Phone))
 	}
+	{
+		const prefix string = ",\"stickerpacks\":"
+		out.RawString(prefix)
+		if in.Stickerpacks == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+			out.RawString("null")
+		} else {
+			out.RawByte('[')
+			for v2, v3 := range in.Stickerpacks {
+				if v2 > 0 {
+					out.RawByte(',')
+				}
+				out.Uint64(uint64(v3))
+			}
+			out.RawByte(']')
+		}
+	}
 	out.RawByte('}')
 }
 
 // MarshalJSON supports json.Marshaler interface
 func (v User) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjson9e1087fdEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(&w, v)
+	easyjson9e1087fdEncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v User) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjson9e1087fdEncodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(w, v)
+	easyjson9e1087fdEncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *User) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjson9e1087fdDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(&r, v)
+	easyjson9e1087fdDecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *User) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjson9e1087fdDecodeGithubComGoParkMailRu20192CoolCodeMicroServicesUtilsModels(l, v)
+	easyjson9e1087fdDecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsModels(l, v)
 }

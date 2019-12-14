@@ -25,9 +25,10 @@ func (m *MessageDBRepository) PutMessage(message *models.Message) (uint64, error
 	if err != nil {
 		return 0, models.NewClientError(err, http.StatusBadRequest, "Wrong date format")
 	}
-	row := m.DB.QueryRow("INSERT into messages (type, body, fileid,fileExtension, chatid, authorid,messagetime,likes) VALUES ($1,$2,$3,$4,$5,$6,$7,$8) returning id",
+	row := m.DB.QueryRow(`INSERT into messages (type, body, fileid,fileExtension, chatid
+		, authorid,messagetime,likes,stickerid) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning id`,
 		message.MessageType, message.Text, message.FileID, message.FileType, message.ChatID,
-		message.AuthorID, time, message.Likes)
+		message.AuthorID, time, message.Likes, message.StickerID)
 	err = row.Scan(&chatID)
 
 	if err != nil {
@@ -40,11 +41,11 @@ func (m *MessageDBRepository) PutMessage(message *models.Message) (uint64, error
 func (m *MessageDBRepository) GetMessageByID(messageID uint64) (*models.Message, error) {
 	var returningMessage models.Message
 	var messageTime time.Time
-	row := m.DB.QueryRow("SELECT id,type,body,fileid,fileExtension,chatid,authorid,messagetime,likes FROM messages where id=$1", messageID)
+	row := m.DB.QueryRow("SELECT id,type,body,fileid,fileExtension,chatid,authorid,messagetime,likes,stickerid FROM messages where id=$1", messageID)
 	if err := row.Scan(&returningMessage.ID, &returningMessage.MessageType, &returningMessage.Text,
 		&returningMessage.FileID, &returningMessage.FileType,
 		&returningMessage.ChatID, &returningMessage.AuthorID, &messageTime,
-		&returningMessage.Likes); err != nil {
+		&returningMessage.Likes, &returningMessage.StickerID); err != nil {
 		return &returningMessage,
 			models.NewServerError(err, http.StatusBadRequest, "Message not exists:(")
 	}
@@ -55,7 +56,7 @@ func (m *MessageDBRepository) GetMessageByID(messageID uint64) (*models.Message,
 
 func (m *MessageDBRepository) GetMessagesByChatID(chatID uint64) (models.Messages, error) {
 	returningMessages := make([]*models.Message, 0)
-	rows, err := m.DB.Query("SELECT id,type,body,fileid,fileextension,chatid,authorid,hideforauthor,messagetime,likes FROM messages where chatid=$1 order by id asc ", chatID)
+	rows, err := m.DB.Query("SELECT id,type,body,fileid,fileextension,chatid,authorid,hideforauthor,messagetime,likes,stickerid FROM messages where chatid=$1 order by id asc ", chatID)
 	if err != nil {
 		return models.Messages{}, models.NewServerError(err, http.StatusInternalServerError,
 			"Can not get messages in GetMessagesByChatId "+err.Error())
@@ -64,7 +65,7 @@ func (m *MessageDBRepository) GetMessagesByChatID(chatID uint64) (models.Message
 		var message models.Message
 		var messageTime time.Time
 		err := rows.Scan(&message.ID, &message.MessageType, &message.Text, &message.FileID, &message.FileType,
-			&message.ChatID, &message.AuthorID, &message.HideForAuthor, &messageTime, &message.Likes)
+			&message.ChatID, &message.AuthorID, &message.HideForAuthor, &messageTime, &message.Likes, &message.StickerID)
 
 		timeString := messageTime.Format("02.01.2006 15:04")
 		message.MessageTime = timeString

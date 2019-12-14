@@ -4,8 +4,13 @@ import (
 	"bufio"
 	"encoding/json"
 	"fmt"
+	"net/http"
+	"net/url"
+	"strconv"
+	"time"
+
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/google/uuid"
@@ -13,10 +18,6 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/mailru/easyjson"
 	"github.com/sirupsen/logrus"
-	"net/http"
-	"net/url"
-	"strconv"
-	"time"
 )
 
 type UserHandlers struct {
@@ -311,4 +312,24 @@ func (handlers *UserHandlers) FindUsers(w http.ResponseWriter, r *http.Request) 
 	}
 	response, err := json.Marshal(users)
 	w.Write(response)
+}
+
+func (handlers *UserHandlers) PutStickerPack(w http.ResponseWriter, r *http.Request) {
+	userID, err := strconv.Atoi(mux.Vars(r)["id"])
+	if err != nil {
+		handlers.utils.HandleError(models.NewClientError(err, http.StatusBadRequest, "Bad user_id"), w, r)
+		return
+	}
+	stickerpackID, err := strconv.Atoi(mux.Vars(r)["stickerpack_id"])
+	if err != nil {
+		handlers.utils.HandleError(models.NewClientError(err, http.StatusBadRequest, "Bad stickerpack_id"), w, r)
+		return
+	}
+
+	err = handlers.Users.PutStickerpack(uint64(userID), uint64(stickerpackID))
+
+	if err != nil {
+		handlers.utils.HandleError(err, w, r)
+	}
+
 }

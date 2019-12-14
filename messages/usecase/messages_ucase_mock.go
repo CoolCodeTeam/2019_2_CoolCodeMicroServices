@@ -4,25 +4,26 @@
 package useCase
 
 import (
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"os"
 	"sync"
-
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 var (
 	lockMessagesUseCaseMockDeleteMessage        sync.RWMutex
 	lockMessagesUseCaseMockEditMessage          sync.RWMutex
 	lockMessagesUseCaseMockFindMessages         sync.RWMutex
+	lockMessagesUseCaseMockGetChannelFile       sync.RWMutex
 	lockMessagesUseCaseMockGetChannelMessages   sync.RWMutex
+	lockMessagesUseCaseMockGetChatFile          sync.RWMutex
 	lockMessagesUseCaseMockGetChatMessages      sync.RWMutex
 	lockMessagesUseCaseMockGetMessageByID       sync.RWMutex
-	lockMessagesUseCaseMockGetPhoto             sync.RWMutex
 	lockMessagesUseCaseMockHideMessageForAuthor sync.RWMutex
 	lockMessagesUseCaseMockLike                 sync.RWMutex
+	lockMessagesUseCaseMockSaveChannelFile      sync.RWMutex
 	lockMessagesUseCaseMockSaveChannelMessage   sync.RWMutex
+	lockMessagesUseCaseMockSaveChatFile         sync.RWMutex
 	lockMessagesUseCaseMockSaveChatMessage      sync.RWMutex
-	lockMessagesUseCaseMockSavePhoto            sync.RWMutex
 )
 
 // Ensure, that MessagesUseCaseMock does implement MessagesUseCase.
@@ -44,8 +45,14 @@ var _ MessagesUseCase = &MessagesUseCaseMock{}
 //             FindMessagesFunc: func(findString string, ID uint64) (models.Messages, error) {
 // 	               panic("mock out the FindMessages method")
 //             },
+//             GetChannelFileFunc: func(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
+// 	               panic("mock out the GetChannelFile method")
+//             },
 //             GetChannelMessagesFunc: func(channelID uint64, userID uint64) (models.Messages, error) {
 // 	               panic("mock out the GetChannelMessages method")
+//             },
+//             GetChatFileFunc: func(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
+// 	               panic("mock out the GetChatFile method")
 //             },
 //             GetChatMessagesFunc: func(chatID uint64, userID uint64) (models.Messages, error) {
 // 	               panic("mock out the GetChatMessages method")
@@ -53,23 +60,23 @@ var _ MessagesUseCase = &MessagesUseCaseMock{}
 //             GetMessageByIDFunc: func(messageID uint64) (*models.Message, error) {
 // 	               panic("mock out the GetMessageByID method")
 //             },
-//             GetPhotoFunc: func(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
-// 	               panic("mock out the GetFile method")
-//             },
 //             HideMessageForAuthorFunc: func(messageID uint64, userID uint64) error {
 // 	               panic("mock out the HideMessageForAuthor method")
 //             },
 //             LikeFunc: func(ID uint64) error {
 // 	               panic("mock out the Like method")
 //             },
+//             SaveChannelFileFunc: func(userID uint64, chatID uint64, file models.File) (string, error) {
+// 	               panic("mock out the SaveChannelFile method")
+//             },
 //             SaveChannelMessageFunc: func(message *models.Message) (uint64, error) {
 // 	               panic("mock out the SaveChannelMessage method")
 //             },
+//             SaveChatFileFunc: func(userID uint64, chatID uint64, file models.File) (string, error) {
+// 	               panic("mock out the SaveChatFile method")
+//             },
 //             SaveChatMessageFunc: func(message *models.Message) (uint64, error) {
 // 	               panic("mock out the SaveChatMessage method")
-//             },
-//             SavePhotoFunc: func(userID uint64, chatID uint64, file models.File) (string, error) {
-// 	               panic("mock out the SaveChatFile method")
 //             },
 //         }
 //
@@ -87,8 +94,14 @@ type MessagesUseCaseMock struct {
 	// FindMessagesFunc mocks the FindMessages method.
 	FindMessagesFunc func(findString string, ID uint64) (models.Messages, error)
 
+	// GetChannelFileFunc mocks the GetChannelFile method.
+	GetChannelFileFunc func(userID uint64, chatID uint64, photoUID string) (*os.File, error)
+
 	// GetChannelMessagesFunc mocks the GetChannelMessages method.
 	GetChannelMessagesFunc func(channelID uint64, userID uint64) (models.Messages, error)
+
+	// GetChatFileFunc mocks the GetChatFile method.
+	GetChatFileFunc func(userID uint64, chatID uint64, photoUID string) (*os.File, error)
 
 	// GetChatMessagesFunc mocks the GetChatMessages method.
 	GetChatMessagesFunc func(chatID uint64, userID uint64) (models.Messages, error)
@@ -96,23 +109,23 @@ type MessagesUseCaseMock struct {
 	// GetMessageByIDFunc mocks the GetMessageByID method.
 	GetMessageByIDFunc func(messageID uint64) (*models.Message, error)
 
-	// GetPhotoFunc mocks the GetFile method.
-	GetPhotoFunc func(userID uint64, chatID uint64, photoUID string) (*os.File, error)
-
 	// HideMessageForAuthorFunc mocks the HideMessageForAuthor method.
 	HideMessageForAuthorFunc func(messageID uint64, userID uint64) error
 
 	// LikeFunc mocks the Like method.
 	LikeFunc func(ID uint64) error
 
+	// SaveChannelFileFunc mocks the SaveChannelFile method.
+	SaveChannelFileFunc func(userID uint64, chatID uint64, file models.File) (string, error)
+
 	// SaveChannelMessageFunc mocks the SaveChannelMessage method.
 	SaveChannelMessageFunc func(message *models.Message) (uint64, error)
 
+	// SaveChatFileFunc mocks the SaveChatFile method.
+	SaveChatFileFunc func(userID uint64, chatID uint64, file models.File) (string, error)
+
 	// SaveChatMessageFunc mocks the SaveChatMessage method.
 	SaveChatMessageFunc func(message *models.Message) (uint64, error)
-
-	// SavePhotoFunc mocks the SaveChatFile method.
-	SavePhotoFunc func(userID uint64, chatID uint64, file models.File) (string, error)
 
 	// calls tracks calls to the methods.
 	calls struct {
@@ -137,12 +150,30 @@ type MessagesUseCaseMock struct {
 			// ID is the ID argument value.
 			ID uint64
 		}
+		// GetChannelFile holds details about calls to the GetChannelFile method.
+		GetChannelFile []struct {
+			// UserID is the userID argument value.
+			UserID uint64
+			// ChatID is the chatID argument value.
+			ChatID uint64
+			// PhotoUID is the photoUID argument value.
+			PhotoUID string
+		}
 		// GetChannelMessages holds details about calls to the GetChannelMessages method.
 		GetChannelMessages []struct {
 			// ChannelID is the channelID argument value.
 			ChannelID uint64
 			// UserID is the userID argument value.
 			UserID uint64
+		}
+		// GetChatFile holds details about calls to the GetChatFile method.
+		GetChatFile []struct {
+			// UserID is the userID argument value.
+			UserID uint64
+			// ChatID is the chatID argument value.
+			ChatID uint64
+			// PhotoUID is the photoUID argument value.
+			PhotoUID string
 		}
 		// GetChatMessages holds details about calls to the GetChatMessages method.
 		GetChatMessages []struct {
@@ -156,15 +187,6 @@ type MessagesUseCaseMock struct {
 			// MessageID is the messageID argument value.
 			MessageID uint64
 		}
-		// GetFile holds details about calls to the GetFile method.
-		GetPhoto []struct {
-			// UserID is the userID argument value.
-			UserID uint64
-			// ChatID is the chatID argument value.
-			ChatID uint64
-			// PhotoUID is the photoUID argument value.
-			PhotoUID string
-		}
 		// HideMessageForAuthor holds details about calls to the HideMessageForAuthor method.
 		HideMessageForAuthor []struct {
 			// MessageID is the messageID argument value.
@@ -177,24 +199,33 @@ type MessagesUseCaseMock struct {
 			// ID is the ID argument value.
 			ID uint64
 		}
-		// SaveChannelMessage holds details about calls to the SaveChannelMessage method.
-		SaveChannelMessage []struct {
-			// Message is the message argument value.
-			Message *models.Message
-		}
-		// SaveChatMessage holds details about calls to the SaveChatMessage method.
-		SaveChatMessage []struct {
-			// Message is the message argument value.
-			Message *models.Message
-		}
-		// SaveChatFile holds details about calls to the SaveChatFile method.
-		SavePhoto []struct {
+		// SaveChannelFile holds details about calls to the SaveChannelFile method.
+		SaveChannelFile []struct {
 			// UserID is the userID argument value.
 			UserID uint64
 			// ChatID is the chatID argument value.
 			ChatID uint64
 			// File is the file argument value.
 			File models.File
+		}
+		// SaveChannelMessage holds details about calls to the SaveChannelMessage method.
+		SaveChannelMessage []struct {
+			// Message is the message argument value.
+			Message *models.Message
+		}
+		// SaveChatFile holds details about calls to the SaveChatFile method.
+		SaveChatFile []struct {
+			// UserID is the userID argument value.
+			UserID uint64
+			// ChatID is the chatID argument value.
+			ChatID uint64
+			// File is the file argument value.
+			File models.File
+		}
+		// SaveChatMessage holds details about calls to the SaveChatMessage method.
+		SaveChatMessage []struct {
+			// Message is the message argument value.
+			Message *models.Message
 		}
 	}
 }
@@ -304,6 +335,45 @@ func (mock *MessagesUseCaseMock) FindMessagesCalls() []struct {
 	return calls
 }
 
+// GetChannelFile calls GetChannelFileFunc.
+func (mock *MessagesUseCaseMock) GetChannelFile(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
+	if mock.GetChannelFileFunc == nil {
+		panic("MessagesUseCaseMock.GetChannelFileFunc: method is nil but MessagesUseCase.GetChannelFile was just called")
+	}
+	callInfo := struct {
+		UserID   uint64
+		ChatID   uint64
+		PhotoUID string
+	}{
+		UserID:   userID,
+		ChatID:   chatID,
+		PhotoUID: photoUID,
+	}
+	lockMessagesUseCaseMockGetChannelFile.Lock()
+	mock.calls.GetChannelFile = append(mock.calls.GetChannelFile, callInfo)
+	lockMessagesUseCaseMockGetChannelFile.Unlock()
+	return mock.GetChannelFileFunc(userID, chatID, photoUID)
+}
+
+// GetChannelFileCalls gets all the calls that were made to GetChannelFile.
+// Check the length with:
+//     len(mockedMessagesUseCase.GetChannelFileCalls())
+func (mock *MessagesUseCaseMock) GetChannelFileCalls() []struct {
+	UserID   uint64
+	ChatID   uint64
+	PhotoUID string
+} {
+	var calls []struct {
+		UserID   uint64
+		ChatID   uint64
+		PhotoUID string
+	}
+	lockMessagesUseCaseMockGetChannelFile.RLock()
+	calls = mock.calls.GetChannelFile
+	lockMessagesUseCaseMockGetChannelFile.RUnlock()
+	return calls
+}
+
 // GetChannelMessages calls GetChannelMessagesFunc.
 func (mock *MessagesUseCaseMock) GetChannelMessages(channelID uint64, userID uint64) (models.Messages, error) {
 	if mock.GetChannelMessagesFunc == nil {
@@ -336,6 +406,45 @@ func (mock *MessagesUseCaseMock) GetChannelMessagesCalls() []struct {
 	lockMessagesUseCaseMockGetChannelMessages.RLock()
 	calls = mock.calls.GetChannelMessages
 	lockMessagesUseCaseMockGetChannelMessages.RUnlock()
+	return calls
+}
+
+// GetChatFile calls GetChatFileFunc.
+func (mock *MessagesUseCaseMock) GetChatFile(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
+	if mock.GetChatFileFunc == nil {
+		panic("MessagesUseCaseMock.GetChatFileFunc: method is nil but MessagesUseCase.GetChatFile was just called")
+	}
+	callInfo := struct {
+		UserID   uint64
+		ChatID   uint64
+		PhotoUID string
+	}{
+		UserID:   userID,
+		ChatID:   chatID,
+		PhotoUID: photoUID,
+	}
+	lockMessagesUseCaseMockGetChatFile.Lock()
+	mock.calls.GetChatFile = append(mock.calls.GetChatFile, callInfo)
+	lockMessagesUseCaseMockGetChatFile.Unlock()
+	return mock.GetChatFileFunc(userID, chatID, photoUID)
+}
+
+// GetChatFileCalls gets all the calls that were made to GetChatFile.
+// Check the length with:
+//     len(mockedMessagesUseCase.GetChatFileCalls())
+func (mock *MessagesUseCaseMock) GetChatFileCalls() []struct {
+	UserID   uint64
+	ChatID   uint64
+	PhotoUID string
+} {
+	var calls []struct {
+		UserID   uint64
+		ChatID   uint64
+		PhotoUID string
+	}
+	lockMessagesUseCaseMockGetChatFile.RLock()
+	calls = mock.calls.GetChatFile
+	lockMessagesUseCaseMockGetChatFile.RUnlock()
 	return calls
 }
 
@@ -405,45 +514,6 @@ func (mock *MessagesUseCaseMock) GetMessageByIDCalls() []struct {
 	return calls
 }
 
-// GetFile calls GetPhotoFunc.
-func (mock *MessagesUseCaseMock) GetChatFile(userID uint64, chatID uint64, photoUID string) (*os.File, error) {
-	if mock.GetPhotoFunc == nil {
-		panic("MessagesUseCaseMock.GetPhotoFunc: method is nil but MessagesUseCase.GetFile was just called")
-	}
-	callInfo := struct {
-		UserID   uint64
-		ChatID   uint64
-		PhotoUID string
-	}{
-		UserID:   userID,
-		ChatID:   chatID,
-		PhotoUID: photoUID,
-	}
-	lockMessagesUseCaseMockGetPhoto.Lock()
-	mock.calls.GetPhoto = append(mock.calls.GetPhoto, callInfo)
-	lockMessagesUseCaseMockGetPhoto.Unlock()
-	return mock.GetPhotoFunc(userID, chatID, photoUID)
-}
-
-// GetPhotoCalls gets all the calls that were made to GetFile.
-// Check the length with:
-//     len(mockedMessagesUseCase.GetPhotoCalls())
-func (mock *MessagesUseCaseMock) GetPhotoCalls() []struct {
-	UserID   uint64
-	ChatID   uint64
-	PhotoUID string
-} {
-	var calls []struct {
-		UserID   uint64
-		ChatID   uint64
-		PhotoUID string
-	}
-	lockMessagesUseCaseMockGetPhoto.RLock()
-	calls = mock.calls.GetPhoto
-	lockMessagesUseCaseMockGetPhoto.RUnlock()
-	return calls
-}
-
 // HideMessageForAuthor calls HideMessageForAuthorFunc.
 func (mock *MessagesUseCaseMock) HideMessageForAuthor(messageID uint64, userID uint64) error {
 	if mock.HideMessageForAuthorFunc == nil {
@@ -510,6 +580,45 @@ func (mock *MessagesUseCaseMock) LikeCalls() []struct {
 	return calls
 }
 
+// SaveChannelFile calls SaveChannelFileFunc.
+func (mock *MessagesUseCaseMock) SaveChannelFile(userID uint64, chatID uint64, file models.File) (string, error) {
+	if mock.SaveChannelFileFunc == nil {
+		panic("MessagesUseCaseMock.SaveChannelFileFunc: method is nil but MessagesUseCase.SaveChannelFile was just called")
+	}
+	callInfo := struct {
+		UserID uint64
+		ChatID uint64
+		File   models.File
+	}{
+		UserID: userID,
+		ChatID: chatID,
+		File:   file,
+	}
+	lockMessagesUseCaseMockSaveChannelFile.Lock()
+	mock.calls.SaveChannelFile = append(mock.calls.SaveChannelFile, callInfo)
+	lockMessagesUseCaseMockSaveChannelFile.Unlock()
+	return mock.SaveChannelFileFunc(userID, chatID, file)
+}
+
+// SaveChannelFileCalls gets all the calls that were made to SaveChannelFile.
+// Check the length with:
+//     len(mockedMessagesUseCase.SaveChannelFileCalls())
+func (mock *MessagesUseCaseMock) SaveChannelFileCalls() []struct {
+	UserID uint64
+	ChatID uint64
+	File   models.File
+} {
+	var calls []struct {
+		UserID uint64
+		ChatID uint64
+		File   models.File
+	}
+	lockMessagesUseCaseMockSaveChannelFile.RLock()
+	calls = mock.calls.SaveChannelFile
+	lockMessagesUseCaseMockSaveChannelFile.RUnlock()
+	return calls
+}
+
 // SaveChannelMessage calls SaveChannelMessageFunc.
 func (mock *MessagesUseCaseMock) SaveChannelMessage(message *models.Message) (uint64, error) {
 	if mock.SaveChannelMessageFunc == nil {
@@ -541,6 +650,45 @@ func (mock *MessagesUseCaseMock) SaveChannelMessageCalls() []struct {
 	return calls
 }
 
+// SaveChatFile calls SaveChatFileFunc.
+func (mock *MessagesUseCaseMock) SaveChatFile(userID uint64, chatID uint64, file models.File) (string, error) {
+	if mock.SaveChatFileFunc == nil {
+		panic("MessagesUseCaseMock.SaveChatFileFunc: method is nil but MessagesUseCase.SaveChatFile was just called")
+	}
+	callInfo := struct {
+		UserID uint64
+		ChatID uint64
+		File   models.File
+	}{
+		UserID: userID,
+		ChatID: chatID,
+		File:   file,
+	}
+	lockMessagesUseCaseMockSaveChatFile.Lock()
+	mock.calls.SaveChatFile = append(mock.calls.SaveChatFile, callInfo)
+	lockMessagesUseCaseMockSaveChatFile.Unlock()
+	return mock.SaveChatFileFunc(userID, chatID, file)
+}
+
+// SaveChatFileCalls gets all the calls that were made to SaveChatFile.
+// Check the length with:
+//     len(mockedMessagesUseCase.SaveChatFileCalls())
+func (mock *MessagesUseCaseMock) SaveChatFileCalls() []struct {
+	UserID uint64
+	ChatID uint64
+	File   models.File
+} {
+	var calls []struct {
+		UserID uint64
+		ChatID uint64
+		File   models.File
+	}
+	lockMessagesUseCaseMockSaveChatFile.RLock()
+	calls = mock.calls.SaveChatFile
+	lockMessagesUseCaseMockSaveChatFile.RUnlock()
+	return calls
+}
+
 // SaveChatMessage calls SaveChatMessageFunc.
 func (mock *MessagesUseCaseMock) SaveChatMessage(message *models.Message) (uint64, error) {
 	if mock.SaveChatMessageFunc == nil {
@@ -569,44 +717,5 @@ func (mock *MessagesUseCaseMock) SaveChatMessageCalls() []struct {
 	lockMessagesUseCaseMockSaveChatMessage.RLock()
 	calls = mock.calls.SaveChatMessage
 	lockMessagesUseCaseMockSaveChatMessage.RUnlock()
-	return calls
-}
-
-// SaveChatFile calls SavePhotoFunc.
-func (mock *MessagesUseCaseMock) SaveChatFile(userID uint64, chatID uint64, file models.File) (string, error) {
-	if mock.SavePhotoFunc == nil {
-		panic("MessagesUseCaseMock.SavePhotoFunc: method is nil but MessagesUseCase.SaveChatFile was just called")
-	}
-	callInfo := struct {
-		UserID uint64
-		ChatID uint64
-		File   models.File
-	}{
-		UserID: userID,
-		ChatID: chatID,
-		File:   file,
-	}
-	lockMessagesUseCaseMockSavePhoto.Lock()
-	mock.calls.SavePhoto = append(mock.calls.SavePhoto, callInfo)
-	lockMessagesUseCaseMockSavePhoto.Unlock()
-	return mock.SavePhotoFunc(userID, chatID, file)
-}
-
-// SavePhotoCalls gets all the calls that were made to SaveChatFile.
-// Check the length with:
-//     len(mockedMessagesUseCase.SavePhotoCalls())
-func (mock *MessagesUseCaseMock) SavePhotoCalls() []struct {
-	UserID uint64
-	ChatID uint64
-	File   models.File
-} {
-	var calls []struct {
-		UserID uint64
-		ChatID uint64
-		File   models.File
-	}
-	lockMessagesUseCaseMockSavePhoto.RLock()
-	calls = mock.calls.SavePhoto
-	lockMessagesUseCaseMockSavePhoto.RUnlock()
 	return calls
 }

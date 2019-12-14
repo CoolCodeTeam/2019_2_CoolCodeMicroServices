@@ -1,6 +1,7 @@
 .idea
 
 .files
-.photos
-!/photos/default.png
+/photos*
+/files*
+*log
 

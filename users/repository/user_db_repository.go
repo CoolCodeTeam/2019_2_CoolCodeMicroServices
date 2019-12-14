@@ -2,12 +2,48 @@ package repository
 
 import (
 	"database/sql"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
+	"fmt"
 	"net/http"
+
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 )
 
 type DBUserStore struct {
 	DB *sql.DB
+}
+
+func (userStore *DBUserStore) GetUserStickers(userID uint64) ([]uint64, error) {
+	stickerpacks := make([]uint64, 0)
+	selectStr := "SELECT stickerpackID from stickers_users where userid = $1"
+	rows, err := userStore.DB.Query(selectStr, userID)
+	if err != nil {
+		return stickerpacks, models.NewServerError(err, http.StatusInternalServerError, "Can not get user stickers: "+err.Error())
+	}
+
+	for rows.Next() {
+		var stickerpackID uint64
+		err := rows.Scan(&stickerpackID)
+		if err != nil {
+			return stickerpacks, models.NewServerError(err, http.StatusInternalServerError,
+				"Can not get user stickers: "+err.Error())
+		}
+		stickerpacks = append(stickerpacks, stickerpackID)
+	}
+	return stickerpacks, nil
+}
+
+func (userStore *DBUserStore) AddStickerpack(userID uint64, stickerpackID uint64) error {
+	insertStickerStr := "INSERT INTO stickers (stickerpackid) values ($1) ON CONFLICT DO NOTHING"
+	_, err := userStore.DB.Exec(insertStickerStr, stickerpackID)
+	if err != nil {
+		return models.NewServerError(err, http.StatusInternalServerError, "Can not add user stickerpack: "+err.Error())
+	}
+	insertStr := "INSERT INTO stickers_users(userID,stickerpackID) VALUES ($1,$2)"
+	_, err = userStore.DB.Exec(insertStr, userID, stickerpackID)
+	if err != nil {
+		return models.NewServerError(err, http.StatusInternalServerError, "Can not add user stickerpack: "+err.Error())
+	}
+	return nil
 }
 
 func (userStore *DBUserStore) GetUserByID(ID uint64) (models.User, error) {
@@ -32,6 +68,11 @@ func (userStore *DBUserStore) GetUserByID(ID uint64) (models.User, error) {
 	if phone.Valid {
 		user.Phone = phone.String
 	}
+	stickerpacks, err := userStore.GetUserStickers(user.ID)
+	if err != nil {
+		return models.User{}, err
+	}
+	user.Stickerpacks = stickerpacks
 	return *user, nil
 }
 
@@ -46,7 +87,8 @@ func (userStore *DBUserStore) GetUserByEmail(email string) (models.User, error) 
 	err := row.Scan(&user.ID, &user.Username, &user.Email, &name, &user.Password, &status, &phone)
 
 	if err != nil {
-		return *user, models.NewServerError(err, http.StatusInternalServerError, "Can not get user: "+err.Error())
+		return *user, models.NewServerError(err, http.StatusInternalServerError,
+			fmt.Sprintf("Can not get user %v: %v", email, err))
 	}
 
 	if name.Valid {
@@ -58,6 +100,14 @@ func (userStore *DBUserStore) GetUserByEmail(email string) (models.User, error) 
 	if phone.Valid {
 		user.Phone = phone.String
 	}
+
+	//Select user stickerpacks
+
+	stickerpacks, err := userStore.GetUserStickers(user.ID)
+	if err != nil {
+		return models.User{}, err
+	}
+	user.Stickerpacks = stickerpacks
 	return *user, nil
 }
 

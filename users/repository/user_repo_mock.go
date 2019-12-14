@@ -9,12 +9,14 @@ import (
 )
 
 var (
-	lockUserRepoMockContains       sync.RWMutex
-	lockUserRepoMockGetUserByEmail sync.RWMutex
-	lockUserRepoMockGetUserByID    sync.RWMutex
-	lockUserRepoMockGetUsers       sync.RWMutex
-	lockUserRepoMockPutUser        sync.RWMutex
-	lockUserRepoMockReplace        sync.RWMutex
+	lockUserRepoMockAddStickerpack  sync.RWMutex
+	lockUserRepoMockContains        sync.RWMutex
+	lockUserRepoMockGetUserByEmail  sync.RWMutex
+	lockUserRepoMockGetUserByID     sync.RWMutex
+	lockUserRepoMockGetUserStickers sync.RWMutex
+	lockUserRepoMockGetUsers        sync.RWMutex
+	lockUserRepoMockPutUser         sync.RWMutex
+	lockUserRepoMockReplace         sync.RWMutex
 )
 
 // Ensure, that UserRepoMock does implement UserRepo.
@@ -27,6 +29,9 @@ var _ UserRepo = &UserRepoMock{}
 //
 //         // make and configure a mocked UserRepo
 //         mockedUserRepo := &UserRepoMock{
+//             AddStickerpackFunc: func(userID uint64, stickerpackID uint64) error {
+// 	               panic("mock out the AddStickerpack method")
+//             },
 //             ContainsFunc: func(user models.User) bool {
 // 	               panic("mock out the Contains method")
 //             },
@@ -35,6 +40,9 @@ var _ UserRepo = &UserRepoMock{}
 //             },
 //             GetUserByIDFunc: func(ID uint64) (models.User, error) {
 // 	               panic("mock out the GetUserByID method")
+//             },
+//             GetUserStickersFunc: func(userID uint64) ([]uint64, error) {
+// 	               panic("mock out the GetUserStickers method")
 //             },
 //             GetUsersFunc: func() (models.Users, error) {
 // 	               panic("mock out the GetUsers method")
@@ -52,6 +60,9 @@ var _ UserRepo = &UserRepoMock{}
 //
 //     }
 type UserRepoMock struct {
+	// AddStickerpackFunc mocks the AddStickerpack method.
+	AddStickerpackFunc func(userID uint64, stickerpackID uint64) error
+
 	// ContainsFunc mocks the Contains method.
 	ContainsFunc func(user models.User) bool
 
@@ -60,6 +71,9 @@ type UserRepoMock struct {
 
 	// GetUserByIDFunc mocks the GetUserByID method.
 	GetUserByIDFunc func(ID uint64) (models.User, error)
+
+	// GetUserStickersFunc mocks the GetUserStickers method.
+	GetUserStickersFunc func(userID uint64) ([]uint64, error)
 
 	// GetUsersFunc mocks the GetUsers method.
 	GetUsersFunc func() (models.Users, error)
@@ -72,6 +86,13 @@ type UserRepoMock struct {
 
 	// calls tracks calls to the methods.
 	calls struct {
+		// AddStickerpack holds details about calls to the AddStickerpack method.
+		AddStickerpack []struct {
+			// UserID is the userID argument value.
+			UserID uint64
+			// StickerpackID is the stickerpackID argument value.
+			StickerpackID uint64
+		}
 		// Contains holds details about calls to the Contains method.
 		Contains []struct {
 			// User is the user argument value.
@@ -86,6 +107,11 @@ type UserRepoMock struct {
 		GetUserByID []struct {
 			// ID is the ID argument value.
 			ID uint64
+		}
+		// GetUserStickers holds details about calls to the GetUserStickers method.
+		GetUserStickers []struct {
+			// UserID is the userID argument value.
+			UserID uint64
 		}
 		// GetUsers holds details about calls to the GetUsers method.
 		GetUsers []struct {
@@ -103,6 +129,41 @@ type UserRepoMock struct {
 			NewUser *models.User
 		}
 	}
+}
+
+// AddStickerpack calls AddStickerpackFunc.
+func (mock *UserRepoMock) AddStickerpack(userID uint64, stickerpackID uint64) error {
+	if mock.AddStickerpackFunc == nil {
+		panic("UserRepoMock.AddStickerpackFunc: method is nil but UserRepo.AddStickerpack was just called")
+	}
+	callInfo := struct {
+		UserID        uint64
+		StickerpackID uint64
+	}{
+		UserID:        userID,
+		StickerpackID: stickerpackID,
+	}
+	lockUserRepoMockAddStickerpack.Lock()
+	mock.calls.AddStickerpack = append(mock.calls.AddStickerpack, callInfo)
+	lockUserRepoMockAddStickerpack.Unlock()
+	return mock.AddStickerpackFunc(userID, stickerpackID)
+}
+
+// AddStickerpackCalls gets all the calls that were made to AddStickerpack.
+// Check the length with:
+//     len(mockedUserRepo.AddStickerpackCalls())
+func (mock *UserRepoMock) AddStickerpackCalls() []struct {
+	UserID        uint64
+	StickerpackID uint64
+} {
+	var calls []struct {
+		UserID        uint64
+		StickerpackID uint64
+	}
+	lockUserRepoMockAddStickerpack.RLock()
+	calls = mock.calls.AddStickerpack
+	lockUserRepoMockAddStickerpack.RUnlock()
+	return calls
 }
 
 // Contains calls ContainsFunc.
@@ -195,6 +256,37 @@ func (mock *UserRepoMock) GetUserByIDCalls() []struct {
 	lockUserRepoMockGetUserByID.RLock()
 	calls = mock.calls.GetUserByID
 	lockUserRepoMockGetUserByID.RUnlock()
+	return calls
+}
+
+// GetUserStickers calls GetUserStickersFunc.
+func (mock *UserRepoMock) GetUserStickers(userID uint64) ([]uint64, error) {
+	if mock.GetUserStickersFunc == nil {
+		panic("UserRepoMock.GetUserStickersFunc: method is nil but UserRepo.GetUserStickers was just called")
+	}
+	callInfo := struct {
+		UserID uint64
+	}{
+		UserID: userID,
+	}
+	lockUserRepoMockGetUserStickers.Lock()
+	mock.calls.GetUserStickers = append(mock.calls.GetUserStickers, callInfo)
+	lockUserRepoMockGetUserStickers.Unlock()
+	return mock.GetUserStickersFunc(userID)
+}
+
+// GetUserStickersCalls gets all the calls that were made to GetUserStickers.
+// Check the length with:
+//     len(mockedUserRepo.GetUserStickersCalls())
+func (mock *UserRepoMock) GetUserStickersCalls() []struct {
+	UserID uint64
+} {
+	var calls []struct {
+		UserID uint64
+	}
+	lockUserRepoMockGetUserStickers.RLock()
+	calls = mock.calls.GetUserStickers
+	lockUserRepoMockGetUserStickers.RUnlock()
 	return calls
 }
 

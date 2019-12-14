@@ -327,7 +327,7 @@
 ```
 
 ### 2.9 Добавление стикеров пользователю
-Запрос /users/<id>/stickers/<stickerpack_id> типа POST
+Запрос /users/id/stickers/<stickerpack_id> типа POST
 
 Ответ: код ошибки
 

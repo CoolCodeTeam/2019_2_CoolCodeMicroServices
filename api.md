@@ -99,6 +99,7 @@
   "type": "int",
   "text": "string",
   "file_id": "string",
+  "file_type": "string",
   "message_time": "string",
   "likes": "int"
 }

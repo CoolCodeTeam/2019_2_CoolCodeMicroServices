@@ -10,7 +10,7 @@ script:
   - ssh-keyscan -H 95.163.209.195 >> ~/.ssh/known_hosts
   - chmod 600 $HOME/.ssh/2019_2_CoolCode_id_rsa.pem
   - scp -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem -r ./bin/* ubuntu@95.163.209.195:/home/ubuntu/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/bin
-  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 'fuser -n tcp -k 8001; go run $GOPATH/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/bin/users &'
+  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 'fuser -n tcp -k 8001; $GOPATH/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/bin/users'
 #    fuser -n tcp -k 8002 ; go run /home/ubuntu/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/bin/chats & ;
 #    fuser -n tcp -k 8003 ; go run /home/ubuntu/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/bin/notifications & ;
 #    fuser -n tcp -k 8004 ; go run /home/ubuntu/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/bin/messages &'

@@ -9,7 +9,7 @@ script:
 - eval "$(ssh-agent -s)"
 - ssh-keyscan -H 95.163.209.195 >> ~/.ssh/known_hosts
 - chmod 600 $HOME/.ssh/2019_2_CoolCode_id_rsa.pem
-- scp -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem -r ./bin/* ubuntu@95.163.209.195:/home/ubuntu/deploy
+- scp -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem -r ./bin/* ubuntu@95.163.209.195:/home/ubuntu/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/bin
 # - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.212.32 '/home/ubuntu/deploy/users &'
 before_install:
 - openssl aes-256-cbc -K $encrypted_558de5f2c85d_key -iv $encrypted_558de5f2c85d_iv

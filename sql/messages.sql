@@ -4,7 +4,7 @@ CREATE TABLE "messages"(
     type SMALLINT NOT NULL, --IN ('TEXT','PHOTO','VOICE')
     body TEXT NOT NULL,
     fileID VARCHAR ,
-    stickerID  BIGINT,
+    stickerID  VARCHAR ,
     fileExtension VARCHAR ,
     chatID BIGINT NOT NULL,
     messageTime timestamp,

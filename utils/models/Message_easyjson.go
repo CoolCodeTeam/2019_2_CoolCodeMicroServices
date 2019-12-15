@@ -161,7 +161,7 @@ func easyjson51ee17fDecodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsMo
 		case "file_id":
 			out.FileID = string(in.String())
 		case "sticker_id":
-			out.StickerID = uint64(in.Uint64())
+			out.StickerID = string(in.String())
 		case "file_type":
 			out.FileType = string(in.String())
 		case "likes":
@@ -218,7 +218,7 @@ func easyjson51ee17fEncodeGithubComCoolCodeTeam20192CoolCodeMicroServicesUtilsMo
 	{
 		const prefix string = ",\"sticker_id\":"
 		out.RawString(prefix)
-		out.Uint64(uint64(in.StickerID))
+		out.String(string(in.StickerID))
 	}
 	{
 		const prefix string = ",\"file_type\":"

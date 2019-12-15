@@ -96,7 +96,8 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var uid string
-	if isChannel(r) {
+	isChannel := isChannel(r)
+	if isChannel {
 		uid, err = m.Messages.SaveChannelFile(user.ID, uint64(chatID), models.File{
 			File:      file,
 			Extension: fileExtension,
@@ -122,7 +123,14 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 		MessageTime: time.Now().Format("02.01.2006 15:04"),
 	}
 	logrus.Infof("File type: %s", message.FileType)
-	message_id, err := m.Messages.SaveChatMessage(message)
+
+	var message_id uint64
+	if isChannel {
+		message_id, err = m.Messages.SaveChannelMessage(message)
+	} else {
+		message_id, err = m.Messages.SaveChatMessage(message)
+	}
+
 	if err != nil {
 		m.utils.HandleError(err, w, r)
 	}

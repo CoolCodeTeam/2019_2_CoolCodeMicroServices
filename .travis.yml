@@ -1,0 +1,10 @@
+language: go
+go:
+  - 1.13.x
+script:
+  - make
+  - eval "$(ssh-agent -s)"
+  - ssh-keyscan -H 95.163.209.195 >> ~/.ssh/known_hosts
+  - chmod 400 $HOME/.ssh/2019_2_CoolCode_id_rsa.pem
+  - scp -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem -r ./bin/* ubuntu@95.163.209.195:/home/ubuntu/deploy
+  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.212.32 '/home/ubuntu/deploy/users &'

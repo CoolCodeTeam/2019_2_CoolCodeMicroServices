@@ -1,6 +1,11 @@
 package main
 
 import (
+	"io"
+	"net"
+	"net/http"
+	"os"
+
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/chats_service"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/delivery"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/repository"
@@ -16,10 +21,6 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"io"
-	"net"
-	"net/http"
-	"os"
 )
 
 const (
@@ -128,6 +129,8 @@ func main() {
 	//TODO: r.Handle("/workspaces/{id:[0-9]+}/members", middlewares.AuthMiddleware(chatsApi.LogoutFromWorkspace)).Methods("DELETE")
 	r.Handle("/workspaces/{id:[0-9]+}", middlewares.AuthMiddleware(chatsApi.RemoveWorkspace)).Methods("DELETE")
 	r.Handle("/workspaces", middlewares.AuthMiddleware(chatsApi.PostWorkspace)).Methods("POST")
+	r.Handle("/workspaces/{id:[0-9]+}/photos", middlewares.AuthMiddleware(chatsApi.PostWorkspacePhoto)).Methods("POST")
+	r.Handle("/workspaces/{id:[0-9]+}/photos", middlewares.AuthMiddleware(chatsApi.GetWorkspacesPhoto)).Methods("GET")
 	r.Handle("/metrics", promhttp.Handler())
 	logrus.Infof("Chats http server started on %s port: ", port)
 	err = http.ListenAndServe(port, corsMiddleware(handler))

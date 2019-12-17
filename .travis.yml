@@ -14,7 +14,7 @@ script:
   - docker tag slack-messages $DOCKER_USER/messages
   - docker push $DOCKER_USER/messages
   - cd ..
-  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem "sudo docker pull coolslack/messages"
+  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem sudo docker pull coolslack/messages
   - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem "sudo docker stop slack-messages || true"
   - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem "sudo docker rm slack-messages || true"
   - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem "sudo docker run --network=host --name=slack-messages $DOCKER_USER/messages"

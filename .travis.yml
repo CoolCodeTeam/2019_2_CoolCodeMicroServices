@@ -8,10 +8,16 @@ script:
   - eval "$(ssh-agent -s)"
   - ssh-keyscan -H 95.163.209.195 >> ~/.ssh/known_hosts
   - chmod 600 $HOME/.ssh/2019_2_CoolCode_id_rsa.pem
-  - cd ./messages && docker build -t slack-messages . && ls
-  - ls
-  - echo $(ls)
-#  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem docker pull $DOCKER_USER/messages
+  - sudo docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+  - cd ./messages
+  - docker build -t slack-messages .
+  - docker tag -t slack-messages $DOCKER_USER/messages
+  - docker push $DOCKER_USER/messages
+  - cd ..
+  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem docker pull $DOCKER_USER/messages
+  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem docker stop slack-messages || true
+  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem docker rm slack-messages || true
+  - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem docker run --network=host --name=slack-messages $DOCKER_USER/messages
 
 
 

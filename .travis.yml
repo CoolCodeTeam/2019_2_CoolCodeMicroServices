@@ -4,6 +4,7 @@ go:
 branches:
   only:
     - master
+    - deploy
 script:
   - make
   - eval "$(ssh-agent -s)"

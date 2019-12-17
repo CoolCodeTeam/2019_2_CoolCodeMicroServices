@@ -21,8 +21,8 @@ import (
 )
 
 const (
-	users_address = "localhost:5000"
-	chats_adress  = "localhost:5001"
+	users_address = "127.0.0.1:5000"
+	chats_adress  = "127.0.0.1:5001"
 )
 
 func startNotificationsGRPCService(port string, service grpc_utils.NotificationsServiceServer) {

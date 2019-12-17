@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	users_address = "localhost:5000"
+	users_address = "127.0.0.1:5000"
 )
 
 func startChatsGRPCService(port string, service grpc_utils.ChatsServiceServer) {

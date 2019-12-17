@@ -20,9 +20,9 @@ import (
 )
 
 const (
-	users_address         = "localhost:5000"
-	chats_adress          = "localhost:5001"
-	notifications_address = "localhost:5002"
+	users_address         = "127.0.0.1:5000"
+	chats_adress          = "127.0.0.1:5001"
+	notifications_address = "127.0.0.1:5002"
 )
 
 var (

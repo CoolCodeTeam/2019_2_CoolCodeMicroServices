@@ -11,7 +11,7 @@ script:
   - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
   - cd ./messages
   - docker build -t slack-messages .
-  - docker tag -t slack-messages $DOCKER_USER/messages
+  - docker tag slack-messages $DOCKER_USER/messages
   - docker push $DOCKER_USER/messages
   - cd ..
   - ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem sudo docker pull $DOCKER_USER/messages

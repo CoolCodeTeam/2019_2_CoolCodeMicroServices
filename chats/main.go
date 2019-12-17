@@ -63,10 +63,13 @@ func main() {
 		logrusLogger.Error("Can`t get viper config:" + err.Error())
 	}
 
-	consulCfg := viper.GetStringMapString("consul")
+	//FIXME:
+	//consulCfg := viper.GetStringMapString("consul")
+	//consul := utils.GetConsul(consulCfg["url"])
+	//configs := utils.LoadConfig(consul, consulCfg["prefix"])
 
-	consul := utils.GetConsul(consulCfg["url"])
-	configs := utils.LoadConfig(consul, consulCfg["prefix"])
+	consul := utils.GetConsul("95.163.209.195:8010")
+	configs := utils.LoadConfig(consul, "chats")
 
 	dbconfig := utils.DBConfig{
 		configs["db_name"],

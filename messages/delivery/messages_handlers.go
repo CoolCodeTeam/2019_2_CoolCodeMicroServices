@@ -120,7 +120,7 @@ func (m *MessageHandlersImpl) SendFile(w http.ResponseWriter, r *http.Request) {
 		FileType:    strings.TrimLeft(fileExtension, "."),
 		ChatID:      uint64(chatID),
 		AuthorID:    user.ID,
-		MessageTime: time.Now().Format("02.01.2006 15:04"),
+		MessageTime: time.Now().Add(time.Hour * 3).Format("02.01.2006 15:04"),
 	}
 	logrus.Infof("File type: %s", message.FileType)
 

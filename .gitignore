@@ -2,6 +2,7 @@
 
 .files
 /photos*
+/workspace_photos*
 /files*
 *log
 

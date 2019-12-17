@@ -1,31 +1,39 @@
 package delivery
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
+
+	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/repository"
+	"github.com/sirupsen/logrus"
+
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
 	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
 	"github.com/mailru/easyjson"
 
-	"github.com/gorilla/mux"
 	"net/http"
 	"strconv"
+
+	"github.com/gorilla/mux"
 )
 
 type ChatHandlers struct {
-	Chats useCase.ChatsUseCase
-	Users users.UsersUseCase
-	utils utils.HandlersUtils
+	Chats  useCase.ChatsUseCase
+	Users  users.UsersUseCase
+	utils  utils.HandlersUtils
+	Photos repository.PhotoRepository
 }
 
 func NewChatHandlers(users users.UsersUseCase,
 	chats useCase.ChatsUseCase, utils utils.HandlersUtils) ChatHandlers {
 	return ChatHandlers{
-		Chats: chats,
-		Users: users,
-		utils: utils,
+		Chats:  chats,
+		Users:  users,
+		utils:  utils,
+		Photos: repository.NewPhotosArrayRepository("workspace_photos/"),
 	}
 }
 
@@ -335,4 +343,66 @@ func (c ChatHandlers) parseCookie(r *http.Request) (models.User, error) {
 	} else {
 		return user, err
 	}
+}
+
+func (c *ChatHandlers) PostWorkspacePhoto(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(mux.Vars(r)["id"])
+
+	//if ok {
+	//	c.utils.HandleError(models.NewClientError(nil, http.StatusBadRequest,
+	//		"Can not save workspace photo: no id on url"), w, r)
+	//	return
+	//}
+
+	//parse photo
+	err := r.ParseMultipartForm(10 << 20)
+	if err != nil {
+		c.utils.HandleError(err, w, r)
+		return
+	}
+	file, _, err := r.FormFile("file")
+
+	if err != nil {
+		err = models.NewClientError(err, http.StatusBadRequest, "Bad request : invalid Photo.")
+		c.utils.HandleError(err, w, r)
+		return
+	}
+
+	err = c.Photos.SavePhoto(file, strconv.Itoa(id))
+	if err != nil {
+		c.utils.HandleError(err, w, r)
+		return
+	}
+	logrus.WithFields(logrus.Fields{
+		"method":      r.Method,
+		"remote_addr": r.RemoteAddr,
+	}).Info("Successfully downloaded  workspace photo")
+}
+
+func (c *ChatHandlers) GetWorkspacesPhoto(w http.ResponseWriter, r *http.Request) {
+	requestedID, _ := strconv.Atoi(mux.Vars(r)["id"])
+	file, err := c.Photos.GetPhoto(requestedID)
+	if err != nil {
+		c.utils.HandleError(err, w, r)
+		return
+	}
+	reader := bufio.NewReader(file)
+	fileInfo, _ := file.Stat()
+	size := fileInfo.Size()
+
+	bytes := make([]byte, size)
+	_, err = reader.Read(bytes)
+
+	w.Header().Set("content-type", "multipart/form-data;boundary=1")
+
+	_, err = w.Write(bytes)
+	if err != nil {
+		c.utils.HandleError(err, w, r)
+		return
+	}
+
+	logrus.WithFields(logrus.Fields{
+		"method":      r.Method,
+		"remote_addr": r.RemoteAddr,
+	}).Info("Successfully uploaded file")
 }

@@ -57,7 +57,7 @@ func main() {
 	mw := io.MultiWriter(os.Stderr, f)
 	logrusLogger.SetOutput(mw)
 
-	viper.AddConfigPath("./chats")
+	viper.AddConfigPath(".")
 	viper.SetConfigName("config")
 	if err := viper.ReadInConfig(); err != nil {
 		logrusLogger.Error("Can`t get viper config:" + err.Error())

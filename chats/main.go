@@ -103,9 +103,9 @@ func main() {
 	corsMiddleware := handlers.CORS(
 		handlers.AllowedOrigins([]string{"http://boiling-chamber-90136.herokuapp.com",
 			"https://boiling-chamber-90136.herokuapp.com",
-			"http://localhost:3000",
+			"http://127.0.0.1:3000",
 			"http://95.163.209.195:8000",
-			"http://localhost:8000",
+			"http://127.0.0.1:8000",
 			"http://coolcode.site",
 		}),
 		handlers.AllowedMethods([]string{"POST", "GET", "PUT", "DELETE"}),

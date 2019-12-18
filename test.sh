@@ -1,7 +1,7 @@
-rm ./messages/go.mod
-rm ./users/go.mod
-rm ./notifications/go.mod
-rm ./chats/go.mod
+rm messages/go.mod
+rm users/go.mod
+rm notifications/go.mod
+rm chats/go.mod
 
 go test -coverpkg=./... -coverprofile cover.out.tmp ./...
 cat cover.out.tmp | grep -v "_mock.go" | grep -v ".pb"  |  grep -v "_easyjson.go"> cover.out

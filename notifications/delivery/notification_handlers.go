@@ -1,16 +1,16 @@
 package delivery
 
 import (
+	"net/http"
+	"strings"
+
+	useCase "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
+
 	chats "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/chats/usecase"
-	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/notifications/usecase"
 	users "github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/usecase"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils"
 	"github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/utils/models"
-	"github.com/gorilla/mux"
 	"github.com/gorilla/websocket"
-	"net/http"
-	"strconv"
-	"strings"
 )
 
 type NotificationHandlers struct {
@@ -39,52 +39,6 @@ var upgrader = websocket.Upgrader{
 }
 
 func (h *NotificationHandlers) HandleNewWSConnection(w http.ResponseWriter, r *http.Request) {
-	ws, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		h.utils.HandleError(models.NewServerError(err, http.StatusBadRequest, "Can not upgrade connection"), w, r)
-		return
-	}
-
-	requestedID, err := strconv.Atoi(mux.Vars(r)["id"])
-	if err != nil {
-		h.utils.LogError(err, r)
-	}
-
-	userID := r.Context().Value("user_id").(uint64)
-
-	//Проверяем доступ к чату
-	ok := true
-	if isChannel(r) {
-		ok, err = h.chatsUseCase.CheckChannelPermission(userID, uint64(requestedID))
-	} else {
-		ok, err = h.chatsUseCase.CheckChatPermission(userID, uint64(requestedID))
-	}
-	if err != nil {
-		h.utils.HandleError(err, w, r)
-		return
-	}
-	if !ok {
-		h.utils.HandleError(models.NewClientError(nil, http.StatusForbidden, "Not permission to chat:("),
-			w, r)
-		return
-	}
-	//Достаем Handler с помощью Messages
-	hub, err := h.notificationUseCase.OpenConn(uint64(requestedID))
-	go hub.Run()
-	//Запускаем event loop
-	hub.AddClientChan <- ws
-
-	for {
-		var m []byte
-
-		_, m, err := ws.ReadMessage()
-
-		if err != nil {
-			hub.RemoveClient(ws)
-			return
-		}
-		hub.BroadcastChan <- m
-	}
 
 }
 

@@ -1,7 +1,7 @@
 ## CoolSlack
 
 Frontend:   
-[coolcode.site:8000](http://coolcode.site:8000)
+[coolcode.site](https://coolcode.site)
 
 
 

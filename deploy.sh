@@ -7,7 +7,7 @@ cd ..
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker pull $DOCKER_USER/users
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker stop slack-users || true
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker rm slack-users || true
-ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run --network=host --name=slack-users -d $DOCKER_USER/users
+ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run -name=slack-users -d --net=host $DOCKER_USER/users
 
 
 cd ./chats
@@ -18,7 +18,7 @@ cd ..
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker pull $DOCKER_USER/chats
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker stop slack-chats || true
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker rm slack-chats || true
-ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run --network=host --name=slack-chats -d $DOCKER_USER/chats
+ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run --name=slack-chats -d  --net=host $DOCKER_USER/chats
 
 
 cd ./notifications
@@ -29,7 +29,7 @@ cd ..
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker pull $DOCKER_USER/notifications
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker stop slack-notifications || true
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker rm slack-notifications || true
-ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run --network=host --name=slack-notifications -d $DOCKER_USER/notifications
+ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run --name=slack-notifications -d --net=host $DOCKER_USER/notifications
 
 
 cd ./messages
@@ -40,4 +40,4 @@ cd ..
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker pull $DOCKER_USER/messages
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker stop slack-messages || true
 ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker rm slack-messages || true
-ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run --network=host --name=slack-messages -d $DOCKER_USER/messages
+ssh -i $HOME/.ssh/2019_2_CoolCode_id_rsa.pem ubuntu@95.163.209.195 sudo docker run --name=slack-messages -d --net=host $DOCKER_USER/messages

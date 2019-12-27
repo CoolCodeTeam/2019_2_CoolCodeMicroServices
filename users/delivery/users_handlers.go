@@ -110,8 +110,11 @@ func (handlers *UserHandlers) SavePhoto(w http.ResponseWriter, r *http.Request) 
 	}
 	id := strconv.Itoa(int(user.ID))
 
-	logrus.Info()
-	err = r.ParseForm()
+	reader := r.Body
+	body := make([]byte, 0)
+	_, _ = reader.Read(body)
+	logrus.Info(body)
+	err = r.ParseMultipartForm(10 << 20)
 	if err != nil {
 		handlers.utils.HandleError(err, w, r)
 		return

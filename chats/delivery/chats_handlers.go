@@ -348,12 +348,6 @@ func (c ChatHandlers) parseCookie(r *http.Request) (models.User, error) {
 func (c *ChatHandlers) PostWorkspacePhoto(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(mux.Vars(r)["id"])
 
-	//if ok {
-	//	c.utils.HandleError(models.NewClientError(nil, http.StatusBadRequest,
-	//		"Can not save workspace photo: no id on url"), w, r)
-	//	return
-	//}
-
 	//parse photo
 	err := r.ParseMultipartForm(10 << 20)
 	if err != nil {

@@ -413,3 +413,6 @@
 [31mERRO[0m[0000] Can`t get viper config:Config File "config" Not Found in "[/home/anton/Programs/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users]" 
 [31mERRO[0m[0000] Can`t get viper config:Config File "config" Not Found in "[/home/anton/Programs/Golang/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users]" 
 [31mERRO[0m[0000] Can`t get viper config:Config File "config" Not Found in "[/home/alexey/go/src/github.com/CoolCodeTeam/2019_2_CoolCodeMicroServices/users/users]" 
+[31mERRO[0m[0082] {"Cause":{"Op":"dial","Net":"tcp","Source":null,"Addr":{"IP":"127.0.0.1","Port":6379,"Zone":""},"Err":{"Syscall":"connect","Err":61}},"Detail":"can not get session in GetIDdial tcp 127.0.0.1:6379: connect: connection refused","Status":500}  [31mmethod[0m=POST [31mremote_addr[0m="[::1]:53989"
+[36mINFO[0m[0082] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53989" [36mstatus_code[0m=500 [36mwork_time[0m=47.834122ms
+[36mINFO[0m[0091] /users/login                                  [36mmethod[0m=POST [36mremote_addr[0m="[::1]:53989" [36mstatus_code[0m=200 [36mwork_time[0m=22.955394ms
